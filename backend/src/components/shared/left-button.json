@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_left_buttons",
+  "info": {
+    "displayName": "LeftButton"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "string"
+    },
+    "label": {
+      "type": "string"
+    },
+    "target": {
+      "type": "enumeration",
+      "enum": [
+        "_blank"
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_shared_right_buttons",
+  "info": {
+    "displayName": "RightButton"
+  },
+  "options": {},
+  "attributes": {
+    "href": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "search",
+        "person",
+        "favorite",
+        "cart"
+      ]
+    }
+  }
+}

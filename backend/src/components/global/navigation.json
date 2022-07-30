@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_global_navigations",
+  "info": {
+    "displayName": "Navigation",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "links": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "leftButton": {
+      "displayName": "LeftButton",
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.left-button"
+    },
+    "rightButton": {
+      "displayName": "RightButton",
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.right-button"
+    }
+  }
+}
