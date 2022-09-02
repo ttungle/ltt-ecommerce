@@ -1,0 +1,21 @@
+{
+  "collectionName": "components_sections_home_inspireds",
+  "info": {
+    "displayName": "Home Inspired",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "blogs": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::blog.blog"
+    }
+  }
+}

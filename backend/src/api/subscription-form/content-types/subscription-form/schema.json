@@ -1,0 +1,18 @@
+{
+  "kind": "collectionType",
+  "collectionName": "subscription_forms",
+  "info": {
+    "singularName": "subscription-form",
+    "pluralName": "subscription-forms",
+    "displayName": "Subscription Form"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "email": {
+      "type": "string"
+    }
+  }
+}
