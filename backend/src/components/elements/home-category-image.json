@@ -1,0 +1,27 @@
+{
+  "collectionName": "components_elements_home_category_images",
+  "info": {
+    "displayName": "Home Category Image",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    },
+    "buttonText": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    }
+  }
+}

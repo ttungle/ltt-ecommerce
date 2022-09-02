@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_footer_forms",
+  "info": {
+    "displayName": "Footer Form"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "formPlaceholder": {
+      "type": "string"
+    }
+  }
+}

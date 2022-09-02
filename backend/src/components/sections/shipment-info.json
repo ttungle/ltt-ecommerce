@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_sections_shipment_infos",
+  "info": {
+    "displayName": "Shipment Info"
+  },
+  "options": {},
+  "attributes": {
+    "shipmentItem": {
+      "displayName": "Shipment Item",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.shipment-item"
+    },
+    "backgroundImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

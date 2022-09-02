@@ -4,13 +4,13 @@ import * as React from 'react';
 import HeaderDesktop from './header-desktop';
 
 export interface HeaderProps {
-  navigation: NavigationData;
+  navigationData: NavigationData;
 }
 
-export default function Header({ navigation }: HeaderProps) {
+export default function Header({ navigationData }: HeaderProps) {
   return (
     <Box>
-      <HeaderDesktop navigation={navigation} />
+      <HeaderDesktop navigation={navigationData} />
     </Box>
   );
 }

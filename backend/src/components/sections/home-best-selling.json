@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_sections_home_best_sellings",
+  "info": {
+    "displayName": "Home Best Selling"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "products": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product.product"
+    }
+  }
+}

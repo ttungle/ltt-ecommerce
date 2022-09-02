@@ -7,11 +7,11 @@ import * as React from 'react';
 export interface MainLayoutProps {}
 
 export default function MainLayout({ children, global }: LayoutProps) {
-  const { navigation, footer } = global;
+  const { navigation, footer, smallText } = global;
 
   return (
     <Stack>
-      <Header navigation={navigation} />
+      <Header navigationData={navigation} />
 
       <Box height='75px'></Box>
 
@@ -19,7 +19,7 @@ export default function MainLayout({ children, global }: LayoutProps) {
         {children}
       </Box>
 
-      <Footer footer={footer} />
+      <Footer footerData={footer} smallTextData={smallText} />
     </Stack>
   );
 }

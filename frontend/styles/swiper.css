@@ -35,14 +35,14 @@
   margin-right: auto;
 }
 
-.swiper-button-prev {
+.home-slider .swiper-button-prev {
   left: 90px;
   right: auto;
   width: 45px;
   transition: all 0.9s ease;
 }
 
-.swiper-button-next {
+.home-slider .swiper-button-next {
   right: 90px;
   width: 45px;
   left: auto;
@@ -50,6 +50,11 @@
 
 .swiper-button-prev::after,
 .swiper-button-next::after {
+  font-size: 36px;
+}
+
+.home-slider .swiper-button-prev::after,
+.home-slider .swiper-button-next::after {
   content: '';
   width: 100%;
   height: 45px;
@@ -63,20 +68,25 @@
   transition: all 0.2s ease;
 }
 
-.swiper-button-prev::after {
+.home-slider .swiper-button-prev::after {
   background-image: url('../public/arrow-left-solid.svg');
 }
 
-.swiper-button-next::after {
+.home-slider .swiper-button-next::after {
   background-image: url('../public/arrow-right-solid.svg');
 }
 
-.swiper-button-prev:hover::after,
-.swiper-button-next:hover::after {
+.home-slider .swiper-button-prev:hover::after,
+.home-slider .swiper-button-next:hover::after {
   background-color: #cb8161;
   border-color: #cb8161;
 }
 
 .swiper-pagination-bullet.swiper-pagination-bullet-active {
   background-color: white;
+}
+
+.product-slider .swiper-button-prev:hover::after,
+.product-slider .swiper-button-next:hover::after {
+  border-color: #222;
 }

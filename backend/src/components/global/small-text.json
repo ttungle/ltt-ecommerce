@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_global_small_texts",
+  "info": {
+    "displayName": "smallText"
+  },
+  "options": {},
+  "attributes": {
+    "copyRight": {
+      "type": "string"
+    },
+    "policyLinks": {
+      "type": "component",
+      "repeatable": true,
+      "component": "shared.link"
+    },
+    "social": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.footer-social"
+    }
+  }
+}

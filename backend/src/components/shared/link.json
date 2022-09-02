@@ -16,7 +16,8 @@
       "type": "enumeration",
       "enum": [
         "_blank"
-      ]
+      ],
+      "default": "_blank"
     },
     "icon": {
       "type": "enumeration",

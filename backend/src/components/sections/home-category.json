@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_sections_home_categories",
+  "info": {
+    "displayName": "Home Category",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    },
+    "homeCategoryImage": {
+      "displayName": "Home Category Image",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.home-category-image"
+    },
+    "backgroundImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ]
+    }
+  }
+}

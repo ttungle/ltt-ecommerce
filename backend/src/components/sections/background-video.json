@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_background_videos",
+  "info": {
+    "displayName": "Background Video",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "buttonText": {
+      "type": "string"
+    },
+    "videoUrl": {
+      "type": "string"
+    }
+  }
+}

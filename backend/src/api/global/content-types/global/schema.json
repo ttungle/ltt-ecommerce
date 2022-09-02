@@ -35,6 +35,17 @@
         }
       },
       "component": "global.footer"
+    },
+    "smallText": {
+      "displayName": "smallText",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "global.small-text"
     }
   }
 }

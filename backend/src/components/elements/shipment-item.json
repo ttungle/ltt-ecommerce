@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_elements_shipment_items",
+  "info": {
+    "displayName": "Shipment Item"
+  },
+  "options": {},
+  "attributes": {
+    "icon": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "string"
+    }
+  }
+}

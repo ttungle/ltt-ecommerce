@@ -31,7 +31,13 @@ export default function HeaderDesktop({ navigation }: HeaderDesktopProps) {
     >
       <Toolbar sx={{ height: '75px', px: { lg: '145px' } }}>
         <Link href='/' passHref>
-          <Typography variant='h6' component='a' sx={{ display: { xs: 'none', sm: 'block' } }}>
+          <Typography
+            component='a'
+            fontSize='1.75rem'
+            fontWeight='bold'
+            fontFamily='Cormorant Garamond'
+            sx={{ display: { xs: 'none', sm: 'block' } }}
+          >
             {navigation?.leftButton[0].label}
           </Typography>
         </Link>
@@ -95,7 +101,7 @@ export default function HeaderDesktop({ navigation }: HeaderDesktopProps) {
           {navigation?.rightButton &&
             navigation.rightButton.map((item, index) => (
               <IconButton key={index} disableRipple sx={{ color: 'text.primary' }}>
-                {icons[item?.icon]}
+                {icons[item?.icon ?? '']}
               </IconButton>
             ))}
         </Box>

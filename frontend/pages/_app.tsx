@@ -27,7 +27,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <Layout global={global}>
-          <Component {...pageProps} />;
+          <Component {...pageProps} />
         </Layout>
       </ThemeProvider>
     </CacheProvider>
@@ -46,6 +46,10 @@ MyApp.getInitialProps = async (context: AppContext) => {
         'footer.footerColumns.links',
         'navigation.leftButton',
         'navigation.rightButton',
+        'footer.footerColumns.links',
+        'footer.footerForm',
+        'smallText.policyLinks',
+        'smallText.social',
       ],
     });
     const global = globalData.data.attributes;

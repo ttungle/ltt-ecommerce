@@ -1,16 +1,25 @@
 {
   "collectionName": "components_global_footers",
   "info": {
-    "displayName": "Footer",
-    "description": ""
+    "displayName": "Footer"
   },
   "options": {},
   "attributes": {
     "footerColumns": {
-      "displayName": "FooterColumns",
+      "displayName": "Footer Columns",
       "type": "component",
       "repeatable": true,
       "component": "shared.footer-columns"
+    },
+    "footerForm": {
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.footer-form"
+    },
+    "footerSocial": {
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.footer-social"
     }
   }
 }

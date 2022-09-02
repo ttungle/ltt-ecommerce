@@ -1,0 +1,25 @@
+{
+  "collectionName": "components_elements_footer_socials",
+  "info": {
+    "displayName": "Footer Social",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "link": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "Facebook",
+        "Youtube",
+        "Twitter",
+        "Instagram",
+        "LinkedIn",
+        "Tiktok"
+      ],
+      "default": "Facebook"
+    }
+  }
+}
