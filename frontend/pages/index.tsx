@@ -1,13 +1,13 @@
 import {
+  Article,
+  BackgroundVideo,
   HomeBestSelling,
   HomeCategory,
-  HomeSlider,
-  BackgroundVideo,
-  Article,
-  Inspired,
   HomeShipment,
+  HomeSlider,
+  Inspired,
 } from '@/components/home';
-import MainLayout from '@/components/layout/main';
+import { ProtectedLayout } from '@/components/layout/protected';
 import { NextPageWithLayout } from '@/models';
 import { fetchAPI } from '@/utils';
 import { Box } from '@mui/material';
@@ -26,7 +26,7 @@ const Home: NextPageWithLayout = ({ home }: any) => {
     shipment,
   } = home;
   return (
-    <Box>
+    <>
       <HomeSlider sliderData={sliders} />
       <HomeCategory homeCategoryData={homeCategory} />
       <HomeBestSelling HomeBestSellingData={homeBestSelling} />
@@ -35,11 +35,11 @@ const Home: NextPageWithLayout = ({ home }: any) => {
       <Article aboutSummaryData={aboutSummary} />
       <Inspired inspiredData={inspired} />
       <HomeShipment shipmentData={shipment} />
-    </Box>
+    </>
   );
 };
 
-Home.Layout = MainLayout;
+Home.Layout = ProtectedLayout;
 
 export default Home;
 

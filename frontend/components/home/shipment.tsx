@@ -15,7 +15,6 @@ export function HomeShipment({ shipmentData }: HomeShipmentProps) {
         width: '100%',
         py: 9.4,
         mt: 5,
-        mb: 7,
         background: `url(${
           getStrapiMedia(backgroundImage?.data?.attributes?.url) ?? ''
         }) no-repeat center/cover`,

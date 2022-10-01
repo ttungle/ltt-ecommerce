@@ -1,15 +1,15 @@
 import { FooterData, FooterSmallTextData, SubscriptionValueData } from '@/models';
-import { Box, Container, Divider, Grid, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-import React, { useRef, useState } from 'react';
-
-import SubscriptionForm from './subscription-form';
-import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { useEffect, useRef, useState } from 'react';
 import { subscriptionApi } from '@/api-client';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { useRouter } from 'next/router';
+import { useForm } from 'react-hook-form';
+import * as yup from 'yup';
 import { FooterSmallText } from './small-text';
+import SubscriptionForm from './subscription-form';
+import { SubscriptionMessage } from './subscription-message';
 
 export interface FooterProps {
   footerData: FooterData;
@@ -18,8 +18,8 @@ export interface FooterProps {
 
 export default function Footer({ footerData, smallTextData }: FooterProps) {
   const { footerColumns, footerForm } = footerData;
+  const router = useRouter();
   const [showSuccessSubscription, setShowSuccessSubscription] = useState(false);
-  const timeout = useRef<NodeJS.Timeout>();
 
   const schema = yup.object({
     email: yup.string().required('This field is required.').email('Please enter your email.'),
@@ -33,17 +33,12 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
 
   const handleSubmit = async (values: SubscriptionValueData) => {
     const response = await subscriptionApi.send({ data: values });
-
-    clearTimeout(timeout.current);
-    timeout.current = setTimeout(() => {
-      setShowSuccessSubscription(false);
-    }, 3000);
     setShowSuccessSubscription(Boolean(response?.data.attributes.email));
     form.reset();
   };
 
   return (
-    <>
+    <Box sx={{ pt: 7, bgcolor: router.pathname === '/' ? '#fff' : '#f6f6f6' }}>
       <Container maxWidth='xl'>
         <Grid container mb={7}>
           {footerColumns.map((column) => (
@@ -82,7 +77,7 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
             </Grid>
           ))}
 
-          {footerForm.id && (
+          {Boolean(footerForm.id) && (
             <Grid item md={3} xs={6}>
               <Typography
                 variant='body1'
@@ -107,23 +102,7 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
               <SubscriptionForm form={form} name='email' label='' onSubmit={handleSubmit} />
 
               {showSuccessSubscription && (
-                <Stack
-                  direction='row'
-                  justifyContent='flex-start'
-                  alignItems='center'
-                  sx={{
-                    px: 1.5,
-                    py: 0.5,
-                    mt: 1.5,
-                    border: '2px solid',
-                    borderColor: 'success.light',
-                  }}
-                >
-                  <CheckCircleIcon sx={{ fontSize: '1rem', color: 'success.light' }} />
-                  <Typography sx={{ ml: 1, fontSize: '0.75rem', color: 'text.secondary' }}>
-                    Thank you. It has been sent.
-                  </Typography>
-                </Stack>
+                <SubscriptionMessage setShowSuccessSubscription={setShowSuccessSubscription} />
               )}
             </Grid>
           )}
@@ -131,6 +110,6 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
       </Container>
 
       <FooterSmallText smallTextData={smallTextData} />
-    </>
+    </Box>
   );
 }

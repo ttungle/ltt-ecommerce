@@ -100,7 +100,12 @@ export default function HeaderDesktop({ navigation }: HeaderDesktopProps) {
         >
           {navigation?.rightButton &&
             navigation.rightButton.map((item, index) => (
-              <IconButton key={index} disableRipple sx={{ color: 'text.primary' }}>
+              <IconButton
+                key={index}
+                disableRipple
+                sx={{ color: 'text.primary' }}
+                onClick={() => router.push(`${item.href}`)}
+              >
                 {icons[item?.icon ?? '']}
               </IconButton>
             ))}
