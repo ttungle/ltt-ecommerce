@@ -1,33 +1,28 @@
 import { LinkData, NavigationData } from '@/models';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import { AppBar, Box, Button, IconButton, Toolbar, Typography } from '@mui/material';
+import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { Url } from 'url';
+import { IconMenu } from './icon-menu';
 
 export interface HeaderDesktopProps {
   navigation: NavigationData;
 }
 
-export default function HeaderDesktop({ navigation }: HeaderDesktopProps) {
+export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
   const router = useRouter();
   const navItems = navigation?.links ?? [];
-  const icons = {
-    search: <SearchIcon sx={{ fontSize: 26 }} />,
-    person: <PersonOutlineOutlinedIcon sx={{ fontSize: 26 }} />,
-    favorite: <FavoriteBorderOutlinedIcon sx={{ fontSize: 26 }} />,
-    cart: <ShoppingBagOutlinedIcon sx={{ fontSize: 26 }} />,
-  };
 
   return (
     <AppBar
       component='nav'
-      sx={{ bgcolor: 'common.white', color: 'text.primary', boxShadow: 'none' }}
+      sx={{
+        bgcolor: 'common.white',
+        color: 'text.primary',
+        boxShadow: '0 1px rgba(0, 0, 0, 0.05)',
+      }}
     >
       <Toolbar sx={{ height: '75px', px: { lg: '145px' } }}>
         <Link href='/' passHref>
@@ -88,28 +83,7 @@ export default function HeaderDesktop({ navigation }: HeaderDesktopProps) {
           ))}
         </Box>
 
-        <Box
-          sx={{
-            '& button': { transition: 'all 0.15s linear' },
-            '& button:hover': {
-              color: 'primary.main',
-              transform: 'translateY(-6%)',
-              bgcolor: 'unset',
-            },
-          }}
-        >
-          {navigation?.rightButton &&
-            navigation.rightButton.map((item, index) => (
-              <IconButton
-                key={index}
-                disableRipple
-                sx={{ color: 'text.primary' }}
-                onClick={() => router.push(`${item.href}`)}
-              >
-                {icons[item?.icon ?? '']}
-              </IconButton>
-            ))}
-        </Box>
+        <IconMenu navigation={navigation} />
       </Toolbar>
     </AppBar>
   );

@@ -1,10 +1,10 @@
+import { subscriptionApi } from '@/api-client';
 import { FooterData, FooterSmallTextData, SubscriptionValueData } from '@/models';
+import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
-import { subscriptionApi } from '@/api-client';
-import { yupResolver } from '@hookform/resolvers/yup';
 import { useRouter } from 'next/router';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { FooterSmallText } from './small-text';
@@ -45,7 +45,7 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
             <Grid item key={column.id} md={3} xs={6}>
               <Typography
                 variant='body1'
-                fontWeight={600}
+                fontWeight={700}
                 fontFamily='Cormorant Garamond'
                 textTransform='uppercase'
                 marginBottom={3}

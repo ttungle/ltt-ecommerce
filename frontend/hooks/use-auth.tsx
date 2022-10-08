@@ -13,9 +13,10 @@ export function useAuth(): AuthContextData {
   const getUserInfo = async () => {
     try {
       const userProfileResult: any = await authApi.getProfile();
-      setUser(userProfileResult?.user);
+      return userProfileResult;
     } catch (error) {
       console.log(error);
+      return {};
     }
   };
 
@@ -26,12 +27,14 @@ export function useAuth(): AuthContextData {
         expires: 1,
         sameSite: 'lax',
       });
-      Cookies.set('user_info', JSON.stringify(authResult?.user), {
+
+      const userInfo = await getUserInfo();
+      Cookies.set('user_info', JSON.stringify(userInfo), {
         expires: 1,
         sameSite: 'lax',
       });
 
-      setUser(authResult?.user);
+      setUser(userInfo);
     } catch (error: any) {
       console.log(error);
 

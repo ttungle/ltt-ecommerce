@@ -14,7 +14,7 @@ export const authApi = {
   },
 
   getProfile() {
-    const url = '/users/me';
+    const url = '/users/me?populate=avatar';
     return axiosClient.get(url, {
       headers: {
         Authorization: Cookies.get('auth_token') ? `Bearer ${Cookies.get('auth_token')}` : false,
