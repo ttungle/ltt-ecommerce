@@ -2,11 +2,10 @@ import { useAuthContext } from '@/contexts';
 import { NavigationData } from '@/models';
 import { getStrapiMedia } from '@/utils';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import Logout from '@mui/icons-material/Logout';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import { Avatar, Box, IconButton, ListItemIcon, Menu, MenuItem, Typography } from '@mui/material';
+import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useState } from 'react';
 
@@ -17,11 +16,9 @@ export interface IconMenuProps {
 const settings = [
   {
     label: 'Profile',
-    icon: <Avatar sx={{ fontSize: '14px', width: '24px', height: '24px' }} />,
   },
   {
     label: 'Logout',
-    icon: <Logout fontSize='small' />,
   },
 ];
 const icons = {
@@ -53,10 +50,10 @@ export function IconMenu({ navigation }: IconMenuProps) {
     setAnchorElUser(null);
   };
 
-  const handleUserMenuItemClick = async (index: number) => {
+  const handleUserMenuItemClick = (index: number) => {
     if (index === 0) router.push('/account/profile');
     if (index === 1) {
-      await logout();
+      logout();
       router.push('/');
     }
     setAnchorElUser(null);
@@ -80,7 +77,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar
                   alt={user?.username}
-                  src={getStrapiMedia(user?.avatar?.url) ?? ''}
+                  src={getStrapiMedia(user?.avatar?.formats?.medium?.url) ?? ''}
                   variant='circular'
                   sx={{
                     height: 36,
@@ -114,7 +111,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
         ))}
 
       <Menu
-        sx={{ mt: '45px' }}
+        sx={{ mt: 6.5 }}
         anchorEl={anchorElUser}
         anchorOrigin={{
           vertical: 'top',
@@ -128,10 +125,19 @@ export function IconMenu({ navigation }: IconMenuProps) {
         open={Boolean(anchorElUser)}
         onClose={handleCloseUserMenu}
       >
+        <MenuItem
+          divider
+          disableRipple
+          sx={{ '&:hover': { bgcolor: 'rgba(0, 0, 0, 0)' }, cursor: 'default' }}
+        >
+          <Typography textAlign='center' fontSize='0.875rem'>
+            {user?.username}
+          </Typography>
+        </MenuItem>
+
         {settings.map((setting, index) => (
           <MenuItem key={index} onClick={() => handleUserMenuItemClick(index)}>
-            <ListItemIcon>{setting.icon}</ListItemIcon>
-            <Typography textAlign='center' fontSize='0.875rem'>
+            <Typography textAlign='center' fontSize='0.875rem' sx={{ pr: 12 }}>
               {setting.label}
             </Typography>
           </MenuItem>

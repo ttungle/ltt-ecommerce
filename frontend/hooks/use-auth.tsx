@@ -1,6 +1,11 @@
 import { authApi } from '@/api-client/auth-api';
-import axiosClient from '@/api-client/axios-client';
-import { AuthContextData, LoginPayloadData, RegisterPayloadData, UserData } from '@/models';
+import {
+  AuthContextData,
+  AuthenticationResultData,
+  LoginPayloadData,
+  RegisterPayloadData,
+  UserData,
+} from '@/models';
 import Cookies from 'js-cookie';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
@@ -9,32 +14,37 @@ export function useAuth(): AuthContextData {
   const [user, setUser] = useState<UserData | null>(() =>
     JSON.parse(Cookies.get('user_info') || 'null')
   );
+  const expiredDay = 1;
 
-  const getUserInfo = async () => {
+  const getUserInfo = async (): Promise<UserData | null> => {
     try {
-      const userProfileResult: any = await authApi.getProfile();
+      const userProfileResult: UserData | null = await authApi.getProfile();
+
+      if (!userProfileResult?.id) return null;
       return userProfileResult;
     } catch (error) {
       console.log(error);
-      return {};
+      return null;
     }
   };
 
   const login = async (data: LoginPayloadData) => {
+    if (!data) return;
     try {
-      const authResult: any = await authApi.login(data);
+      const authResult: AuthenticationResultData = await authApi.login(data);
+      if (authResult?.jwt?.length === 0) return;
       Cookies.set('auth_token', authResult?.jwt, {
-        expires: 1,
+        expires: expiredDay,
         sameSite: 'lax',
       });
 
       const userInfo = await getUserInfo();
       Cookies.set('user_info', JSON.stringify(userInfo), {
-        expires: 1,
+        expires: expiredDay,
         sameSite: 'lax',
       });
 
-      setUser(userInfo);
+      setUser(userInfo as UserData);
     } catch (error: any) {
       console.log(error);
 
@@ -52,18 +62,18 @@ export function useAuth(): AuthContextData {
   };
 
   const register = async (data: RegisterPayloadData) => {
+    if (!data) return;
     try {
-      const authResult: any = await authApi.register(data);
-
+      const authResult: AuthenticationResultData = await authApi.register(data);
+      if (authResult?.jwt?.length === 0) return;
       Cookies.set('auth_token', authResult?.jwt, {
-        expires: 1,
+        expires: expiredDay,
         sameSite: 'lax',
       });
       Cookies.set('user_info', JSON.stringify(authResult?.user), {
-        expires: 1,
+        expires: expiredDay,
         sameSite: 'lax',
       });
-      axiosClient.defaults.headers.common['Authorization'] = `Bearer ${authResult?.jwt}`;
 
       setUser(authResult?.user);
     } catch (error: any) {
@@ -82,6 +92,29 @@ export function useAuth(): AuthContextData {
     }
   };
 
+  const refreshUserProfile = async () => {
+    const userInfo = await getUserInfo();
+    if (!userInfo?.id) return;
+
+    Cookies.set('user_info', JSON.stringify(userInfo), {
+      expires: expiredDay,
+      sameSite: 'lax',
+    });
+
+    setUser(userInfo);
+  };
+
+  const setAuthInfo = async (authData: AuthenticationResultData) => {
+    if (authData?.jwt) {
+      Cookies.set('auth_token', authData?.jwt, {
+        expires: expiredDay,
+        sameSite: 'lax',
+      });
+    }
+
+    await refreshUserProfile();
+  };
+
   const logout = async () => {
     Cookies.remove('auth_token');
     Cookies.remove('user_info');
@@ -89,5 +122,5 @@ export function useAuth(): AuthContextData {
     window.localStorage.setItem('logout', JSON.stringify(Date.now()));
   };
 
-  return { user, login, register, logout };
+  return { user, login, register, setAuthInfo, refreshUserProfile, logout };
 }

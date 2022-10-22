@@ -15,6 +15,10 @@ export interface UserData {
   createdAt: string;
   updatedAt: string;
   avatar?: any;
+  birthday: string | null;
+  gender: string | null;
+  phone: string | null;
+  address: string | null;
 }
 
 export interface LoginPayloadData {
@@ -26,6 +30,23 @@ export interface RegisterPayloadData {
   username: string;
   email: string;
   password: string;
+}
+
+export interface UserProfilePayloadData {
+  id: number;
+  username: string | null;
+  email: string;
+  avatar?: any;
+  birthday: string | null;
+  gender: string | null;
+  phone: string | null;
+  address: string | null;
+}
+
+export interface ChangePasswordPayloadData {
+  currentPassword: string;
+  password: string;
+  passwordConfirmation: string;
 }
 
 export interface AuthenticationResultData {
@@ -52,7 +73,16 @@ export interface AuthProviderPropsData {
 
 export interface AuthContextData {
   user: UserData | null;
-  login: (data: LoginPayloadData) => void;
-  register: (data: RegisterPayloadData) => void;
-  logout: () => void;
+  login: (data: LoginPayloadData) => Promise<void>;
+  register: (data: RegisterPayloadData) => Promise<void>;
+  setAuthInfo: (authData: AuthenticationResultData) => Promise<void>;
+  logout: () => Promise<void>;
+  refreshUserProfile: () => Promise<void>;
+}
+
+export interface MenuListData {
+  id: number;
+  name: string;
+  path: string;
+  color: string;
 }

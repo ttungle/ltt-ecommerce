@@ -70,7 +70,6 @@ export function LoginForm({ onSubmit }: LoginFormProps) {
             label='Remember me'
             sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.875rem' } }}
           />
-          <Box fontSize='0.875rem'>Forgot password?</Box>
         </Stack>
 
         <Button

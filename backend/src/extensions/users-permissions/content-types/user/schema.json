@@ -85,10 +85,10 @@
         "Others"
       ]
     },
-    "phone": {
-      "type": "integer"
-    },
     "address": {
+      "type": "string"
+    },
+    "phone": {
       "type": "string"
     }
   }

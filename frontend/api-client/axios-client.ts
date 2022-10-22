@@ -10,6 +10,19 @@ const axiosClient = axios.create({
   },
 });
 
+axiosClient.interceptors.request.use(
+  async function (config) {
+    config.headers = {
+      Authorization: Cookies.get('auth_token') ? `Bearer ${Cookies.get('auth_token')}` : '',
+    };
+
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
+
 axiosClient.interceptors.response.use(
   function (response) {
     return response.data;

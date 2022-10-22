@@ -6,18 +6,20 @@ import createEmotionCache from '@/utils/create-emotion-cache';
 import theme from '@/utils/theme';
 import { CacheProvider } from '@emotion/react';
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App, { AppContext } from 'next/app';
-import { ToastContainer } from 'react-toastify';
 import Error from 'next/error';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '../styles/globals.css';
 import '../styles/swiper.css';
-import 'react-toastify/dist/ReactToastify.css';
 
 const clientSideEmotionCache = createEmotionCache();
+const queryClient = new QueryClient();
 
 function MyApp({ Component, pageProps }: AppPropsWithLayout) {
   const Layout = Component.Layout ?? MainLayout;
@@ -30,9 +32,11 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <AuthProvider>
-          <Layout global={global}>
-            <Component {...pageProps} />
-          </Layout>
+          <QueryClientProvider client={queryClient}>
+            <Layout global={global}>
+              <Component {...pageProps} />
+            </Layout>
+          </QueryClientProvider>
           <ToastContainer style={{ marginTop: '60px' }} />
         </AuthProvider>
       </ThemeProvider>
