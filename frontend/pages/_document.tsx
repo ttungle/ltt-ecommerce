@@ -22,7 +22,7 @@ export default class MyDocument extends Document {
             rel='stylesheet'
           />
         </Head>
-        <body style={{ height: '2000px' }}>
+        <body>
           <Main />
           <NextScript />
         </body>

@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_elements_menu_lists",
+  "info": {
+    "displayName": "Menu List",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "menuItem": {
+      "displayName": "Menu Item",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.menu-item"
+    }
+  }
+}

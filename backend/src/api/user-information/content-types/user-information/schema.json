@@ -1,0 +1,66 @@
+{
+  "kind": "singleType",
+  "collectionName": "user_informations",
+  "info": {
+    "singularName": "user-information",
+    "pluralName": "user-informations",
+    "displayName": "User Information",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "userProfileDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "changePasswordDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "toastMessages": {
+      "displayName": "Toast Messages",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "elements.toast-messages"
+    },
+    "errorPageMessage": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
+    },
+    "menuList": {
+      "displayName": "Menu List",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "elements.menu-list"
+    }
+  }
+}

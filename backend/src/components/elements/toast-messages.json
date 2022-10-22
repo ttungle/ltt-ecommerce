@@ -1,0 +1,20 @@
+{
+  "collectionName": "components_elements_toast_messages",
+  "info": {
+    "displayName": "Toast Messages",
+    "icon": "envelope-open",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "successMessage": {
+      "type": "string"
+    },
+    "errorMessage": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    }
+  }
+}
