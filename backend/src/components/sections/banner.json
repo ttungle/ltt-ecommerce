@@ -1,0 +1,34 @@
+{
+  "collectionName": "components_sections_banners",
+  "info": {
+    "displayName": "Banner",
+    "icon": "address-card"
+  },
+  "options": {},
+  "attributes": {
+    "bannerImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "bannerTitle": {
+      "type": "string"
+    },
+    "bannerDescription": {
+      "type": "string"
+    },
+    "textPosition": {
+      "type": "enumeration",
+      "enum": [
+        "left",
+        "right",
+        "center"
+      ]
+    }
+  }
+}

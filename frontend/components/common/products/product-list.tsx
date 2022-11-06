@@ -11,11 +11,11 @@ export interface ProductListProps {
 
 export function ProductList({ productsData, grid }: ProductListProps) {
   return (
-    <Grid container>
+    <Grid container spacing={3}>
       {productsData &&
         productsData.map((product) => (
-          <Grid item key={product?.id as React.Key} md={grid}>
-            <Link href={`shop/${product?.attributes?.path}`}>
+          <Grid item key={product?.id as React.Key} md={grid} mb={5}>
+            <Link href={`shop/product/${product?.attributes?.path}`}>
               <Box component='a'>
                 <Product productData={product} />
               </Box>

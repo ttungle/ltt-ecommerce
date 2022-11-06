@@ -62,10 +62,10 @@ export function UserProfileMenuList({ menuList = [], onDeleteAccount }: UserProf
               onClick={() => handleClick(item?.path)}
               sx={{
                 cursor: 'pointer',
-                color: item?.path.includes(router.query.form as string)
+                color: item?.path.includes(router.query.slug as string)
                   ? 'text.primary'
                   : 'grey.600',
-                fontWeight: item?.path.includes(router.query.form as string) ? 'bold' : 400,
+                fontWeight: item?.path.includes(router.query.slug as string) ? 'bold' : 400,
                 '&:hover': { color: 'text.primary' },
               }}
             >

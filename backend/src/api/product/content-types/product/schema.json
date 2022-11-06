@@ -22,7 +22,8 @@
           "localized": true
         }
       },
-      "type": "string"
+      "type": "string",
+      "required": true
     },
     "originalPrice": {
       "pluginOptions": {
@@ -30,7 +31,8 @@
           "localized": true
         }
       },
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "salePrice": {
       "pluginOptions": {
@@ -91,7 +93,7 @@
     "thumbnails": {
       "type": "media",
       "multiple": true,
-      "required": false,
+      "required": true,
       "allowedTypes": [
         "images",
         "files",
@@ -113,6 +115,29 @@
       "type": "boolean"
     },
     "path": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string",
+      "required": true
+    },
+    "category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::category.category",
+      "inversedBy": "products"
+    },
+    "detailDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "richtext"
+    },
+    "code": {
       "pluginOptions": {
         "i18n": {
           "localized": true

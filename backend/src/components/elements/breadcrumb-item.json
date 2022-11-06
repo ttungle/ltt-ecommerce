@@ -1,0 +1,22 @@
+{
+  "collectionName": "components_elements_breadcrumb_items",
+  "info": {
+    "displayName": "Breadcrumb Item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "path": {
+      "type": "string"
+    },
+    "icon": {
+      "type": "enumeration",
+      "enum": [
+        "home"
+      ]
+    }
+  }
+}

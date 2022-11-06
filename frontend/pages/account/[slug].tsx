@@ -10,9 +10,9 @@ export default function LoginPage(props: LoginPageProps) {
   return (
     <Container maxWidth='xl'>
       <Stack direction='row' justifyContent='center' alignItems='center'>
-        {router.query.form === 'register' && <Register />}
-        {router.query.form === 'login' && <Login />}
-        {(router.query.form === 'profile' || router.query.form === 'password') && <UserProfile />}
+        {router.query.slug === 'register' && <Register />}
+        {router.query.slug === 'login' && <Login />}
+        {(router.query.slug === 'profile' || router.query.slug === 'password') && <UserProfile />}
       </Stack>
     </Container>
   );

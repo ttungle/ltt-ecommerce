@@ -1,5 +1,5 @@
 import { authApi } from '@/api-client/auth-api';
-import { CircularLoader } from '@/components/common/Loader';
+import { CircularLoader } from '@/components/common/loader';
 import { useAuthContext } from '@/contexts';
 import { ChangePasswordPayloadData, UserProfilePayloadData } from '@/models';
 import { Container, Grid, Stack, Typography } from '@mui/material';
@@ -121,10 +121,10 @@ export function UserProfile() {
           </Typography>
 
           <Typography fontSize='0.875rem' sx={{ color: 'grey.500' }}>
-            {router.query.form === 'profile' &&
+            {router.query.slug === 'profile' &&
               profilePageData?.data?.attributes?.userProfileDescription}
 
-            {router.query.form === 'password' &&
+            {router.query.slug === 'password' &&
               profilePageData?.data?.attributes?.changePasswordDescription}
           </Typography>
 
@@ -137,13 +137,13 @@ export function UserProfile() {
             </Grid>
 
             <Grid item xs={9}>
-              {router.query.form === 'profile' && (
+              {router.query.slug === 'profile' && (
                 <UserProfileForm
                   user={userProfileData ?? null}
                   onSubmit={handleProfileFormSubmit}
                 />
               )}
-              {router.query.form === 'password' && (
+              {router.query.slug === 'password' && (
                 <ChangePasswordForm onSubmit={handleChangePasswordFormSubmit} />
               )}
             </Grid>
