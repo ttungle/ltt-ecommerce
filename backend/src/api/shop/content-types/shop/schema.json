@@ -45,6 +45,16 @@
         }
       },
       "component": "sections.banner"
+    },
+    "productListPageSize": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "integer",
+      "default": 15,
+      "min": 6
     }
   }
 }

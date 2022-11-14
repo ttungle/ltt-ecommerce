@@ -9,20 +9,31 @@ import { Container } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
+import { useMemo } from 'react';
 
 export interface ShopListPageProps {
   shop: ShopData;
 }
 
 export default function ShopListPage({ shop }: ShopListPageProps) {
-  const { metadata, breadcrumb, banner } = shop;
+  const { metadata, breadcrumb, banner, productListPageSize } = shop;
   const router = useRouter();
+
+  const queryParams = useMemo(() => {
+    const { collection, slug, ...rest } = router.query;
+
+    return {
+      ...rest,
+      page: (router.query.page || 1).toString(),
+      pageSize: (productListPageSize || 15).toString(),
+    };
+  }, [router.query]);
 
   const [productList] = useQueries({
     queries: [
       {
-        queryKey: [`getProductList-${router.query.slug}`, { page: 1 }],
-        queryFn: async ({ queryKey }: any) => await shopApi.getAllProducts(queryKey[1]),
+        queryKey: [`getProductList-${router.query.slug}`, { ...queryParams }],
+        queryFn: async () => await shopApi.getAllProducts({ ...queryParams }),
         enabled: router.query.slug === 'all-products',
       },
     ],
@@ -31,7 +42,14 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
   const { data: productListData, isLoading } = productList;
 
   const handlePageChange = (value: number) => {
-    console.log('>>>Page Change: ', value);
+    const currentPath = router.pathname;
+    const currentQuery = { ...router.query };
+    currentQuery.page = value.toString();
+
+    router.push({
+      pathname: currentPath,
+      query: currentQuery,
+    });
   };
 
   return (
@@ -56,7 +74,12 @@ export const getServerSideProps: GetServerSideProps = async (
   context: GetServerSidePropsContext
 ) => {
   const shopData = await fetchAPI('/shop', {
-    populate: ['metadata.shareImage', 'breadcrumb.breadcrumbItem', 'banner.bannerImage'],
+    populate: [
+      'metadata.shareImage',
+      'breadcrumb.breadcrumbItem',
+      'banner.bannerImage',
+      'productListPageSize',
+    ],
   });
   const shop = shopData.data.attributes;
 

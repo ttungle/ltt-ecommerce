@@ -4,6 +4,7 @@ export interface ShopData {
   metadata: any;
   breadcrumb: BreadcrumbData;
   banner: BannerData;
+  productListPageSize: number | null;
 }
 
 export interface BreadcrumbItemData {

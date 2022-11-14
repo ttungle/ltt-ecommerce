@@ -3,11 +3,11 @@ import qs from 'qs';
 
 export const shopApi = {
   getAllProducts(params: any): Promise<any> {
-    console.log(params.page);
     const query = qs.stringify(
       {
         pagination: {
           page: params.page,
+          pageSize: params.pageSize,
         },
         populate: ['thumbnails', 'category'],
       },
