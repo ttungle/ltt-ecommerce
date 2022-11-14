@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Footer from '../common/footer';
 import Header from '../common/header';
-import { CircularLoader } from '../common/Loader';
+import { CircularLoader } from '../common/loader';
 
 export function ProtectedLayout({ children, global }: LayoutProps) {
   const router = useRouter();

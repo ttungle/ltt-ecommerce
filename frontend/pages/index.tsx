@@ -7,10 +7,9 @@ import {
   HomeSlider,
   Inspired,
 } from '@/components/home';
-import { ProtectedLayout } from '@/components/layout/protected';
-import { NextPageWithLayout } from '@/models';
+import MainLayout from '@/components/layout/main';
+import { HomeData, NextPageWithLayout } from '@/models';
 import { fetchAPI } from '@/utils';
-import { Box } from '@mui/material';
 import { GetStaticProps } from 'next';
 
 const Home: NextPageWithLayout = ({ home }: any) => {
@@ -39,7 +38,7 @@ const Home: NextPageWithLayout = ({ home }: any) => {
   );
 };
 
-Home.Layout = ProtectedLayout;
+Home.Layout = MainLayout;
 
 export default Home;
 
@@ -61,7 +60,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
       'shipment.shipmentItem.icon',
     ],
   });
-  const home = homeData.data.attributes;
+  const home: HomeData = homeData.data.attributes;
 
   if (!home) {
     return {

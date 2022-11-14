@@ -1,7 +1,6 @@
 import { RegisterFormValueData } from '@/models';
 import { Box, Button, CircularProgress, Typography } from '@mui/material';
 import { useForm } from 'react-hook-form';
-import { OutLinedButton } from '../custom-button';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 

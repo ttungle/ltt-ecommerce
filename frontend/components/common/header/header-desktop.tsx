@@ -24,7 +24,7 @@ export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
         boxShadow: '0 1px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <Toolbar sx={{ height: '75px', px: { lg: '145px' } }}>
+      <Toolbar sx={{ height: '75px', px: { xl: '145px', lg: '30px' } }}>
         <Link href='/' passHref>
           <Typography
             component='a'

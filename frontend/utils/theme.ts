@@ -22,6 +22,12 @@ const theme = createTheme({
     },
   },
   components: {
+    MuiContainer: {
+      defaultProps: {
+        fixed: true,
+        maxWidth: 'xl',
+      },
+    },
     MuiButton: {
       styleOverrides: {
         root: {
