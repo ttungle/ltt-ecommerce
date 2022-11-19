@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_elements_sort_types",
+  "info": {
+    "displayName": "Sort Types",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "sortTypeItem": {
+      "displayName": "Sort Type Item",
+      "type": "component",
+      "repeatable": false,
+      "component": "elements.sort-type-item"
+    }
+  }
+}

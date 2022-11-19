@@ -9,23 +9,25 @@ import { Container } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { useMemo } from 'react';
+import { useCallback, useMemo, useRef } from 'react';
 
 export interface ShopListPageProps {
   shop: ShopData;
 }
 
 export default function ShopListPage({ shop }: ShopListPageProps) {
-  const { metadata, breadcrumb, banner, productListPageSize } = shop;
+  const { metadata, breadcrumb, banner, productListPageSize, sortTypeList } = shop;
   const router = useRouter();
+  const currentQueryRef = useRef<any>();
 
   const queryParams = useMemo(() => {
     const { collection, slug, ...rest } = router.query;
-
+    currentQueryRef.current = { ...router.query };
     return {
       ...rest,
       page: (router.query.page || 1).toString(),
       pageSize: (productListPageSize || 15).toString(),
+      sort: router.query.sort || ['updatedAt:desc'],
     };
   }, [router.query]);
 
@@ -43,14 +45,25 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
 
   const handlePageChange = (value: number) => {
     const currentPath = router.pathname;
-    const currentQuery = { ...router.query };
-    currentQuery.page = value.toString();
+    currentQueryRef.current.page = value.toString();
 
     router.push({
       pathname: currentPath,
-      query: currentQuery,
+      query: currentQueryRef.current,
     });
   };
+
+  const handleSortChange = useCallback(async (value: string) => {
+    const sortParams = [];
+    const currentPath = router.pathname;
+    sortParams.push(value);
+    currentQueryRef.current.sort = sortParams;
+
+    router.push({
+      pathname: currentPath,
+      query: currentQueryRef.current,
+    });
+  }, []);
 
   return (
     <>
@@ -58,7 +71,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
       {!isLoading && (
         <Container>
           <Breadcrumb breadcrumb={breadcrumb} />
-          <ShopActionBar />
+          <ShopActionBar sortTypeList={sortTypeList} onChange={handleSortChange} />
           <ProductList productsData={productListData?.data ?? []} grid={4} />
           <ProductPagination
             pagination={productListData?.meta?.pagination}
@@ -79,6 +92,7 @@ export const getServerSideProps: GetServerSideProps = async (
       'breadcrumb.breadcrumbItem',
       'banner.bannerImage',
       'productListPageSize',
+      'sortTypeList.sortTypeItem',
     ],
   });
   const shop = shopData.data.attributes;
