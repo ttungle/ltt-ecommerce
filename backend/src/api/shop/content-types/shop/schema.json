@@ -55,6 +55,17 @@
       "type": "integer",
       "default": 15,
       "min": 6
+    },
+    "sortTypeList": {
+      "displayName": "Sort Types",
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "elements.sort-types"
     }
   }
 }

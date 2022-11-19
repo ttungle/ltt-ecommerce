@@ -1,0 +1,24 @@
+{
+  "collectionName": "components_elements_sort_type_items",
+  "info": {
+    "displayName": "Sort Type Item",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "field": {
+      "type": "string"
+    },
+    "direction": {
+      "type": "enumeration",
+      "enum": [
+        ":asc",
+        ":desc"
+      ],
+      "default": ":asc"
+    }
+  }
+}

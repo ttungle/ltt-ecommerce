@@ -5,6 +5,7 @@ export interface ShopData {
   breadcrumb: BreadcrumbData;
   banner: BannerData;
   productListPageSize: number | null;
+  sortTypeList: Array<sortTypeItemData>;
 }
 
 export interface BreadcrumbItemData {
@@ -32,4 +33,13 @@ export interface PaginationData {
   pageCount: number;
   pageSize: number;
   total: number;
+}
+
+export interface sortTypeItemData {
+  id: number;
+  sortTypeItem: {
+    label: string;
+    field: string;
+    direction: string;
+  };
 }
