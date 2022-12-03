@@ -3,22 +3,27 @@ import { BannerImage } from '@/components/common/banner';
 import { Breadcrumb } from '@/components/common/breadcrumb';
 import { ProductList } from '@/components/common/products';
 import { ProductPagination, ShopActionBar } from '@/components/shop';
-import { ShopData } from '@/models';
+import { ShopFiltersDrawer } from '@/components/shop/filters-drawer';
+import { ProductFiltersValue, ShopData } from '@/models';
 import { fetchAPI } from '@/utils';
 import { Container } from '@mui/material';
 import { useQueries } from '@tanstack/react-query';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useRouter } from 'next/router';
-import { useCallback, useMemo, useRef } from 'react';
+import qs from 'qs';
+import { useCallback, useMemo, useRef, useState } from 'react';
 
 export interface ShopListPageProps {
   shop: ShopData;
 }
 
 export default function ShopListPage({ shop }: ShopListPageProps) {
-  const { metadata, breadcrumb, banner, productListPageSize, sortTypeList } = shop;
+  const { metadata, breadcrumb, banner, productListPageSize, sortTypeList, multipleFilterList } =
+    shop;
+
   const router = useRouter();
   const currentQueryRef = useRef<any>();
+  const [showFiltersDrawer, setShowFiltersDrawer] = useState(false);
 
   const queryParams = useMemo(() => {
     const { collection, slug, ...rest } = router.query;
@@ -28,8 +33,9 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
       page: (router.query.page || 1).toString(),
       pageSize: (productListPageSize || 15).toString(),
       sort: router.query.sort || ['updatedAt:desc'],
+      ...(router?.query?.filters && { filters: qs.parse(router.query.filters + '') }),
     };
-  }, [router.query]);
+  }, [router.query, productListPageSize]);
 
   const [productList] = useQueries({
     queries: [
@@ -43,6 +49,10 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
 
   const { data: productListData, isLoading } = productList;
 
+  const handleToggleFiltersDrawer = (open: boolean) => {
+    setShowFiltersDrawer(open);
+  };
+
   const handlePageChange = (value: number) => {
     const currentPath = router.pathname;
     currentQueryRef.current.page = value.toString();
@@ -53,7 +63,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
     });
   };
 
-  const handleSortChange = useCallback(async (value: string) => {
+  const handleSortChange = useCallback((value: string) => {
     const sortParams = [];
     const currentPath = router.pathname;
     sortParams.push(value);
@@ -65,20 +75,52 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
     });
   }, []);
 
+  const handleFiltersChange = useCallback((value: ProductFiltersValue | undefined) => {
+    const currentPath = router.pathname;
+    let filterParams = { ...value };
+
+    if (Object.keys(filterParams).length !== 0) {
+      currentQueryRef.current.page = '1';
+      currentQueryRef.current.filters = qs.stringify(filterParams);
+    } else {
+      delete currentQueryRef.current.filters;
+    }
+
+    router.push({
+      pathname: currentPath,
+      query: currentQueryRef.current,
+    });
+  }, []);
+
   return (
     <>
       <BannerImage banner={banner} />
-      {!isLoading && (
-        <Container>
-          <Breadcrumb breadcrumb={breadcrumb} />
-          <ShopActionBar sortTypeList={sortTypeList} onChange={handleSortChange} />
-          <ProductList productsData={productListData?.data ?? []} grid={4} />
-          <ProductPagination
-            pagination={productListData?.meta?.pagination}
-            onPageChange={handlePageChange}
-          />
-        </Container>
-      )}
+      <Container>
+        <Breadcrumb breadcrumb={breadcrumb} />
+        <ShopActionBar
+          productPagination={productListData?.meta?.pagination ?? {}}
+          sortTypeList={sortTypeList}
+          onSortChange={handleSortChange}
+          onToggleFilterDrawer={handleToggleFiltersDrawer}
+        />
+
+        {!isLoading && (
+          <>
+            <ProductList productsData={productListData?.data ?? []} grid={4} />
+            <ProductPagination
+              pagination={productListData?.meta?.pagination}
+              onPageChange={handlePageChange}
+            />
+          </>
+        )}
+      </Container>
+
+      <ShopFiltersDrawer
+        showFiltersDrawer={showFiltersDrawer}
+        multipleFilterList={multipleFilterList}
+        onFiltersChange={handleFiltersChange}
+        onToggleFiltersDrawerClick={handleToggleFiltersDrawer}
+      />
     </>
   );
 }
@@ -89,10 +131,12 @@ export const getServerSideProps: GetServerSideProps = async (
   const shopData = await fetchAPI('/shop', {
     populate: [
       'metadata.shareImage',
-      'breadcrumb.breadcrumbItem',
       'banner.bannerImage',
+      'breadcrumb.breadcrumbItem',
       'productListPageSize',
       'sortTypeList.sortTypeItem',
+      'multipleFilterList.labelAndValue',
+      'multipleFilterList.multipleFilterByImages.filterItemImage',
     ],
   });
   const shop = shopData.data.attributes;

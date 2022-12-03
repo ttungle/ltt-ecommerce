@@ -66,6 +66,16 @@
         }
       },
       "component": "elements.sort-types"
+    },
+    "multipleFilterList": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.product-filter-list"
     }
   }
 }

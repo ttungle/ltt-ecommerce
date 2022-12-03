@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_elements_label_and_values",
+  "info": {
+    "displayName": "Label And Value",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "label": {
+      "type": "string"
+    },
+    "value": {
+      "type": "decimal"
+    }
+  }
+}

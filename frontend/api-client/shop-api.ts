@@ -10,6 +10,7 @@ export const shopApi = {
           pageSize: params.pageSize,
         },
         sort: params.sort,
+        filters: params.filters,
         populate: ['thumbnails', 'category'],
       },
       {

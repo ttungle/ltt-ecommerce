@@ -1,11 +1,20 @@
 import { MediaData } from './common';
 
+export enum FilterOperators {
+  And = '$and',
+  Or = '$or',
+  In = '$in',
+  Gte = '$gte',
+  Lte = '$lte',
+}
+
 export interface ShopData {
   metadata: any;
   breadcrumb: BreadcrumbData;
   banner: BannerData;
   productListPageSize: number | null;
   sortTypeList: Array<sortTypeItemData>;
+  multipleFilterList: any;
 }
 
 export interface BreadcrumbItemData {
@@ -26,6 +35,7 @@ export interface BannerData {
   bannerDescription: string | null;
   textPosition: string | null;
   bannerImage: MediaData;
+  textColor: 'black' | 'white' | null;
 }
 
 export interface PaginationData {
@@ -42,4 +52,42 @@ export interface sortTypeItemData {
     field: string;
     direction: string;
   };
+}
+
+export interface ProductMultipleFilterItemValue {
+  name: {
+    [FilterOperators.In]: Array<string>;
+  };
+}
+
+export interface MultipleFilterImageItemData {
+  filterItemName: string | null;
+  filterItemImage: MediaData;
+}
+
+export interface MultipleFiltersImageData {
+  id: number;
+  filterName: string | null;
+  filterProperty: string | null;
+  filterType: 'multiple-choices' | 'price';
+  multipleFilterByImages: Array<MultipleFilterImageItemData>;
+  labelAndValue?: Array<FilterByPriceOption>;
+}
+
+interface FilterByPriceData {
+  salePrice: {
+    [FilterOperators.Gte]?: string | undefined;
+    [FilterOperators.Lte]?: string | undefined;
+  };
+}
+
+export interface ProductFiltersValue {
+  category?: ProductMultipleFilterItemValue | undefined;
+  material?: ProductMultipleFilterItemValue | undefined;
+  [FilterOperators.And]?: Array<FilterByPriceData>;
+}
+
+export interface FilterByPriceOption {
+  label: string;
+  value: number;
 }

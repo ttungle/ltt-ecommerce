@@ -2,19 +2,21 @@
   "collectionName": "components_sections_banners",
   "info": {
     "displayName": "Banner",
-    "icon": "address-card"
+    "icon": "address-card",
+    "description": ""
   },
   "options": {},
   "attributes": {
     "bannerImage": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images",
         "files",
         "videos",
         "audios"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
     },
     "bannerTitle": {
       "type": "string"
@@ -28,6 +30,13 @@
         "left",
         "right",
         "center"
+      ]
+    },
+    "textColor": {
+      "type": "enumeration",
+      "enum": [
+        "black",
+        "white"
       ]
     }
   }
