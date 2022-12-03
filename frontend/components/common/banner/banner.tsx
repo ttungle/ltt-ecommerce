@@ -9,7 +9,7 @@ export interface BannerImageProps {
 }
 
 export function BannerImage({ banner }: BannerImageProps) {
-  const { bannerTitle, bannerDescription, textPosition, bannerImage } = banner;
+  const { bannerTitle, bannerDescription, textPosition, bannerImage, textColor } = banner;
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('xl'));
 
@@ -59,12 +59,15 @@ export function BannerImage({ banner }: BannerImageProps) {
       >
         <Typography
           fontSize={{ lg: '2.625rem', xs: '2rem' }}
-          fontWeight={400}
-          mb={{ lg: 1, xs: 0 }}
+          fontWeight={600}
+          mb={{ lg: 1, xs: 0, color: textColor }}
+          fontFamily='Cormorant Garamond'
         >
           {bannerTitle}
         </Typography>
-        <Typography fontSize={{ lg: '1rem', xs: '0.875rem' }}>{bannerDescription}</Typography>
+        <Typography fontSize={{ lg: '1rem', xs: '0.875rem', color: textColor }}>
+          {bannerDescription}
+        </Typography>
       </Box>
     </Box>
   );

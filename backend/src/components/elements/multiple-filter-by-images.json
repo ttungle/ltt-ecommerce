@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_elements_multiple_filter_by_images",
+  "info": {
+    "displayName": "Multiple Filter By Images",
+    "icon": "image"
+  },
+  "options": {},
+  "attributes": {
+    "filterItemName": {
+      "type": "string"
+    },
+    "filterItemImage": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    }
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "collectionName": "components_sections_product_filter_lists",
+  "info": {
+    "displayName": "Product Filter List",
+    "icon": "filter",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "multipleFilterByImages": {
+      "displayName": "Multiple Filter By Images",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.multiple-filter-by-images"
+    },
+    "filterName": {
+      "type": "string"
+    },
+    "filterProperty": {
+      "type": "string"
+    },
+    "filterType": {
+      "type": "enumeration",
+      "enum": [
+        "multiple-choices",
+        "price"
+      ],
+      "default": "multiple-choices"
+    },
+    "labelAndValue": {
+      "displayName": "Label And Value",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.label-and-value"
+    }
+  }
+}
