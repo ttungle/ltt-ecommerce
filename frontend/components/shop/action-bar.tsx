@@ -48,7 +48,7 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
 
   return (
     <>
-      <Stack direction='row' justifyContent='space-between' alignItems='center' my={6}>
+      <Stack direction='row' justifyContent='space-between' alignItems='center'>
         <CustomIconButton
           color='text.primary'
           properties={{ size: 'small' }}
