@@ -1,3 +1,4 @@
+import { CircularLoader } from '@/components/common/loader';
 import { MultipleFiltersImageData, ProductFiltersValue } from '@/models';
 import CloseIcon from '@mui/icons-material/Close';
 import { Box, Button, Divider, IconButton, Stack, SwipeableDrawer } from '@mui/material';
@@ -7,6 +8,7 @@ import { FilterByMultipleImages } from './filter-by-multiple-images';
 import { FilterByPrice } from './filter-by-price';
 
 export interface ShopFiltersDrawerProps {
+  isLoading: boolean;
   multipleFilterList: Array<MultipleFiltersImageData>;
   showFiltersDrawer: boolean;
   onFiltersChange: (value: ProductFiltersValue | undefined) => void;
@@ -14,8 +16,13 @@ export interface ShopFiltersDrawerProps {
 }
 
 const ShopFiltersDrawerMemo = (props: ShopFiltersDrawerProps) => {
-  const { showFiltersDrawer, multipleFilterList, onFiltersChange, onToggleFiltersDrawerClick } =
-    props;
+  const {
+    isLoading,
+    showFiltersDrawer,
+    multipleFilterList,
+    onFiltersChange,
+    onToggleFiltersDrawerClick,
+  } = props;
   const router = useRouter();
 
   const isFilterExist = useMemo(() => Boolean(router?.query?.filters), [router.query]);
@@ -117,6 +124,20 @@ const ShopFiltersDrawerMemo = (props: ShopFiltersDrawerProps) => {
           </Button>
         </Stack>
       </Box>
+
+      {isLoading && (
+        <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1000 }}>
+          <Stack
+            direction='row'
+            justifyContent='center'
+            alignItems='center'
+            height='100%'
+            sx={{ background: 'rgba(0, 0, 0, 0.2)' }}
+          >
+            <CircularLoader loaderContent='' />
+          </Stack>
+        </Box>
+      )}
     </SwipeableDrawer>
   );
 };
