@@ -4,7 +4,7 @@ import { useMemo } from 'react';
 import { FILTER_LIST } from './filters-viewer.routes';
 
 export interface ShopFilterViewerProps {
-  filters: any;
+  filters: ProductFiltersValue | undefined;
   onChange: (newFilters: ProductFiltersValue | undefined) => void;
 }
 

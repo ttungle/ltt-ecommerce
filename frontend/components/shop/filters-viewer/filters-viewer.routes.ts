@@ -5,7 +5,7 @@ export const FILTER_LIST = [
   {
     type: 'category',
     getLabel: (filters: ProductFiltersValue) => filters?.category?.name?.$in,
-    isVisible: (filters: ProductFiltersValue) => Boolean(filters?.category?.name?.$in),
+    isVisible: (filters: ProductFiltersValue | undefined) => Boolean(filters?.category?.name?.$in),
     onRemove: (
       filters: ProductFiltersValue,
       currentItem: string | undefined
@@ -28,7 +28,7 @@ export const FILTER_LIST = [
   {
     type: 'material',
     getLabel: (filters: ProductFiltersValue) => filters?.material?.name?.$in,
-    isVisible: (filters: ProductFiltersValue) => Boolean(filters?.material?.name?.$in),
+    isVisible: (filters: ProductFiltersValue | undefined) => Boolean(filters?.material?.name?.$in),
     onRemove: (
       filters: ProductFiltersValue,
       currentItem: string | undefined
@@ -57,7 +57,7 @@ export const FILTER_LIST = [
           'en'
         )}`,
       ],
-    isVisible: (filters: ProductFiltersValue) =>
+    isVisible: (filters: ProductFiltersValue | undefined) =>
       Boolean(filters?.$and && filters?.$and[0]?.salePrice && filters?.$and[1]?.salePrice),
     onRemove: (
       filters: ProductFiltersValue,
