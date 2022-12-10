@@ -1,7 +1,7 @@
 import { shopApi } from '@/api-client';
 import { BannerImage } from '@/components/common/banner';
 import { Breadcrumb } from '@/components/common/breadcrumb';
-import { ProductList } from '@/components/common/products';
+import { ProductList, ProductListSkeleton } from '@/components/common/products';
 import {
   ProductPagination,
   ShopActionBar,
@@ -117,6 +117,10 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
 
         <ShopFilterViewer filters={queryParams?.filters} onChange={handleFiltersChange} />
 
+        {isLoading && (
+          <ProductListSkeleton quantity={Number(queryParams.pageSize)} grid={Number(layoutValue)} />
+        )}
+
         {!isLoading && (
           <>
             <ProductList productsData={productListData?.data ?? []} grid={Number(layoutValue)} />
@@ -129,6 +133,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
       </Container>
 
       <ShopFiltersDrawer
+        isLoading={isLoading}
         showFiltersDrawer={showFiltersDrawer}
         multipleFilterList={multipleFilterList}
         onFiltersChange={handleFiltersChange}
