@@ -1,17 +1,10 @@
 import { PaginationData, sortTypeItemData } from '@/models';
-import Looks3OutlinedIcon from '@mui/icons-material/Looks3Outlined';
-import Looks4OutlinedIcon from '@mui/icons-material/Looks4Outlined';
-import LooksTwoOutlinedIcon from '@mui/icons-material/LooksTwoOutlined';
 import TuneIcon from '@mui/icons-material/Tune';
 import {
-  Box,
-  FormControl,
-  IconButton,
-  MenuItem,
+  FormControl, MenuItem,
   Select,
   SelectChangeEvent,
-  Stack,
-  Typography,
+  Stack, Typography
 } from '@mui/material';
 import { useRouter } from 'next/router';
 import { memo, useMemo } from 'react';
@@ -20,12 +13,21 @@ import { CustomIconButton } from '../common/custom-button/icon-button';
 export interface ShopActionBarProps {
   sortTypeList: Array<sortTypeItemData>;
   productPagination: PaginationData;
-  onToggleFilterDrawer: (open: boolean) => void;
+  layoutValue: string;
   onSortChange: (value: string) => void;
+  onLayoutChange: (value: string) => void;
+  onToggleFilterDrawer: (open: boolean) => void;
 }
 
 function ShopActionBarMemo(props: ShopActionBarProps) {
-  const { sortTypeList, productPagination, onToggleFilterDrawer, onSortChange } = props;
+  const {
+    sortTypeList,
+    productPagination,
+    layoutValue,
+    onSortChange,
+    onLayoutChange,
+    onToggleFilterDrawer,
+  } = props;
 
   const router = useRouter();
 
@@ -46,6 +48,11 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
     onSortChange(event.target.value);
   };
 
+  const handleLayoutChange = (event: SelectChangeEvent) => {
+    if (!onLayoutChange) return;
+    onLayoutChange(event.target.value);
+  };
+
   return (
     <>
       <Stack direction='row' justifyContent='space-between' alignItems='center'>
@@ -62,17 +69,24 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
             {productPagination?.page}/{productPagination?.pageCount}
           </Typography>
 
-          <Box sx={{ border: '1px solid #ccc' }}>
-            <IconButton sx={{ borderRadius: '2px' }} size='small'>
-              <LooksTwoOutlinedIcon />
-            </IconButton>
-            <IconButton sx={{ borderRadius: '2px' }} size='small'>
-              <Looks3OutlinedIcon />
-            </IconButton>
-            <IconButton sx={{ borderRadius: '2px' }} size='small'>
-              <Looks4OutlinedIcon />
-            </IconButton>
-          </Box>
+          <FormControl sx={{ m: 1, minWidth: 80 }} size='small'>
+            <Select
+              value={layoutValue}
+              label=''
+              onChange={handleLayoutChange}
+              sx={{ fontSize: '0.875rem', borderRadius: '2px' }}
+            >
+              <MenuItem value={6} sx={{ fontSize: '0.875rem' }}>
+                2 items
+              </MenuItem>
+              <MenuItem value={4} sx={{ fontSize: '0.875rem' }}>
+                3 items
+              </MenuItem>
+              <MenuItem value={3} sx={{ fontSize: '0.875rem' }}>
+                4 items
+              </MenuItem>
+            </Select>
+          </FormControl>
 
           <FormControl sx={{ ml: 1, minWidth: 80 }} size='small'>
             <Select

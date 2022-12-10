@@ -28,6 +28,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
   const router = useRouter();
   const currentQueryRef = useRef<any>();
   const [showFiltersDrawer, setShowFiltersDrawer] = useState(false);
+  const [layoutValue, setLayoutValue] = useState('4');
 
   const queryParams = useMemo(() => {
     const { collection, slug, ...rest } = router.query;
@@ -53,11 +54,11 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
 
   const { data: productListData, isLoading } = productList;
 
-  const handleToggleFiltersDrawer = (open: boolean) => {
+  const handleToggleFiltersDrawer = useCallback((open: boolean) => {
     setShowFiltersDrawer(open);
-  };
+  }, []);
 
-  const handlePageChange = (value: number) => {
+  const handlePageChange = useCallback((value: number) => {
     const currentPath = router.pathname;
     currentQueryRef.current.page = value.toString();
 
@@ -65,7 +66,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
       pathname: currentPath,
       query: currentQueryRef.current,
     });
-  };
+  }, []);
 
   const handleSortChange = useCallback((value: string) => {
     const sortParams = [];
@@ -96,6 +97,10 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
     });
   }, []);
 
+  const handleLayoutChange = useCallback((value: string) => {
+    setLayoutValue(value);
+  }, []);
+
   return (
     <>
       <BannerImage banner={banner} />
@@ -104,7 +109,9 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
         <ShopActionBar
           productPagination={productListData?.meta?.pagination ?? {}}
           sortTypeList={sortTypeList}
+          layoutValue={layoutValue}
           onSortChange={handleSortChange}
+          onLayoutChange={handleLayoutChange}
           onToggleFilterDrawer={handleToggleFiltersDrawer}
         />
 
@@ -112,7 +119,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
 
         {!isLoading && (
           <>
-            <ProductList productsData={productListData?.data ?? []} grid={4} />
+            <ProductList productsData={productListData?.data ?? []} grid={Number(layoutValue)} />
             <ProductPagination
               pagination={productListData?.meta?.pagination}
               onPageChange={handlePageChange}
