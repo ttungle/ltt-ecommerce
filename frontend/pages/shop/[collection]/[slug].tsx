@@ -2,8 +2,12 @@ import { shopApi } from '@/api-client';
 import { BannerImage } from '@/components/common/banner';
 import { Breadcrumb } from '@/components/common/breadcrumb';
 import { ProductList } from '@/components/common/products';
-import { ProductPagination, ShopActionBar } from '@/components/shop';
-import { ShopFiltersDrawer } from '@/components/shop/filters-drawer';
+import {
+  ProductPagination,
+  ShopActionBar,
+  ShopFiltersDrawer,
+  ShopFilterViewer,
+} from '@/components/shop';
 import { ProductFiltersValue, ShopData } from '@/models';
 import { fetchAPI } from '@/utils';
 import { Container } from '@mui/material';
@@ -103,6 +107,8 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
           onSortChange={handleSortChange}
           onToggleFilterDrawer={handleToggleFiltersDrawer}
         />
+
+        <ShopFilterViewer filters={queryParams?.filters} onChange={handleFiltersChange} />
 
         {!isLoading && (
           <>
