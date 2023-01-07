@@ -4,6 +4,7 @@ import { AppBar, Box, Button, Toolbar, Typography } from '@mui/material';
 import clsx from 'clsx';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCallback } from 'react';
 import { Url } from 'url';
 import { IconMenu } from './icon-menu';
 
@@ -14,6 +15,14 @@ export interface HeaderDesktopProps {
 export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
   const router = useRouter();
   const navItems = navigation?.links ?? [];
+
+  const activeNavItem = useCallback(
+    (item: Partial<LinkData>) =>
+      router.asPath === '/'
+        ? router.asPath === `${item?.href}`
+        : item?.href?.toString().includes(router.asPath.split('/')[1]),
+    [router]
+  );
 
   return (
     <AppBar
@@ -49,7 +58,9 @@ export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
               <Button
                 endIcon={item.icon ? <ExpandMoreIcon sx={{ marginLeft: -1 }} /> : ''}
                 disableRipple
-                className={clsx({ active: router.pathname === item.href })}
+                className={clsx({
+                  active: activeNavItem(item),
+                })}
                 sx={{
                   mr: 1.5,
                   color: 'text.primary',

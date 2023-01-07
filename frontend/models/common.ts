@@ -31,8 +31,9 @@ export interface ProductData {
     isFreeShip: boolean;
     isSoldOut: boolean;
     isBestSeller: boolean;
+    code: number | null;
     thumbnails?: {
-      data: Array<MediaData>;
+      data: Array<MediaContentData>;
     };
     path: string;
   };
@@ -48,6 +49,6 @@ export interface MediaContentData {
   };
 }
 
-export interface MediaData {
+export interface SingleMediaData {
   data: MediaContentData;
 }

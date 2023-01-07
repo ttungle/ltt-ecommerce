@@ -3,6 +3,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Poppins', 'Cormorant Garamond', sans-serif;
+  font-size: 100%;
 }
 
 a {

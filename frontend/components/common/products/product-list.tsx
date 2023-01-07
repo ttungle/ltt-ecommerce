@@ -15,7 +15,7 @@ export function ProductList({ productsData, grid }: ProductListProps) {
       {productsData &&
         productsData.map((product) => (
           <Grid item key={product?.id as React.Key} md={grid} mb={5}>
-            <Link href={`shop/product/${product?.attributes?.path}`}>
+            <Link href={`/shop/product/${product?.attributes?.path}?pid=${product?.id}`}>
               <Box component='a'>
                 <Product productData={product} />
               </Box>

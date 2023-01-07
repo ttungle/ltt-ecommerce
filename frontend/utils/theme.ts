@@ -5,6 +5,8 @@ import { red } from '@mui/material/colors';
 const theme = createTheme({
   typography: {
     fontFamily: 'Poppins, Sans-serif',
+    fontSize: 12.25,
+    htmlFontSize: 16,
   },
   palette: {
     primary: {
@@ -69,6 +71,18 @@ const theme = createTheme({
           },
         },
       ],
+    },
+    MuiOutlinedInput: {
+      styleOverrides: {
+        input: {
+          '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
+            display: 'none',
+          },
+          '&[type=number]': {
+            MozAppearance: 'textfield',
+          },
+        },
+      },
     },
   },
 });

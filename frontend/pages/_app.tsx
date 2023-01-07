@@ -17,6 +17,7 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import '../styles/globals.css';
 import '../styles/swiper.css';
+import '../styles/gallery-swiper.css';
 
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();

@@ -1,4 +1,4 @@
-import { MediaData } from './common';
+import { SingleMediaData } from './common';
 
 export enum FilterOperators {
   And = '$and',
@@ -34,7 +34,7 @@ export interface BannerData {
   bannerTitle: string | null;
   bannerDescription: string | null;
   textPosition: string | null;
-  bannerImage: MediaData;
+  bannerImage: SingleMediaData;
   textColor: 'black' | 'white' | null;
 }
 
@@ -62,7 +62,7 @@ export interface ProductMultipleFilterItemValue {
 
 export interface MultipleFilterImageItemData {
   filterItemName: string | null;
-  filterItemImage: MediaData;
+  filterItemImage: SingleMediaData;
 }
 
 export interface MultipleFiltersImageData {

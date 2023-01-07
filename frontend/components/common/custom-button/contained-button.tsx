@@ -1,6 +1,6 @@
-import { Button, SxProps } from '@mui/material';
+import { Button, ButtonProps, SxProps } from '@mui/material';
 
-export interface ContainedButtonProps {
+export interface ContainedButtonProps extends ButtonProps {
   children: React.ReactNode;
   properties?: Object;
   sx?: SxProps;
@@ -10,7 +10,8 @@ export interface ContainedButtonProps {
 }
 
 export function ContainedButton(props: ContainedButtonProps) {
-  const { children, properties, icon, sx, isDisabled, onClick } = props;
+  const { children, properties, icon, sx, isDisabled, onClick, ...resProps } = props;
+
   const handleClick = () => {
     if (!onClick) return;
     onClick();
@@ -23,7 +24,8 @@ export function ContainedButton(props: ContainedButtonProps) {
       endIcon={icon || ''}
       variant='contained'
       onClick={handleClick}
-      sx={{ borderRadius: '2px', ...sx }}
+      sx={{ borderRadius: '2px', bgcolor: 'common.black', color: 'common.white', ...sx }}
+      {...resProps}
     >
       {children}
     </Button>

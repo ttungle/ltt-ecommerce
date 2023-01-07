@@ -45,7 +45,7 @@ export function ProductSlider({ productsData, itemNumber }: ProductSliderProps) 
         {productsData &&
           productsData.map((product) => (
             <SwiperSlide key={product?.id as React.Key}>
-              <Link href={`shop/${product?.attributes?.path}`}>
+              <Link href={`shop/product/${product?.attributes?.path}?pid=${product.id}`}>
                 <Box component='a' sx={{ display: 'block', width: '100%', height: '100%' }}>
                   <Product productData={product} />
                 </Box>
