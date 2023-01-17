@@ -1,0 +1,20 @@
+{
+  "kind": "singleType",
+  "collectionName": "shop_details_pages",
+  "info": {
+    "singularName": "shop-details-page",
+    "pluralName": "shop-details-pages",
+    "displayName": "Shop Details Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.metadata"
+    }
+  }
+}
