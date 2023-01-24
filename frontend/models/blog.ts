@@ -1,10 +1,10 @@
-import { MediaData } from './common';
+import { SingleMediaData } from './common';
 
 interface BlogDataContent {
   title: string;
   author: string;
   publishedAt: string;
-  thumbnail: MediaData;
+  thumbnail: SingleMediaData;
   content: string;
   blogCategory: BlogCategoryData;
   blogTags: BlogTagData;

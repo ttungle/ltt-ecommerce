@@ -7,3 +7,7 @@ export function getStrapiMedia(url: string) {
   }
   return `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}${url}`;
 }
+
+export function convertMarkdownImageSrc(text: string) {
+  return text.replaceAll('/uploads', `${process.env.NEXT_PUBLIC_API_URL}/uploads`);
+}

@@ -1,0 +1,32 @@
+{
+  "kind": "singleType",
+  "collectionName": "shop_details_pages",
+  "info": {
+    "singularName": "shop-details-page",
+    "pluralName": "shop-details-pages",
+    "displayName": "Shop Details Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "metadata": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.metadata"
+    },
+    "sizeSelection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.size-selection-and-description"
+    },
+    "productReviewSection": {
+      "displayName": "Shop Detail Page - Product Reviews",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.shop-detail-page-product-reviews"
+    }
+  }
+}

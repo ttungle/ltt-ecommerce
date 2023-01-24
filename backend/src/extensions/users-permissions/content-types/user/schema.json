@@ -90,6 +90,12 @@
     },
     "phone": {
       "type": "string"
+    },
+    "productReviewed": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-review.product-review",
+      "mappedBy": "reviewer"
     }
   }
 }

@@ -1,11 +1,11 @@
-import { MediaData, ProductData } from './common';
+import { SingleMediaData, ProductData } from './common';
 import { MetaData } from './global';
 export interface SliderData {
   id: number;
   title: string;
   description: string;
   buttonText: string;
-  image: MediaData;
+  image: SingleMediaData;
 }
 
 export interface HomeCategoryData {
@@ -45,7 +45,7 @@ export interface InspiredData {
 }
 
 export interface ShipmentData {
-  icon: MediaData;
+  icon: SingleMediaData;
   title: string;
   description: string;
 }

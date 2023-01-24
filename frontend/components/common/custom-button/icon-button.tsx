@@ -1,22 +1,20 @@
-import { IconButton, SxProps } from '@mui/material';
+import { ButtonProps, IconButton, SxProps } from '@mui/material';
 
-export interface CustomIconButtonProps {
+export interface CustomIconButtonProps extends ButtonProps {
   children: React.ReactNode;
-  color: string;
+  color: any;
   sx?: SxProps;
-  properties?: Object;
   onClick?: () => void;
 }
 
 export function CustomIconButton(props: CustomIconButtonProps) {
-  const { children, color, sx, properties, onClick = null } = props;
+  const { children, color, sx, onClick = null, ...restProps } = props;
   const handleClick = () => {
     if (!onClick) return;
     onClick();
   };
   return (
     <IconButton
-      {...properties}
       onClick={handleClick}
       sx={{
         border: '1px solid',
@@ -31,6 +29,7 @@ export function CustomIconButton(props: CustomIconButtonProps) {
         },
         ...sx,
       }}
+      {...restProps}
     >
       {children}
     </IconButton>

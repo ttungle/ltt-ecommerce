@@ -8,7 +8,7 @@ export interface ProductPaginationProps {
 }
 
 export function ProductPagination({ pagination, onPageChange }: ProductPaginationProps) {
-  const { page, pageCount } = pagination;
+  const { page = 0, pageCount } = pagination;
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
     if (!onPageChange) return;

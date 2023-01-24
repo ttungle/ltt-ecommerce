@@ -4,7 +4,7 @@
   "info": {
     "singularName": "home",
     "pluralName": "homes",
-    "displayName": "Home",
+    "displayName": "Home Page",
     "description": ""
   },
   "options": {
@@ -106,6 +106,16 @@
         }
       },
       "component": "sections.shipment-info"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": true,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "shared.seo"
     }
   }
 }

@@ -107,9 +107,9 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
 
                   <OutLinedButton
                     icon={<EastIcon sx={{ transform: 'translateY(-8%)' }} />}
-                    css={{
+                    sx={{
                       fontSize: '0.688rem',
-                      padding: '16px 54px',
+                      padding: '14px 54px',
                       letterSpacing: '3px',
                     }}
                   >

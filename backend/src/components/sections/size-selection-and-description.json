@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_sections_size_selection_and_descriptions",
+  "info": {
+    "displayName": "Size Selection & Description",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "sizeDescription": {
+      "type": "richtext"
+    }
+  }
+}

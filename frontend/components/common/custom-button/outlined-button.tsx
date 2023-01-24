@@ -1,16 +1,16 @@
-import { Button, SxProps } from '@mui/material';
+import { Button, SxProps, ButtonProps } from '@mui/material';
 import { ReactNode } from 'react';
 
-export interface OutLinedButtonProps {
+export interface OutLinedButtonProps extends ButtonProps {
   children: String;
   properties?: Object;
-  css?: SxProps;
+  sx?: SxProps;
   icon?: ReactNode;
   isDisabled?: boolean;
 }
 
 export function OutLinedButton(props: OutLinedButtonProps) {
-  const { children, properties, css, icon, isDisabled } = props;
+  const { children, properties, sx, icon, isDisabled, ...resProps } = props;
   return (
     <Button
       variant='outlined'
@@ -18,16 +18,18 @@ export function OutLinedButton(props: OutLinedButtonProps) {
       endIcon={icon || ''}
       {...properties}
       sx={{
-        border: '2px solid',
+        border: '1px solid',
         borderColor: 'common.white',
         color: 'common.white',
         '&:hover': {
-          border: '2px solid',
+          border: '1px solid',
           borderColor: 'primary.main',
           bgcolor: 'primary.main',
+          color: 'common.white',
         },
-        ...css,
+        ...sx,
       }}
+      {...resProps}
     >
       {children}
     </Button>

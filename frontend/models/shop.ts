@@ -1,4 +1,4 @@
-import { MediaData } from './common';
+import { SingleMediaData } from './common';
 
 export enum FilterOperators {
   And = '$and',
@@ -15,6 +15,15 @@ export interface ShopData {
   productListPageSize: number | null;
   sortTypeList: Array<sortTypeItemData>;
   multipleFilterList: any;
+}
+
+export interface ShopDetailsData {
+  id: number;
+  attributes: {
+    metadata: any;
+    sizeSelection: ShopDetailSizeSelectionData;
+    productReviewSection: ShopDetailReviewSectionItemData;
+  };
 }
 
 export interface BreadcrumbItemData {
@@ -34,7 +43,7 @@ export interface BannerData {
   bannerTitle: string | null;
   bannerDescription: string | null;
   textPosition: string | null;
-  bannerImage: MediaData;
+  bannerImage: SingleMediaData;
   textColor: 'black' | 'white' | null;
 }
 
@@ -62,7 +71,7 @@ export interface ProductMultipleFilterItemValue {
 
 export interface MultipleFilterImageItemData {
   filterItemName: string | null;
-  filterItemImage: MediaData;
+  filterItemImage: SingleMediaData;
 }
 
 export interface MultipleFiltersImageData {
@@ -90,4 +99,14 @@ export interface ProductFiltersValue {
 export interface FilterByPriceOption {
   label: string;
   value: number;
+}
+
+export interface ShopDetailSizeSelectionData {
+  id: number;
+  title: string;
+  sizeDescription: string;
+}
+
+export interface ShopDetailReviewSectionItemData {
+  [key: string]: string;
 }

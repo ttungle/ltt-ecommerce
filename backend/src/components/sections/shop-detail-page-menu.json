@@ -1,0 +1,23 @@
+{
+  "collectionName": "components_sections_shop_detail_page_menus",
+  "info": {
+    "displayName": "Shop Detail Page Menu",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "menuTitle": {
+      "type": "string",
+      "required": true
+    },
+    "contentType": {
+      "type": "enumeration",
+      "enum": [
+        "richText",
+        "reviewForm"
+      ],
+      "required": false,
+      "default": "richText"
+    }
+  }
+}
