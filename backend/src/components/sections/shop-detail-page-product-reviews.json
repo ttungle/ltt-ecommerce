@@ -1,0 +1,76 @@
+{
+  "collectionName": "components_sections_shop_detail_page_product_reviews",
+  "info": {
+    "displayName": "Shop Detail Page - Product Reviews",
+    "icon": "align-justify",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string",
+      "default": "Reviews",
+      "required": true
+    },
+    "emptyReviewMessage": {
+      "type": "string",
+      "default": "There are no reviews for this product yet.",
+      "required": true
+    },
+    "addReviewButtonLabel": {
+      "type": "string",
+      "default": "How would you rate this product",
+      "required": true
+    },
+    "addReviewButtonTitle": {
+      "type": "string",
+      "default": "Review Now",
+      "required": true
+    },
+    "showMoreButton": {
+      "type": "string",
+      "required": true,
+      "default": "Show More"
+    },
+    "reviewFormTitlePlaceholder": {
+      "type": "string",
+      "default": "Title",
+      "required": true
+    },
+    "reviewFormContentPlaceholder": {
+      "type": "string",
+      "default": "Please share some product reviews",
+      "required": true
+    },
+    "reviewFormBottomLinePlaceholder": {
+      "type": "string",
+      "default": "Would you recommend to a friend?",
+      "required": true
+    },
+    "reviewFormRatingLinePlaceholder": {
+      "type": "string",
+      "default": "How do you like this product?",
+      "required": true
+    },
+    "reviewFormTitleValidateMessage": {
+      "type": "string",
+      "default": "Title is required.",
+      "required": true
+    },
+    "reviewFormContentValidateMessage": {
+      "type": "string",
+      "required": true,
+      "default": "Content is required"
+    },
+    "reviewFormRatingValidateMessage": {
+      "type": "string",
+      "required": true,
+      "default": "Please select rating."
+    },
+    "reviewFormBottomLineValue": {
+      "type": "string",
+      "required": true,
+      "default": "Yes, I would recommend to a friend"
+    }
+  }
+}

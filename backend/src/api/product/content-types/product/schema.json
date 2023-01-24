@@ -40,7 +40,8 @@
           "localized": true
         }
       },
-      "type": "decimal"
+      "type": "decimal",
+      "required": true
     },
     "salePercentage": {
       "pluginOptions": {
@@ -135,7 +136,8 @@
           "localized": true
         }
       },
-      "type": "richtext"
+      "type": "richtext",
+      "required": true
     },
     "code": {
       "pluginOptions": {
@@ -152,6 +154,12 @@
         }
       },
       "type": "decimal"
+    },
+    "productReviews": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-review.product-review",
+      "mappedBy": "product"
     }
   }
 }

@@ -18,6 +18,8 @@ import 'swiper/css/pagination';
 import '../styles/globals.css';
 import '../styles/swiper.css';
 import '../styles/gallery-swiper.css';
+import { Provider } from 'react-redux';
+import store from '@/stores/store';
 
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();
@@ -34,11 +36,13 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <CssBaseline />
         <AuthProvider>
           <QueryClientProvider client={queryClient}>
-            <Layout global={global}>
-              <Component {...pageProps} />
-            </Layout>
+            <Provider store={store}>
+              <Layout global={global}>
+                <Component {...pageProps} />
+              </Layout>
+              <ToastContainer style={{ marginTop: '60px' }} />
+            </Provider>
           </QueryClientProvider>
-          <ToastContainer style={{ marginTop: '60px' }} />
         </AuthProvider>
       </ThemeProvider>
     </CacheProvider>

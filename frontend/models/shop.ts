@@ -17,6 +17,15 @@ export interface ShopData {
   multipleFilterList: any;
 }
 
+export interface ShopDetailsData {
+  id: number;
+  attributes: {
+    metadata: any;
+    sizeSelection: ShopDetailSizeSelectionData;
+    productReviewSection: ShopDetailReviewSectionItemData;
+  };
+}
+
 export interface BreadcrumbItemData {
   id: number;
   title: string;
@@ -90,4 +99,14 @@ export interface ProductFiltersValue {
 export interface FilterByPriceOption {
   label: string;
   value: number;
+}
+
+export interface ShopDetailSizeSelectionData {
+  id: number;
+  title: string;
+  sizeDescription: string;
+}
+
+export interface ShopDetailReviewSectionItemData {
+  [key: string]: string;
 }

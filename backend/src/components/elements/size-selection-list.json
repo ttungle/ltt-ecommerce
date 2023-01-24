@@ -1,0 +1,18 @@
+{
+  "collectionName": "components_elements_size_selection_lists",
+  "info": {
+    "displayName": "Size Selection List"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "value": {
+      "type": "string"
+    },
+    "status": {
+      "type": "string"
+    }
+  }
+}

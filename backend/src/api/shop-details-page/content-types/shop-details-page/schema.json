@@ -4,7 +4,8 @@
   "info": {
     "singularName": "shop-details-page",
     "pluralName": "shop-details-pages",
-    "displayName": "Shop Details Page"
+    "displayName": "Shop Details Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -15,6 +16,17 @@
       "type": "component",
       "repeatable": false,
       "component": "shared.metadata"
+    },
+    "sizeSelection": {
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.size-selection-and-description"
+    },
+    "productReviewSection": {
+      "displayName": "Shop Detail Page - Product Reviews",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.shop-detail-page-product-reviews"
     }
   }
 }

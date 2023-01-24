@@ -9,7 +9,12 @@ export function ProductMoreDetailButton(props: ProductMoreDetailButtonProps) {
       href='#product-details'
       color='text.primary'
       underline='none'
-      sx={{ display: 'flex', justifyContent: 'flex-start', alignItems: 'center' }}
+      sx={{
+        display: 'flex',
+        justifyContent: 'flex-start',
+        alignItems: 'center',
+        ':hover': { color: 'primary.main' },
+      }}
     >
       <MoreVertIcon sx={{ fontSize: '1.2rem' }} />
       <Typography my={3}>More Details</Typography>

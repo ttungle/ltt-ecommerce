@@ -1,28 +1,67 @@
-import { ProductInformation, AddToCartForm } from '@/components/shop';
-import { ProductDetailThumbnail } from '@/components/shop/product-detail-thumbnail';
-import { Container, Grid, Box, Typography, Divider, Stack } from '@mui/material';
-import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { shopApi } from '@/api-client';
+import {
+  ProductAddToCartForm,
+  ProductDetailDescription,
+  ProductDetailThumbnail,
+  ProductInformation,
+  ProductMoreDetailButton,
+  ProductReviews,
+  RelatedProduct,
+} from '@/components/shop';
+import { ProductData, ShopDetailsData } from '@/models';
 import { fetchAPI } from '@/utils';
-import { ProductData } from '@/models';
+import { Container, Grid, Stack } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import { GetServerSideProps, GetServerSidePropsContext } from 'next';
+import { useCallback } from 'react';
 import { FieldValues } from 'react-hook-form/dist/types';
-import { ProductMoreDetailButton } from '@/components/shop/product-more-details-btn';
+import { toast } from 'react-toastify';
 
 export interface ProductDetailPageProps {
+  shopDetails: ShopDetailsData;
   product: ProductData;
 }
 
-export default function ProductDetailPage({ product }: ProductDetailPageProps) {
-  const handleAddToCartSubmit = (value: FieldValues) => {
-    console.log('>>> Check value', {
-      ...value,
-      id: product.id,
-      name: product.attributes.name,
-      path: product.attributes.path,
-    });
+export default function ProductDetailPage({ shopDetails, product }: ProductDetailPageProps) {
+  const relatedProductListQuery = useQuery({
+    queryKey: [`getRelatedProduct`],
+    queryFn: async () =>
+      product?.attributes?.category?.data?.id &&
+      (await shopApi.getProductByCatagory(product?.attributes?.category?.data?.id)),
+    enabled: Boolean(product?.attributes?.category?.data?.id),
+  });
+
+  const { data: relatedProductList } = relatedProductListQuery;
+
+  const handleAddToCartSubmit = useCallback(
+    (value: FieldValues) => {
+      console.log('Add to cart form values', {
+        ...value,
+        id: product.id,
+        name: product.attributes.name,
+        path: product.attributes.path,
+      });
+    },
+    [product]
+  );
+
+  const handleReviewFormSubmit = async (values: FieldValues) => {
+    try {
+      const payload = {
+        ...values,
+        product: product?.id,
+      };
+
+      await shopApi.createProductReviewComment(payload);
+      toast.success('Your review has been submitted. Thank you.');
+    } catch (error) {
+      console.log(error);
+      toast.success('Opps! Something went wrong. Please try again.');
+    }
   };
 
   return (
-    <Box>
+    <>
       <Container sx={{ mt: 6 }}>
         <Grid container spacing={12}>
           <Grid item md={6} xs={12}>
@@ -30,6 +69,7 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
               productThumbnails={product?.attributes?.thumbnails?.data ?? []}
             />
           </Grid>
+
           <Grid item md={6} xs={12}>
             <Stack
               direction='column'
@@ -38,13 +78,29 @@ export default function ProductDetailPage({ product }: ProductDetailPageProps) {
               sx={{ transform: 'translateY(-10%)', maxWidth: '500px', margin: 'auto' }}
             >
               <ProductInformation product={product ?? {}} />
-              <AddToCartForm onSubmit={handleAddToCartSubmit} />
+              <ProductAddToCartForm
+                categoryData={product?.attributes?.category}
+                sizeSelectionData={shopDetails?.attributes?.sizeSelection}
+                onSubmit={handleAddToCartSubmit}
+              />
               <ProductMoreDetailButton />
             </Stack>
           </Grid>
         </Grid>
+
+        <ProductDetailDescription data={product?.attributes?.detailDescription ?? ''} />
+        {relatedProductList && (
+          <RelatedProduct
+            relatedProductList={relatedProductList?.data?.attributes?.products?.data}
+          />
+        )}
+        <ProductReviews
+          productReviewSectionData={shopDetails?.attributes?.productReviewSection ?? []}
+          productReviewsList={product?.attributes?.productReviews?.data ?? []}
+          onReviewFormSubmit={handleReviewFormSubmit}
+        />
       </Container>
-    </Box>
+    </>
   );
 }
 
@@ -54,16 +110,20 @@ export const getServerSideProps: GetServerSideProps = async (
   const { query } = context;
 
   const productData = await fetchAPI(`/products/${query.pid}`, {
-    populate: ['thumbnails'],
+    populate: ['thumbnails', 'category.sizeSelectionList', 'productReviews.reviewer'],
+  });
+  const shopDetailsPage = await fetchAPI(`/shop-details-page`, {
+    populate: ['metadata.shareImage', 'sizeSelection', 'productReviewSection'],
   });
 
   const product = productData.data;
+  const shopDetails = shopDetailsPage.data;
 
-  if (!product) {
+  if (!product || !shopDetails) {
     return {
       notFound: true,
     };
   }
 
-  return { props: { product } };
+  return { props: { product, shopDetails } };
 };

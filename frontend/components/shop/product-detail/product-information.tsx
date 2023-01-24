@@ -29,7 +29,7 @@ export function ProductInformation({ product }: ProductInformationProps) {
             {name}
           </Typography>
 
-          <Typography mb={2} fontSize='0.875rem'>
+          <Typography mb={2} fontSize='0.875rem' lineHeight={1.8} fontWeight={400}>
             {description}
           </Typography>
 

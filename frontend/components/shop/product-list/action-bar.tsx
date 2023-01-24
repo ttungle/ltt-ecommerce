@@ -1,14 +1,9 @@
+import { CustomIconButton } from '@/components/common/custom-button';
 import { PaginationData, sortTypeItemData } from '@/models';
 import TuneIcon from '@mui/icons-material/Tune';
-import {
-  FormControl, MenuItem,
-  Select,
-  SelectChangeEvent,
-  Stack, Typography
-} from '@mui/material';
+import { FormControl, MenuItem, Select, SelectChangeEvent, Stack, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import { memo, useMemo } from 'react';
-import { CustomIconButton } from '../common/custom-button/icon-button';
 
 export interface ShopActionBarProps {
   sortTypeList: Array<sortTypeItemData>;
@@ -58,7 +53,7 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
       <Stack direction='row' justifyContent='space-between' alignItems='center'>
         <CustomIconButton
           color='text.primary'
-          properties={{ size: 'small' }}
+          size='small'
           onClick={() => handleToggleFiltersDrawer(true)}
         >
           <TuneIcon />
