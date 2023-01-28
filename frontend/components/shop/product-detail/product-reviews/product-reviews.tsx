@@ -109,7 +109,13 @@ export function ProductReviews({
 
   return (
     <>
-      <Typography component='h5' fontSize='1.125rem' fontWeight={600} mt={22} mb={2}>
+      <Typography
+        component='h5'
+        fontSize={{ md: '1.125rem', xs: '1rem' }}
+        fontWeight={600}
+        mt={22}
+        mb={2}
+      >
         {productReviewSectionData.title}
       </Typography>
 

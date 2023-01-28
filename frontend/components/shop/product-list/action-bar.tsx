@@ -64,7 +64,10 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
             {productPagination?.page}/{productPagination?.pageCount}
           </Typography>
 
-          <FormControl sx={{ m: 1, minWidth: 80 }} size='small'>
+          <FormControl
+            sx={{ m: 1, minWidth: 80, display: { xs: 'none', md: 'block' } }}
+            size='small'
+          >
             <Select
               value={layoutValue}
               label=''

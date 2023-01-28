@@ -8,6 +8,7 @@ import { ContainedButton, OutLinedButton } from '../../common/custom-button';
 import { QuantityField } from '../../common/form-controls';
 import { ProductSizeSelection } from './product-size-selection';
 import CloseIcon from '@mui/icons-material/Close';
+import { useRouter } from 'next/router';
 
 export interface ProductAddToCartFormProps {
   categoryData: CategoryData | undefined;
@@ -20,6 +21,7 @@ export function ProductAddToCartForm({
   sizeSelectionData,
   onSubmit,
 }: ProductAddToCartFormProps) {
+  const router = useRouter();
   const [showSizeGuide, setShowSizeGuide] = useState(false);
   const form = useForm<FieldValues>({
     defaultValues: {
@@ -73,7 +75,8 @@ export function ProductAddToCartForm({
           label=''
           name='quantity'
           placeholder=''
-          sx={{ width: '72px', mb: 2 }}
+          maxQuantity={1000}
+          sx={{ '& input': { width: '72px' }, mb: 2 }}
         />
 
         <ContainedButton
@@ -85,6 +88,8 @@ export function ProductAddToCartForm({
         </ContainedButton>
         <OutLinedButton
           fullWidth
+          type='submit'
+          onClick={() => router.push('/cart')}
           sx={{
             mt: 2,
             py: 1.5,

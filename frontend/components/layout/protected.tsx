@@ -1,3 +1,4 @@
+import { DARK_BACKGROUND_PATHs } from '@/constant';
 import { useAuthContext } from '@/contexts';
 import { LayoutProps } from '@/models';
 import { Box, Stack } from '@mui/material';
@@ -22,11 +23,20 @@ export function ProtectedLayout({ children, global }: LayoutProps) {
     <Stack minHeight='100vh'>
       <Header navigationData={navigation} />
 
-      <Box height='75px'></Box>
-
       {!isAuthenticated && <CircularLoader loaderContent='Wait a moment...' />}
 
-      {isAuthenticated && <Box flexGrow={1}>{children}</Box>}
+      {isAuthenticated && (
+        <Box
+          component='main'
+          flexGrow={1}
+          sx={{
+            mt: '75px',
+            bgcolor: DARK_BACKGROUND_PATHs.includes(router.pathname) ? 'bg.dark' : 'bg.main',
+          }}
+        >
+          {children}
+        </Box>
+      )}
 
       <Footer footerData={footer} smallTextData={smallText} />
     </Stack>
