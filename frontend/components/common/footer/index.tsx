@@ -1,4 +1,5 @@
 import { subscriptionApi } from '@/api-client';
+import { LIGHT_FOOTER_PATHs } from '@/constant';
 import { FooterData, FooterSmallTextData, SubscriptionValueData } from '@/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Container, Grid, Typography } from '@mui/material';
@@ -38,7 +39,12 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
   };
 
   return (
-    <Box sx={{ pt: 7, bgcolor: router.pathname === '/' ? '#fff' : '#f6f6f6' }}>
+    <Box
+      sx={{
+        pt: 7,
+        bgcolor: LIGHT_FOOTER_PATHs.includes(router.pathname) ? 'bg.main' : 'bg.dark',
+      }}
+    >
       <Container maxWidth='xl'>
         <Grid container mb={7}>
           {footerColumns.map((column) => (

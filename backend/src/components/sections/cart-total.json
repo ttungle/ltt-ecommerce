@@ -1,0 +1,40 @@
+{
+  "collectionName": "components_sections_cart_totals",
+  "info": {
+    "displayName": "Cart Total",
+    "icon": "cart-plus",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "cartTotalTitle": {
+      "type": "string",
+      "required": true
+    },
+    "cartSubtotal": {
+      "type": "string",
+      "required": true
+    },
+    "cartPromotion": {
+      "type": "string",
+      "required": true
+    },
+    "cartCheckoutButton": {
+      "type": "string",
+      "required": true
+    },
+    "cartPromotionButtonShow": {
+      "type": "string",
+      "required": true
+    },
+    "cartPromotionButtonHide": {
+      "type": "string",
+      "required": true
+    },
+    "cartTotalPrice": {
+      "type": "string",
+      "required": true,
+      "default": "Total"
+    }
+  }
+}

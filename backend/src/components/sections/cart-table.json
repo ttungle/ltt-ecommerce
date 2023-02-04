@@ -1,0 +1,47 @@
+{
+  "collectionName": "components_sections_cart_tables",
+  "info": {
+    "displayName": "Cart Table",
+    "description": ""
+  },
+  "options": {},
+  "attributes": {
+    "productTableHead": {
+      "type": "string",
+      "required": true,
+      "default": "Product"
+    },
+    "priceTableHead": {
+      "type": "string",
+      "required": true,
+      "default": "Price"
+    },
+    "quantityTableHead": {
+      "type": "string",
+      "default": "Quantity",
+      "required": true
+    },
+    "subtotalTableHead": {
+      "type": "string",
+      "default": "Subtotal",
+      "required": true
+    },
+    "removeDialogTitle": {
+      "type": "string",
+      "required": true,
+      "default": "Remove Product"
+    },
+    "removeDialogContent": {
+      "type": "string",
+      "required": true
+    },
+    "removeDialogYesButton": {
+      "type": "string",
+      "required": true
+    },
+    "removeDialogNoButton": {
+      "type": "string",
+      "required": true
+    }
+  }
+}

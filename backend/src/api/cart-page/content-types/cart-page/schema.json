@@ -1,0 +1,52 @@
+{
+  "kind": "singleType",
+  "collectionName": "cart_pages",
+  "info": {
+    "singularName": "cart-page",
+    "pluralName": "cart-pages",
+    "displayName": "Cart Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  },
+  "attributes": {
+    "pageHeader": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    },
+    "cartTable": {
+      "displayName": "Cart Table",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.cart-table",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "required": true
+    },
+    "cartTotal": {
+      "displayName": "Cart Total",
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.cart-total",
+      "required": true
+    }
+  }
+}

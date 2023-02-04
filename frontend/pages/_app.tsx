@@ -19,7 +19,8 @@ import '../styles/globals.css';
 import '../styles/swiper.css';
 import '../styles/gallery-swiper.css';
 import { Provider } from 'react-redux';
-import store from '@/stores/store';
+import store, { persistor } from '@/app/store';
+import { PersistGate } from 'redux-persist/integration/react';
 
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();
@@ -37,10 +38,12 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
         <AuthProvider>
           <QueryClientProvider client={queryClient}>
             <Provider store={store}>
-              <Layout global={global}>
-                <Component {...pageProps} />
-              </Layout>
-              <ToastContainer style={{ marginTop: '60px' }} />
+              <PersistGate loading={null} persistor={persistor}>
+                <Layout global={global}>
+                  <Component {...pageProps} />
+                </Layout>
+                <ToastContainer style={{ marginTop: '60px' }} />
+              </PersistGate>
             </Provider>
           </QueryClientProvider>
         </AuthProvider>

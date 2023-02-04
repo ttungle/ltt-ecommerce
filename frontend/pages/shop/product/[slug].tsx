@@ -9,6 +9,8 @@ import {
   RelatedProduct,
 } from '@/components/shop';
 import { ProductData, ShopDetailsData } from '@/models';
+import { addToCart, CartItemState } from '@/app/slices/cart-slice';
+import { useAppDispatch } from '@/app/hooks';
 import { fetchAPI } from '@/utils';
 import { Container, Grid, Stack } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
@@ -23,6 +25,8 @@ export interface ProductDetailPageProps {
 }
 
 export default function ProductDetailPage({ shopDetails, product }: ProductDetailPageProps) {
+  const dispatch = useAppDispatch();
+
   const relatedProductListQuery = useQuery({
     queryKey: [`getRelatedProduct`],
     queryFn: async () =>
@@ -35,12 +39,15 @@ export default function ProductDetailPage({ shopDetails, product }: ProductDetai
 
   const handleAddToCartSubmit = useCallback(
     (value: FieldValues) => {
-      console.log('Add to cart form values', {
+      const cartItem = {
         ...value,
         id: product.id,
-        name: product.attributes.name,
-        path: product.attributes.path,
-      });
+        product: product.attributes,
+      } as CartItemState;
+
+      const action = addToCart(cartItem);
+
+      dispatch(action);
     },
     [product]
   );

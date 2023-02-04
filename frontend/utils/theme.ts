@@ -22,6 +22,10 @@ const theme = createTheme({
       primary: '#222',
       secondary: '#868686',
     },
+    bg: {
+      main: '#ffffff',
+      dark: '#f6f6f6',
+    },
   },
   components: {
     MuiContainer: {
@@ -84,7 +88,25 @@ const theme = createTheme({
         },
       },
     },
+    MuiTableCell: {
+      styleOverrides: {
+        root: {
+          fontSize: '0.813rem',
+        },
+      },
+    },
   },
 });
+
+declare module '@mui/material/styles' {
+  interface Palette {
+    bg: Palette['primary'];
+  }
+  interface PaletteOptions {
+    bg?: PaletteOptions['primary'];
+  }
+}
+
+
 
 export default theme;

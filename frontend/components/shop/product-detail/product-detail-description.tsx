@@ -13,9 +13,9 @@ export function ProductDetailDescription({ data }: ProductDetailDescriptionProps
       <Typography
         id='product-details'
         component='h5'
-        fontSize='1.125rem'
+        fontSize={{ md: '1.125rem', xs: '1rem' }}
         fontWeight={600}
-        mt={22}
+        mt={{ md: 22, xs: 2 }}
         mb={2}
       >
         Product Details
@@ -23,7 +23,15 @@ export function ProductDetailDescription({ data }: ProductDetailDescriptionProps
 
       <Divider />
 
-      <Box sx={{ fontSize: '0.875rem', lineHeight: 1.8, fontWeight: 300, pt: 3 }}>
+      <Box
+        sx={{
+          fontSize: '0.875rem',
+          lineHeight: 1.8,
+          fontWeight: 300,
+          pt: 3,
+          '& img': { maxWidth: '100%' },
+        }}
+      >
         <ReactMarkdown>{convertMarkdownImageSrc(data)}</ReactMarkdown>
       </Box>
     </>
