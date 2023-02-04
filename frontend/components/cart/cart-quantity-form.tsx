@@ -1,5 +1,5 @@
-import { CartItemState, setQuantity } from '@/stores/cart-slice';
-import { useAppDispatch } from '@/stores/hooks';
+import { CartItemState, setQuantity } from '@/app/slices/cart-slice';
+import { useAppDispatch } from '@/app/hooks';
 import { Box } from '@mui/material';
 import { FieldValues, useForm } from 'react-hook-form';
 import { QuantityField } from '../common/form-controls';
@@ -17,7 +17,6 @@ export function CartQuantityForm({ productCartData }: CartQuantityFormProps) {
   });
 
   const handleQuantityChange = (value: number) => {
-    console.log('>>> Check values: ', value);
     const actionPayload: CartItemState = {
       ...productCartData,
       id: productCartData?.id,

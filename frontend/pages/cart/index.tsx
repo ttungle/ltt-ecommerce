@@ -1,25 +1,60 @@
+import { cartApi } from '@/api-client/cart-api';
+import { useAppSelector } from '@/app/hooks';
+import { cartItemCountSelector } from '@/app/selectors/cart-selector';
 import { CartList, CartTotal } from '@/components/cart';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { ContainedButton } from '@/components/common/custom-button';
+import { GLOBAL_PATHs } from '@/constant';
+import { Container, Grid, Stack, Typography } from '@mui/material';
+import { useQuery } from '@tanstack/react-query';
+import { useRouter } from 'next/router';
 
-export interface CartPageProps {}
+export default function CartPage() {
+  const router = useRouter();
+  const cartItemTotalCount = useAppSelector(cartItemCountSelector);
 
-export default function CartPage(props: CartPageProps) {
+  const cartPageQuery = useQuery({
+    queryKey: [`getCartPage`],
+    queryFn: async () => await cartApi.getCartPage(),
+  });
+
+  const { data: cartPageData, isLoading } = cartPageQuery;
+
   return (
     <>
-      <Container>
-        <Typography component='h2' variant='h5' my={5} fontWeight={600}>
-          Shopping Cart
-        </Typography>
+      {!isLoading && cartPageData && (
+        <Container>
+          <Typography component='h2' variant='h5' my={5} fontWeight={700}>
+            {`${cartPageData?.data?.attributes?.pageHeader ?? ''}`}
+            {cartItemTotalCount > 0 ? ` (${cartItemTotalCount})` : ''}
+          </Typography>
 
-        <Grid container spacing={10}>
-          <Grid item xs={9}>
-            <CartList />
-          </Grid>
-          <Grid item xs={3}>
-            <CartTotal />
-          </Grid>
-        </Grid>
-      </Container>
+          {cartItemTotalCount > 0 && (
+            <Grid container spacing={5}>
+              <Grid item xs={8.5}>
+                <CartList cartTableData={cartPageData?.data?.attributes?.cartTable} />
+              </Grid>
+              <Grid item xs={3.5}>
+                <CartTotal cartTotalData={cartPageData?.data?.attributes?.cartTotal} />
+              </Grid>
+            </Grid>
+          )}
+
+          {cartItemTotalCount <= 0 && (
+            <Stack direction='column' alignItems='center' justifyContent='center'>
+              <Typography fontSize='1rem' my={3}>
+                There are no products in your shopping cart.
+              </Typography>
+              <ContainedButton size='large' onClick={() => router.push(GLOBAL_PATHs.shop)}>
+                Continue shopping
+              </ContainedButton>
+            </Stack>
+          )}
+        </Container>
+      )}
+
+      {!isLoading && !cartPageData && (
+        <Typography>Opps! Something went wrong. Please contact admin.</Typography>
+      )}
     </>
   );
 }

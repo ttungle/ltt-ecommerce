@@ -9,8 +9,8 @@ import {
   RelatedProduct,
 } from '@/components/shop';
 import { ProductData, ShopDetailsData } from '@/models';
-import { addToCart, CartItemState } from '@/stores/cart-slice';
-import { useAppDispatch } from '@/stores/hooks';
+import { addToCart, CartItemState } from '@/app/slices/cart-slice';
+import { useAppDispatch } from '@/app/hooks';
 import { fetchAPI } from '@/utils';
 import { Container, Grid, Stack } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';

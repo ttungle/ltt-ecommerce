@@ -4,6 +4,7 @@ export const GLOBAL_PATHs = {
   profile: '/account/profile',
   home: '/',
   shop: '/shop/category/all-products',
+  productDetail: '/shop/product/',
   cart: '/cart',
 };
 
