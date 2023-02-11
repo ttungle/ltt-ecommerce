@@ -1,14 +1,16 @@
+import { useAppDispatch } from '@/app/hooks';
+import { showMiniCart } from '@/app/slices/cart-slice';
 import { CategoryData, ShopDetailSizeSelectionData } from '@/models';
+import CloseIcon from '@mui/icons-material/Close';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';
 import { Box, Divider, IconButton, Stack, SwipeableDrawer, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form/dist/types';
 import { ContainedButton, OutLinedButton } from '../../common/custom-button';
 import { QuantityField } from '../../common/form-controls';
 import { ProductSizeSelection } from './product-size-selection';
-import CloseIcon from '@mui/icons-material/Close';
-import { useRouter } from 'next/router';
 
 export interface ProductAddToCartFormProps {
   categoryData: CategoryData | undefined;
@@ -23,6 +25,7 @@ export function ProductAddToCartForm({
 }: ProductAddToCartFormProps) {
   const router = useRouter();
   const [showSizeGuide, setShowSizeGuide] = useState(false);
+  const dispatch = useAppDispatch();
   const form = useForm<FieldValues>({
     defaultValues: {
       quantity: 1,
@@ -40,6 +43,10 @@ export function ProductAddToCartForm({
     if (!onSubmit) return;
 
     onSubmit(value);
+  };
+
+  const handleAddToCartClick = () => {
+    dispatch(showMiniCart());
   };
 
   return (
@@ -82,6 +89,7 @@ export function ProductAddToCartForm({
         <ContainedButton
           type='submit'
           fullWidth
+          onClick={handleAddToCartClick}
           sx={{ py: 1.5, fontSize: { md: '0.875rem', xs: '0.75rem' } }}
         >
           Add To Cart

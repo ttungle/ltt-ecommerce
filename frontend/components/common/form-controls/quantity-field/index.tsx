@@ -1,5 +1,4 @@
-import { FormControl, OutlinedInput, Stack, SxProps, Theme } from '@mui/material';
-import { useState } from 'react';
+import { OutlinedInput, Stack, SxProps, Theme } from '@mui/material';
 import { Controller, UseFormReturn } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form/dist/types';
 import { OutLinedButton } from '../../custom-button';
@@ -26,10 +25,7 @@ export function QuantityField(props: QuantityFieldProps) {
     maxQuantity,
     onQuantityChange,
   } = props;
-  const { control, getValues, setValue } = form;
-  // const [displayValue, setDisplayValue] = useState<number | undefined>(
-  //   () => getValues('quantity') * 1
-  // );
+  const { control, setValue } = form;
 
   const handleIncreaseQuantity = (name: string, value: string) => {
     let quantityValue = Number.parseInt(value) ? Number.parseInt(value) + 1 : 1;
@@ -76,7 +72,7 @@ export function QuantityField(props: QuantityFieldProps) {
               onClick={() => handleDecreaseQuantity(name, field.value)}
               sx={{
                 borderRadius: 0,
-                borderRight: 'none',
+                borderRightColor: 'transparent',
                 borderColor: 'grey.400',
                 color: 'grey.800',
                 minWidth: 42,
@@ -105,7 +101,7 @@ export function QuantityField(props: QuantityFieldProps) {
               onClick={() => handleIncreaseQuantity(name, field.value)}
               sx={{
                 borderRadius: 0,
-                borderLeft: 'none',
+                borderLeftColor: 'transparent',
                 borderColor: 'grey.400',
                 color: 'grey.800',
                 minWidth: 42,

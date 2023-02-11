@@ -1,3 +1,7 @@
+import { useAppDispatch, useAppSelector } from '@/app/hooks';
+import { cartItemCountSelector } from '@/app/selectors/cart-selector';
+import { hideMiniCart } from '@/app/slices/cart-slice';
+import { GLOBAL_PATHs } from '@/constant';
 import { useAuthContext } from '@/contexts';
 import { NavigationData } from '@/models';
 import { getStrapiMedia } from '@/utils';
@@ -5,10 +9,17 @@ import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlin
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import { Avatar, Box, Divider, IconButton, Menu, MenuItem, Typography } from '@mui/material';
+import {
+  Avatar,
+  Badge,
+  Box,
+  IconButton,
+  Menu,
+  MenuItem, Typography
+} from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useEffect, useState } from 'react';
-
+import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { ViewCartPopover } from './view-cart-popover';
 export interface IconMenuProps {
   navigation: NavigationData;
 }
@@ -21,18 +32,18 @@ const settings = [
     label: 'Logout',
   },
 ];
-const icons = {
-  search: <SearchIcon sx={{ fontSize: 26 }} />,
-  person: <PersonOutlineOutlinedIcon sx={{ fontSize: 26 }} />,
-  favorite: <FavoriteBorderOutlinedIcon sx={{ fontSize: 26 }} />,
-  cart: <ShoppingBagOutlinedIcon sx={{ fontSize: 26 }} />,
-} as any;
 
 export function IconMenu({ navigation }: IconMenuProps) {
   const router = useRouter();
   const { user, logout } = useAuthContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
+  const [anchorElCart, setAnchorElCart] = useState<HTMLButtonElement | null>(null);
+  const cartIconRef = useRef(null);
+  const cartItemTotalCount = useAppSelector(cartItemCountSelector);
+  const timerRef = useRef<ReturnType<typeof setTimeout>>();
+  const dispatch = useAppDispatch();
+  const showMiniCart = useAppSelector((state) => state.cart.showMiniCart);
 
   useEffect(() => {
     if (user?.id) {
@@ -41,6 +52,36 @@ export function IconMenu({ navigation }: IconMenuProps) {
       setIsAuthenticated(false);
     }
   }, [user]);
+
+  useEffect(() => {
+    if (showMiniCart && cartIconRef?.current) {
+      clearTimeout(timerRef.current);
+      setAnchorElCart(cartIconRef.current);
+      timerRef.current = setTimeout(() => {
+        setAnchorElCart(null);
+        dispatch(hideMiniCart());
+      }, 3000);
+    } else {
+      setAnchorElCart(null);
+    }
+
+    return () => clearTimeout(timerRef.current);
+  }, [showMiniCart]);
+
+  const icons = useMemo(
+    () =>
+      ({
+        search: <SearchIcon sx={{ fontSize: 26 }} />,
+        person: <PersonOutlineOutlinedIcon sx={{ fontSize: 26 }} />,
+        favorite: <FavoriteBorderOutlinedIcon sx={{ fontSize: 26 }} />,
+        cart: (
+          <Badge badgeContent={cartItemTotalCount} color='primary'>
+            <ShoppingBagOutlinedIcon sx={{ fontSize: 26 }} />
+          </Badge>
+        ),
+      } as any),
+    [cartItemTotalCount]
+  );
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -59,6 +100,22 @@ export function IconMenu({ navigation }: IconMenuProps) {
     setAnchorElUser(null);
   };
 
+  const handleMenuIconClick = (href: any) => {
+    router.push(`${href}`);
+  };
+
+  const handleClose = () => {
+    setAnchorElCart(null);
+    dispatch(hideMiniCart());
+  };
+
+  const handlePopoverViewCartClick = () => {
+    router.push(GLOBAL_PATHs.cart);
+    setAnchorElCart(null);
+  };
+
+  const open = useMemo(() => Boolean(anchorElCart), [anchorElCart]);
+
   return (
     <Box
       sx={{
@@ -73,7 +130,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
       {navigation?.rightButton &&
         navigation.rightButton.map((item, index) => (
           <React.Fragment key={index}>
-            {isAuthenticated && index === 3 && (
+            {isAuthenticated && item?.icon === 'person' && (
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar
                   alt={user?.username}
@@ -88,7 +145,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
               </IconButton>
             )}
 
-            {!isAuthenticated && index === 3 && (
+            {!isAuthenticated && item?.icon === 'person' && (
               <IconButton
                 disableRipple
                 sx={{ color: 'text.primary' }}
@@ -98,17 +155,35 @@ export function IconMenu({ navigation }: IconMenuProps) {
               </IconButton>
             )}
 
-            {index !== 3 && (
+            {item?.icon === 'cart' && (
               <IconButton
                 disableRipple
                 sx={{ color: 'text.primary' }}
-                onClick={() => router.push(`${item.href}`)}
+                onClick={() => handleMenuIconClick(item?.href)}
+                ref={cartIconRef}
+              >
+                {icons[item?.icon ?? '']}
+              </IconButton>
+            )}
+
+            {index !== 3 && item.icon !== 'cart' && (
+              <IconButton
+                disableRipple
+                sx={{ color: 'text.primary' }}
+                onClick={() => handleMenuIconClick(item?.href)}
               >
                 {icons[item?.icon ?? '']}
               </IconButton>
             )}
           </React.Fragment>
         ))}
+
+      <ViewCartPopover
+        open={open}
+        onClose={handleClose}
+        anchorElCart={anchorElCart}
+        onPopoverViewCartClick={handlePopoverViewCartClick}
+      />
 
       <Menu
         sx={{ mt: 6.5 }}
