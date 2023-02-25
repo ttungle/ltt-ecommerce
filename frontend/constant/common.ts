@@ -7,6 +7,8 @@ export const GLOBAL_PATHs = {
   productDetail: '/shop/product/',
   cart: '/cart',
   checkout: '/checkout',
+  checkoutSuccess: '/checkout/success',
+  checkoutError: '/checkout/error',
 };
 
 export const LIGHT_FOOTER_PATHs = [GLOBAL_PATHs.home, GLOBAL_PATHs.cart];

@@ -1,3 +1,5 @@
+import { useAppSelector } from '@/app/hooks';
+import { cartItemSelector } from '@/app/selectors/cart-selector';
 import { DeliveryMethodData } from '@/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
@@ -5,14 +7,17 @@ import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import * as yup from 'yup';
 import { DeliveryMethodToggle } from './delivery-method-toggle';
-import { ContactInformationForm } from './forms/contact-information-form';
-import { DeliveryMethodForm } from './forms/delivery-method-form';
-import { PaymentMethod } from './payment-method';
+import { ContactInformationForm } from './forms/contact-information';
+import { DeliveryMethodForm } from './forms/delivery-method';
+import { PaymentMethod } from './forms/payment-method';
 
-export interface CheckoutFormProps {}
+export interface CheckoutFormProps {
+  onSubmit: (payload: FieldValues) => void;
+}
 
-export function CheckoutForm(props: CheckoutFormProps) {
+export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryMethodData>('delivery');
+  const cartItems = useAppSelector(cartItemSelector);
 
   const schema = yup.object({
     name: yup.string().required('Please enter your name.'),
@@ -38,14 +43,21 @@ export function CheckoutForm(props: CheckoutFormProps) {
       address: '',
       zipCode: '',
       shipping: '0',
+      paymentMethod: 'cash',
     },
     resolver: yupResolver(schema),
   });
 
   const { handleSubmit } = form;
 
-  const handleFormSubmit = (values: FieldValues) => {
-    console.log('>>> Checkout values: ', values);
+  const handleFormSubmit = async (values: FieldValues) => {
+    if (!onSubmit) return;
+    const payload: FieldValues = {
+      ...values,
+      cartItems,
+    };
+
+    await onSubmit(payload);
   };
 
   const handleDeliveryMethodSelect = (value: DeliveryMethodData) => {

@@ -1,20 +1,10 @@
-import { formatPrice } from '@/utils';
-import {
-  Button,
-  Card,
-  CardActions,
-  CardContent,
-  Divider,
-  Paper,
-  Stack,
-  Typography,
-} from '@mui/material';
-import * as React from 'react';
-import { ContainedButton } from '../common/custom-button';
-import { MdOutlineArrowRightAlt } from 'react-icons/md';
 import { useAppSelector } from '@/app/hooks';
 import { cartTotalSelector } from '@/app/selectors/cart-selector';
 import { shippingFeeSelector } from '@/app/selectors/checkout-selector';
+import { formatPrice } from '@/utils';
+import { Card, CardActions, CardContent, Divider, Paper, Stack, Typography } from '@mui/material';
+import { MdOutlineArrowRightAlt } from 'react-icons/md';
+import { ContainedButton } from '../common/custom-button';
 
 export interface OrderSummaryProps {}
 
@@ -23,9 +13,6 @@ export function OrderSummary(props: OrderSummaryProps) {
   const shippingFee = useAppSelector(shippingFeeSelector);
   const discount = 0;
   const total = Number(shippingFee) + Number(cartItemTotalPrice) - Number(discount);
-
-  const handleCheckoutClick = () => {};
-
   return (
     <Paper sx={{ my: { lg: 5, xs: 0 }, mb: { xs: 5 } }} variant='outlined'>
       <Card sx={{ minWidth: 275, boxShadow: 'none', borderRadius: '2px' }}>
@@ -67,7 +54,6 @@ export function OrderSummary(props: OrderSummaryProps) {
             type='submit'
             form='checkout-form'
             fullWidth
-            onClick={handleCheckoutClick}
             sx={{ py: 1.5, mx: 1, mb: 1 }}
           >
             Place Order
