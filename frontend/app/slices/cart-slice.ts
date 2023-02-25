@@ -54,9 +54,13 @@ const cartSlice = createSlice({
       const index = state.cartItems.findIndex((item) => item.id === id && item.size === size);
       state.cartItems.splice(index, 1);
     },
+    setEmptyCart(state) {
+      state.cartItems = [];
+    },
   },
 });
 
 const { actions, reducer } = cartSlice;
-export const { showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart } = actions;
+export const { showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart, setEmptyCart } =
+  actions;
 export default reducer;

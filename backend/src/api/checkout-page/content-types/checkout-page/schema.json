@@ -1,0 +1,21 @@
+{
+  "kind": "singleType",
+  "collectionName": "checkout_pages",
+  "info": {
+    "singularName": "checkout-page",
+    "pluralName": "checkout-pages",
+    "displayName": "Checkout Page"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "checkoutStatus": {
+      "displayName": "Checkout Status",
+      "type": "component",
+      "repeatable": true,
+      "component": "sections.checkout-status"
+    }
+  }
+}

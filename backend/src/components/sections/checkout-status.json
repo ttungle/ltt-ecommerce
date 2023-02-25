@@ -1,0 +1,29 @@
+{
+  "collectionName": "components_sections_checkout_statuses",
+  "info": {
+    "displayName": "Checkout Status",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "image": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "buttonContent": {
+      "type": "string"
+    }
+  }
+}

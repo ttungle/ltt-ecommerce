@@ -1,9 +1,11 @@
 import { useAppSelector } from '@/app/hooks';
 import { cartTotalSelector } from '@/app/selectors/cart-selector';
+import { GLOBAL_PATHs } from '@/constant';
 import { CartTotalData } from '@/models';
 import { formatPrice } from '@/utils';
 import DiscountIcon from '@mui/icons-material/Discount';
 import { Button, Card, CardActions, CardContent, Divider, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { FieldValues, useForm } from 'react-hook-form';
 import { ContainedButton } from '../common/custom-button';
@@ -14,6 +16,7 @@ export interface CartTotalProps {
 }
 
 export function CartTotal({ cartTotalData }: CartTotalProps) {
+  const router = useRouter();
   const [showPromotionInput, setShowPromotionInput] = useState(false);
   const cartItemTotalPrice = useAppSelector(cartTotalSelector);
 
@@ -32,6 +35,10 @@ export function CartTotal({ cartTotalData }: CartTotalProps) {
   };
 
   const handlePromotionSubmit = (value: FieldValues) => {};
+
+  const handleCheckoutClick = () => {
+    router.push(GLOBAL_PATHs.checkout);
+  };
 
   return (
     <>
@@ -89,7 +96,7 @@ export function CartTotal({ cartTotalData }: CartTotalProps) {
           </Stack>
         </CardContent>
         <CardActions>
-          <ContainedButton fullWidth sx={{ py: 1.5 }}>
+          <ContainedButton fullWidth onClick={handleCheckoutClick} sx={{ py: 1.5, mx: 1, mb: 1 }}>
             {cartTotalData?.cartCheckoutButton}
           </ContainedButton>
         </CardActions>
