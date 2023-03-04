@@ -4,7 +4,7 @@ import { OrderSummary } from '@/components/checkout/order-summary';
 import { CircularLoader } from '@/components/common/loader';
 import { GLOBAL_PATHs } from '@/constant';
 import { Backdrop, Container, Grid, Typography } from '@mui/material';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
 import { FieldValues } from 'react-hook-form';
 
@@ -12,6 +12,14 @@ export interface CheckoutPageProps {}
 
 export default function CheckoutPage(props: CheckoutPageProps) {
   const router = useRouter();
+
+  const checkoutPageQuery = useQuery({
+    queryKey: ['checkoutPage'],
+    queryFn: async () => checkoutApi.getCheckoutPage(),
+  });
+
+  const { data: checkoutPage, isLoading } = checkoutPageQuery;
+
   const mutation = useMutation({
     mutationFn: (values: FieldValues) => {
       return checkoutApi.createCheckoutSession(values);
@@ -40,17 +48,20 @@ export default function CheckoutPage(props: CheckoutPageProps) {
         <Grid container spacing={{ lg: 12, xs: 1 }}>
           <Grid item lg={8} xs={12}>
             <Typography component='h2' variant='h5' my={5} fontWeight={700}>
-              Checkout
+              {checkoutPage?.data?.attributes?.checkoutContent?.checkoutHeader ?? 'Checkout'}
             </Typography>
-            <CheckoutForm onSubmit={handleCheckoutSubmit} />
+            <CheckoutForm
+              onSubmit={handleCheckoutSubmit}
+              textContent={checkoutPage?.data?.attributes?.checkoutContent}
+            />
           </Grid>
           <Grid item lg={4} xs={12}>
-            <OrderSummary />
+            <OrderSummary textContent={checkoutPage?.data?.attributes?.checkoutContent} />
           </Grid>
         </Grid>
       </Container>
 
-      <Backdrop sx={{ color: 'common.white' }} open={mutation?.isLoading}>
+      <Backdrop sx={{ color: 'common.white' }} open={mutation?.isLoading || isLoading}>
         <CircularLoader loaderContent='Processing' />
       </Backdrop>
     </>

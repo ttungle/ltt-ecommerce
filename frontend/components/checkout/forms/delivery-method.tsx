@@ -1,13 +1,26 @@
 import { CustomInputField } from '@/components/common/form-controls';
+import { CheckoutTextContentData } from '@/models';
 import { Stack } from '@mui/material';
 import { FieldValues } from 'react-hook-form';
 import { ShippingRadioField } from '../shipping-radio-field';
 
 export interface DeliveryMethodFormProps {
   form: FieldValues;
+  textContent: CheckoutTextContentData;
 }
 
-export function DeliveryMethodForm({ form }: DeliveryMethodFormProps) {
+export function DeliveryMethodForm({ form, textContent }: DeliveryMethodFormProps) {
+  const radioData = [
+    {
+      label: textContent?.shippingRadio1 ?? 'Free shipping (5-15 business days)',
+      value: '0',
+    },
+    {
+      label: textContent?.shippingRadio2 ?? 'Fast shipping (1-5 business days)',
+      value: '5',
+    },
+  ];
+
   return (
     <>
       <Stack
@@ -40,7 +53,7 @@ export function DeliveryMethodForm({ form }: DeliveryMethodFormProps) {
         />
       </Stack>
 
-      <ShippingRadioField form={form} name='shipping' />
+      <ShippingRadioField form={form} name='shipping' data={radioData} />
     </>
   );
 }

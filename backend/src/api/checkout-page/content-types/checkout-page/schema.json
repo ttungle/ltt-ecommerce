@@ -4,7 +4,8 @@
   "info": {
     "singularName": "checkout-page",
     "pluralName": "checkout-pages",
-    "displayName": "Checkout Page"
+    "displayName": "Checkout Page",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true
@@ -16,6 +17,12 @@
       "type": "component",
       "repeatable": true,
       "component": "sections.checkout-status"
+    },
+    "checkoutContent": {
+      "displayName": "Checkout Content",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.checkout-content"
     }
   }
 }

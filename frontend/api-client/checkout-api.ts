@@ -5,7 +5,7 @@ import qs from 'qs';
 export const checkoutApi = {
   getCheckoutPage() {
     const query = qs.stringify({
-      populate: ['checkoutStatus.image'],
+      populate: ['checkoutStatus.image', 'checkoutContent'],
     });
     const url = `/checkout-page?${query}`;
     return axiosClient.get(url);
