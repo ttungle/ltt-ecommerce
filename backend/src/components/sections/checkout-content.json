@@ -1,0 +1,39 @@
+{
+  "collectionName": "components_sections_checkout_contents",
+  "info": {
+    "displayName": "Checkout Content"
+  },
+  "options": {},
+  "attributes": {
+    "contactHeader": {
+      "type": "string"
+    },
+    "deliveryHeader": {
+      "type": "string"
+    },
+    "paymentHeader": {
+      "type": "string"
+    },
+    "receiveAtStoreContent": {
+      "type": "text"
+    },
+    "shippingRadio1": {
+      "type": "string"
+    },
+    "shippingRadio2": {
+      "type": "string"
+    },
+    "cashPaymentDescription": {
+      "type": "string"
+    },
+    "checkoutHeader": {
+      "type": "string"
+    },
+    "orderHeader": {
+      "type": "string"
+    },
+    "orderButton": {
+      "type": "string"
+    }
+  }
+}

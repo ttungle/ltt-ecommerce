@@ -1,14 +1,17 @@
 import { useAppSelector } from '@/app/hooks';
 import { cartTotalSelector } from '@/app/selectors/cart-selector';
 import { shippingFeeSelector } from '@/app/selectors/checkout-selector';
+import { CheckoutTextContentData } from '@/models';
 import { formatPrice } from '@/utils';
 import { Card, CardActions, CardContent, Divider, Paper, Stack, Typography } from '@mui/material';
 import { MdOutlineArrowRightAlt } from 'react-icons/md';
 import { ContainedButton } from '../common/custom-button';
 
-export interface OrderSummaryProps {}
+export interface OrderSummaryProps {
+  textContent: CheckoutTextContentData;
+}
 
-export function OrderSummary(props: OrderSummaryProps) {
+export function OrderSummary({ textContent }: OrderSummaryProps) {
   const cartItemTotalPrice = useAppSelector(cartTotalSelector);
   const shippingFee = useAppSelector(shippingFeeSelector);
   const discount = 0;
@@ -17,7 +20,7 @@ export function OrderSummary(props: OrderSummaryProps) {
     <Paper sx={{ my: { lg: 5, xs: 0 }, mb: { xs: 5 } }} variant='outlined'>
       <Card sx={{ minWidth: 275, boxShadow: 'none', borderRadius: '2px' }}>
         <Typography component='h4' fontWeight={700} py={2.5} pl={2} fontSize='1.125rem'>
-          Order
+          {textContent?.orderHeader ?? 'Order'}
         </Typography>
 
         <Divider />
@@ -56,7 +59,7 @@ export function OrderSummary(props: OrderSummaryProps) {
             fullWidth
             sx={{ py: 1.5, mx: 1, mb: 1 }}
           >
-            Place Order
+            {textContent?.orderButton ?? 'Place Order'}
             <MdOutlineArrowRightAlt style={{ marginLeft: '8px', fontSize: '1.25rem' }} />
           </ContainedButton>
         </CardActions>

@@ -1,6 +1,6 @@
 import { useAppSelector } from '@/app/hooks';
 import { cartItemSelector } from '@/app/selectors/cart-selector';
-import { DeliveryMethodData } from '@/models';
+import { CheckoutTextContentData, DeliveryMethodData } from '@/models';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Box, Typography } from '@mui/material';
 import { useState } from 'react';
@@ -13,9 +13,10 @@ import { PaymentMethod } from './forms/payment-method';
 
 export interface CheckoutFormProps {
   onSubmit: (payload: FieldValues) => void;
+  textContent: CheckoutTextContentData;
 }
 
-export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
+export function CheckoutForm({ onSubmit, textContent }: CheckoutFormProps) {
   const [selectedDelivery, setSelectedDelivery] = useState<DeliveryMethodData>('delivery');
   const cartItems = useAppSelector(cartItemSelector);
 
@@ -67,24 +68,29 @@ export function CheckoutForm({ onSubmit }: CheckoutFormProps) {
   return (
     <>
       <Typography variant='h6' component='h6' fontWeight={500} mb={2}>
-        1. Contact Information
+        {textContent?.contactHeader ?? '1. Contact Information'}
       </Typography>
 
       <Box id='checkout-form' component='form' onSubmit={handleSubmit(handleFormSubmit)}>
         <ContactInformationForm form={form} />
 
         <Typography variant='h6' component='h6' fontWeight={500} mt={2} mb={4}>
-          2. Delivery Method
+          {textContent?.deliveryHeader ?? '2. Delivery Method'}
         </Typography>
 
         <DeliveryMethodToggle selected={selectedDelivery} onSelected={handleDeliveryMethodSelect} />
         {selectedDelivery === 'store' && (
-          <Typography my={4}>Receive at store: 1 District, Ho Chi Minh city, Vietnam</Typography>
+          <Typography my={4}>
+            {textContent?.receiveAtStoreContent ??
+              'Receive at store: 1 District, Ho Chi Minh city, Vietnam'}
+          </Typography>
         )}
-        {selectedDelivery === 'delivery' && <DeliveryMethodForm form={form} />}
+        {selectedDelivery === 'delivery' && (
+          <DeliveryMethodForm form={form} textContent={textContent} />
+        )}
 
         <Typography variant='h6' component='h6' fontWeight={500} mt={2} mb={4}>
-          3. Payment Method
+          {textContent?.paymentHeader ?? '3. Payment Method'}
         </Typography>
 
         <PaymentMethod form={form} />
