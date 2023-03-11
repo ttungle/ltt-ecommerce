@@ -15,7 +15,7 @@ module.exports = createCoreController("api::order.order", ({ strapi }) => ({
         ctx.request.body;
 
       let session;
-      console.log(email, name, phone, address, city, cartItems, paymentMethod);
+
       if (paymentMethod !== "cash") {
         const lineItems = await Promise.all(
           cartItems.map(async (item) => {

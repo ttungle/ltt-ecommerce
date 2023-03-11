@@ -33,14 +33,21 @@ export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
         boxShadow: '0 1px rgba(0, 0, 0, 0.05)',
       }}
     >
-      <Toolbar sx={{ height: '75px', px: { xl: '145px', lg: '30px' } }}>
+      <Toolbar
+        sx={{
+          position: 'relative',
+          height: '75px',
+          px: { xl: '145px', lg: '30px' },
+          justifyContent: 'space-between',
+        }}
+      >
         <Link href='/' passHref>
           <Typography
             component='a'
             fontSize='1.75rem'
             fontWeight='bold'
             fontFamily='Cormorant Garamond'
-            sx={{ display: { xs: 'none', sm: 'block' } }}
+            sx={{ display: { xs: 'none', sm: 'block' }, zIndex: 1 }}
           >
             {navigation?.leftButton[0].label}
           </Typography>
@@ -48,9 +55,11 @@ export function HeaderDesktop({ navigation }: HeaderDesktopProps) {
 
         <Box
           sx={{
-            flexGrow: 1,
             textAlign: 'center',
             display: { xs: 'none', sm: 'block' },
+            position: 'absolute',
+            left: 0,
+            right: 0,
           }}
         >
           {navItems.map((item: Partial<LinkData>) => (

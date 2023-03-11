@@ -7,11 +7,11 @@ export const shopApi = {
     const query = qs.stringify(
       {
         pagination: {
-          page: params.page,
-          pageSize: params.pageSize,
+          page: params?.page,
+          pageSize: params?.pageSize,
         },
-        sort: params.sort,
-        filters: params.filters,
+        sort: params?.sort,
+        filters: params?.filters,
         populate: ['thumbnails', 'category'],
       },
       {

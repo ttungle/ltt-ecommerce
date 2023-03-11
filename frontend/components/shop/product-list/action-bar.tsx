@@ -64,27 +64,29 @@ function ShopActionBarMemo(props: ShopActionBarProps) {
             {productPagination?.page}/{productPagination?.pageCount}
           </Typography>
 
-          <FormControl
-            sx={{ m: 1, minWidth: 80, display: { xs: 'none', md: 'block' } }}
-            size='small'
-          >
-            <Select
-              value={layoutValue}
-              label=''
-              onChange={handleLayoutChange}
-              sx={{ fontSize: '0.875rem', borderRadius: '2px' }}
+          {layoutValue && (
+            <FormControl
+              sx={{ m: 1, minWidth: 80, display: { xs: 'none', md: 'block' } }}
+              size='small'
             >
-              <MenuItem value={6} sx={{ fontSize: '0.875rem' }}>
-                2 items
-              </MenuItem>
-              <MenuItem value={4} sx={{ fontSize: '0.875rem' }}>
-                3 items
-              </MenuItem>
-              <MenuItem value={3} sx={{ fontSize: '0.875rem' }}>
-                4 items
-              </MenuItem>
-            </Select>
-          </FormControl>
+              <Select
+                value={layoutValue}
+                label=''
+                onChange={handleLayoutChange}
+                sx={{ fontSize: '0.875rem', borderRadius: '2px' }}
+              >
+                <MenuItem value={6} sx={{ fontSize: '0.875rem' }}>
+                  2 items
+                </MenuItem>
+                <MenuItem value={4} sx={{ fontSize: '0.875rem' }}>
+                  3 items
+                </MenuItem>
+                <MenuItem value={3} sx={{ fontSize: '0.875rem' }}>
+                  4 items
+                </MenuItem>
+              </Select>
+            </FormControl>
+          )}
 
           <FormControl sx={{ ml: 1, minWidth: 80 }} size='small'>
             <Select
