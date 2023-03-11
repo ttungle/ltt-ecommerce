@@ -1,37 +1,21 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cartItemCountSelector } from '@/app/selectors/cart-selector';
 import { hideMiniCart } from '@/app/slices/cart-slice';
-import { GLOBAL_PATHs } from '@/constant';
+import { GLOBAL_PATHs, USER_MENU } from '@/constant';
 import { useAuthContext } from '@/contexts';
 import { NavigationData } from '@/models';
 import { getStrapiMedia } from '@/utils';
 import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
 import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import SearchIcon from '@mui/icons-material/Search';
 import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
-import {
-  Avatar,
-  Badge,
-  Box,
-  IconButton,
-  Menu,
-  MenuItem, Typography
-} from '@mui/material';
+import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { SearchBox } from './search-box';
 import { ViewCartPopover } from './view-cart-popover';
 export interface IconMenuProps {
   navigation: NavigationData;
 }
-
-const settings = [
-  {
-    label: 'Profile',
-  },
-  {
-    label: 'Logout',
-  },
-];
 
 export function IconMenu({ navigation }: IconMenuProps) {
   const router = useRouter();
@@ -71,7 +55,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
   const icons = useMemo(
     () =>
       ({
-        search: <SearchIcon sx={{ fontSize: 26 }} />,
+        search: <SearchBox />,
         person: <PersonOutlineOutlinedIcon sx={{ fontSize: 26 }} />,
         favorite: <FavoriteBorderOutlinedIcon sx={{ fontSize: 26 }} />,
         cart: (
@@ -82,6 +66,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
       } as any),
     [cartItemTotalCount]
   );
+  const isViewMiniCartOpen = useMemo(() => Boolean(anchorElCart), [anchorElCart]);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -104,7 +89,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
     router.push(`${href}`);
   };
 
-  const handleClose = () => {
+  const handleCloseMiniCart = () => {
     setAnchorElCart(null);
     dispatch(hideMiniCart());
   };
@@ -114,15 +99,12 @@ export function IconMenu({ navigation }: IconMenuProps) {
     setAnchorElCart(null);
   };
 
-  const open = useMemo(() => Boolean(anchorElCart), [anchorElCart]);
-
   return (
     <Box
       sx={{
         '& button': { transition: 'all 0.15s linear' },
         '& button:hover': {
           color: 'primary.main',
-          transform: 'translateY(-6%)',
           bgcolor: 'unset',
         },
       }}
@@ -130,6 +112,23 @@ export function IconMenu({ navigation }: IconMenuProps) {
       {navigation?.rightButton &&
         navigation.rightButton.map((item, index) => (
           <React.Fragment key={index}>
+            {item?.icon === 'search' && (
+              <IconButton disableRipple sx={{ color: 'text.primary' }}>
+                {icons[item?.icon ?? '']}
+              </IconButton>
+            )}
+
+            {item?.icon === 'cart' && (
+              <IconButton
+                disableRipple
+                sx={{ color: 'text.primary' }}
+                onClick={() => handleMenuIconClick(item?.href)}
+                ref={cartIconRef}
+              >
+                {icons[item?.icon ?? '']}
+              </IconButton>
+            )}
+
             {isAuthenticated && item?.icon === 'person' && (
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar
@@ -155,18 +154,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
               </IconButton>
             )}
 
-            {item?.icon === 'cart' && (
-              <IconButton
-                disableRipple
-                sx={{ color: 'text.primary' }}
-                onClick={() => handleMenuIconClick(item?.href)}
-                ref={cartIconRef}
-              >
-                {icons[item?.icon ?? '']}
-              </IconButton>
-            )}
-
-            {index !== 3 && item.icon !== 'cart' && (
+            {item.icon === 'favorite' && (
               <IconButton
                 disableRipple
                 sx={{ color: 'text.primary' }}
@@ -179,8 +167,8 @@ export function IconMenu({ navigation }: IconMenuProps) {
         ))}
 
       <ViewCartPopover
-        open={open}
-        onClose={handleClose}
+        open={isViewMiniCartOpen}
+        onClose={handleCloseMiniCart}
         anchorElCart={anchorElCart}
         onPopoverViewCartClick={handlePopoverViewCartClick}
       />
@@ -210,7 +198,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
           </Typography>
         </MenuItem>
 
-        {settings.map((setting, index) => (
+        {USER_MENU.map((setting, index) => (
           <MenuItem key={index} onClick={() => handleUserMenuItemClick(index)}>
             <Typography textAlign='center' fontSize='0.875rem' sx={{ pr: 12 }}>
               {setting.label}

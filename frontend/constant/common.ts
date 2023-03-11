@@ -9,6 +9,7 @@ export const GLOBAL_PATHs = {
   checkout: '/checkout',
   checkoutSuccess: '/checkout/success',
   checkoutError: '/checkout/error',
+  search: '/search',
 };
 
 export const LIGHT_FOOTER_PATHs = [GLOBAL_PATHs.home, GLOBAL_PATHs.cart];

@@ -45,8 +45,8 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
   const [productList] = useQueries({
     queries: [
       {
-        queryKey: [`getProductList-${router.query.slug}`, { ...queryParams }],
-        queryFn: async () => await shopApi.getAllProducts({ ...queryParams }),
+        queryKey: ['get-product-list', queryParams],
+        queryFn: async () => await shopApi.getAllProducts(queryParams),
         enabled: router.query.slug === 'all-products',
       },
     ],
