@@ -160,6 +160,12 @@
       "relation": "oneToMany",
       "target": "api::product-review.product-review",
       "mappedBy": "product"
+    },
+    "usersLiked": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "favoriteProducts"
     }
   }
 }

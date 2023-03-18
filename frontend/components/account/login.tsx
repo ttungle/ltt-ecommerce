@@ -10,9 +10,8 @@ export function Login(props: LoginProps) {
   const router = useRouter();
   const { login } = useAuthContext();
 
-  const handleSubmit = async (values: LoginFormValueData) => {
-    await login(values);
-    router.push('/');
+  const handleSubmit = (values: LoginFormValueData) => {
+    login(values);
   };
 
   return (

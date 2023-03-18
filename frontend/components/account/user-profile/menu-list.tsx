@@ -72,22 +72,25 @@ export function UserProfileMenuList({ menuList = [], onDeleteAccount }: UserProf
               {item?.name}
             </Typography>
           )}
+
+          {item.color === 'error' && (
+            <>
+              <Divider />
+              <Typography
+                my={2}
+                fontSize='0.938rem'
+                onClick={handleClickOpen}
+                sx={{
+                  cursor: 'pointer',
+                  color: item?.color === 'error' ? 'error.main' : 'text.primary',
+                }}
+              >
+                {item?.name}
+              </Typography>
+            </>
+          )}
         </React.Fragment>
       ))}
-
-      <Divider />
-
-      <Typography
-        my={2}
-        fontSize='0.938rem'
-        onClick={handleClickOpen}
-        sx={{
-          cursor: 'pointer',
-          color: menuList[2]?.color === 'error' ? 'error.main' : 'text.primary',
-        }}
-      >
-        {menuList[2]?.name}
-      </Typography>
 
       <Dialog open={open} TransitionComponent={Transition} keepMounted onClose={handleClose}>
         <DialogTitle fontSize='1.5rem' fontWeight='600'>

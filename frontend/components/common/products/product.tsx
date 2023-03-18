@@ -1,15 +1,67 @@
-import { ProductData } from '@/models';
+import { authApi } from '@/api-client/auth-api';
+import { useAuthContext } from '@/contexts';
+import { ProductData, UserProfilePayloadData } from '@/models';
 import { formatPrice, getStrapiMedia } from '@/utils';
 import { Box, Stack, Typography } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 import Image from 'next/image';
+import { AiFillDelete } from 'react-icons/ai';
+import { toast } from 'react-toastify';
+import { CustomIconButton } from '../custom-button';
 import { ProductActions } from './product-actions';
 
 export interface ProductProps {
   productData: ProductData;
+  showAction?: boolean;
+  showDeleteButton?: boolean;
 }
 
-export function Product({ productData }: ProductProps) {
+export function Product({
+  productData,
+  showAction = true,
+  showDeleteButton = false,
+}: ProductProps) {
+  const { user, refreshUserProfile } = useAuthContext();
   const product = productData?.attributes;
+
+  const { mutate } = useMutation({
+    mutationKey: ['add-to-favorite'],
+    mutationFn: async (payload: UserProfilePayloadData) => await authApi.updateProfile(payload),
+    onSuccess: () => {
+      refreshUserProfile();
+    },
+  });
+
+  const handleDeleteFavoriteProduct = async (event: any) => {
+    event.preventDefault();
+
+    let userInfo = user;
+    if (!userInfo?.favoriteProducts) {
+      try {
+        userInfo = await authApi.getProfile();
+      } catch (error: any) {
+        toast.error(error?.message);
+        return;
+      }
+    }
+
+    const { id, username, email, birthday, gender, phone, address, favoriteProducts } = userInfo;
+    const favoriteProductsData = favoriteProducts.map((item) => item.id);
+
+    mutate({
+      id,
+      username,
+      email,
+      birthday,
+      gender,
+      phone,
+      address,
+      favoriteProducts: favoriteProductsData.includes(productData?.id)
+        ? [...favoriteProductsData].filter((item) => item !== productData?.id)
+        : [...favoriteProductsData],
+    });
+  };
+
   return (
     <>
       <Box
@@ -122,7 +174,23 @@ export function Product({ productData }: ProductProps) {
           </Stack>
         </Stack>
 
-        <ProductActions />
+        {showAction && <ProductActions productData={productData} />}
+
+        {showDeleteButton && (
+          <CustomIconButton
+            color='primary.main'
+            onClick={handleDeleteFavoriteProduct}
+            sx={{
+              position: 'absolute',
+              right: 0,
+              bottom: 0,
+              zIndex: 9999,
+              bgcolor: 'rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <AiFillDelete style={{ fontSize: '1rem' }} />
+          </CustomIconButton>
+        )}
       </Box>
 
       <Box textAlign='center'>

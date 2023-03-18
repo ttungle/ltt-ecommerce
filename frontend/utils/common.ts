@@ -12,3 +12,13 @@ export function formatStringWithMaxLength(content: string, maxLength: number) {
 
   return content.substring(0, maxLength) + '...';
 }
+
+export function filterObject(object: { [key: string]: any } | null, ...fields: Array<any>) {
+  if (!object) return {};
+  let obj: any = {};
+  fields.forEach((item: any) => {
+    if (Object.keys(object).includes(item)) obj[item] = object[item];
+  });
+
+  return obj;
+}

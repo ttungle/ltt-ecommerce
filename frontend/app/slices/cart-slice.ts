@@ -2,7 +2,6 @@ import { ProductAttributeData } from '@/models';
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface CartState {
-  showMiniCart: boolean;
   cartItems: Array<CartItemState>;
 }
 
@@ -14,7 +13,6 @@ export interface CartItemState {
 }
 
 const initialState: CartState = {
-  showMiniCart: false,
   cartItems: [],
 };
 
@@ -22,12 +20,6 @@ const cartSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
-    showMiniCart(state) {
-      state.showMiniCart = true;
-    },
-    hideMiniCart(state) {
-      state.showMiniCart = false;
-    },
     addToCart(state, action: PayloadAction<CartItemState>) {
       const newItem: CartItemState = action.payload;
 
@@ -61,6 +53,5 @@ const cartSlice = createSlice({
 });
 
 const { actions, reducer } = cartSlice;
-export const { showMiniCart, hideMiniCart, addToCart, setQuantity, removeFromCart, setEmptyCart } =
-  actions;
+export const { addToCart, setQuantity, removeFromCart, setEmptyCart } = actions;
 export default reducer;

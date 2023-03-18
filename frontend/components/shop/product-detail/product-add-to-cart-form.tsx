@@ -1,5 +1,5 @@
 import { useAppDispatch } from '@/app/hooks';
-import { showMiniCart } from '@/app/slices/cart-slice';
+import { showMiniCart } from '@/app/slices/global-slice';
 import { CategoryData, ShopDetailSizeSelectionData } from '@/models';
 import CloseIcon from '@mui/icons-material/Close';
 import SquareFootIcon from '@mui/icons-material/SquareFoot';

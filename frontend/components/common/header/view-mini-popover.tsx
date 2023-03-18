@@ -3,20 +3,22 @@ import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Paper, Popper, Stack, Typography } from '@mui/material';
 import { ContainedButton } from '../custom-button';
 
-export interface ViewCartPopoverProps {
+export interface ViewMiniPopoverProps {
   open: boolean;
   onClose: () => void;
-  anchorElCart: any;
-  onPopoverViewCartClick: () => void;
+  anchorEl: any;
+  onPopoverViewClick: () => void;
+  message: string;
+  buttonLabel: string;
 }
 
-export function ViewCartPopover(props: ViewCartPopoverProps) {
-  const { open, onClose, anchorElCart, onPopoverViewCartClick } = props;
+export function ViewMiniPopover(props: ViewMiniPopoverProps) {
+  const { open, anchorEl, message, buttonLabel, onClose, onPopoverViewClick } = props;
   return (
     <>
       <Popper
         open={open}
-        anchorEl={anchorElCart}
+        anchorEl={anchorEl}
         placement='bottom-end'
         sx={{
           position: 'relative',
@@ -28,7 +30,7 @@ export function ViewCartPopover(props: ViewCartPopoverProps) {
             <CheckCircleIcon sx={{ color: 'success.light' }} />
             <Stack direction='row' alignItems='center' justifyContent='space-between'>
               <Typography textAlign='center' ml={1}>
-                Add to cart successfully!
+                {message}
               </Typography>
 
               <IconButton onClick={onClose} sx={{ ml: 1, mt: -2, mr: -2 }}>
@@ -36,8 +38,8 @@ export function ViewCartPopover(props: ViewCartPopoverProps) {
               </IconButton>
             </Stack>
           </Stack>
-          <ContainedButton fullWidth onClick={onPopoverViewCartClick}>
-            View cart and checkout
+          <ContainedButton fullWidth onClick={onPopoverViewClick}>
+            {buttonLabel}
           </ContainedButton>
         </Paper>
       </Popper>

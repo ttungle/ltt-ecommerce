@@ -5,8 +5,8 @@ import { ProductList, ProductListSkeleton } from '@/components/common/products';
 import {
   ProductPagination,
   ShopActionBar,
-  ShopFiltersDrawer,
   ShopFilterViewer,
+  ShopFiltersDrawer,
 } from '@/components/shop';
 import { ProductFiltersValue, ShopData } from '@/models';
 import { fetchAPI } from '@/utils';
