@@ -26,12 +26,20 @@ export const authApi = {
   },
 
   getProfile(): Promise<UserData> {
-    const url = '/users/me?populate=avatar';
+    const query = qs.stringify(
+      {
+        populate: ['avatar', 'favoriteProducts.thumbnails'],
+      },
+      {
+        encodeValuesOnly: true,
+      }
+    );
+    const url = `/users/me?${query}`;
     return axiosClient.get(url);
   },
 
   updateProfile(payload: UserProfilePayloadData): Promise<UserData> {
-    const url = `/users/${payload.id}`;
+    const url = `/users/${payload.id}?populate=favoriteProducts`;
     return axiosClient.put(url, payload);
   },
 

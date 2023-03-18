@@ -10,6 +10,8 @@ import { toast } from 'react-toastify';
 import { ChangePasswordForm } from './change-password-form';
 import { UserProfileMenuList } from './menu-list';
 import { UserProfileForm } from './user-profile-form';
+import { GLOBAL_PATHs } from '@/constant';
+import { FavoriteProductList } from './favorite-product-list';
 
 export function UserProfile() {
   const router = useRouter();
@@ -121,11 +123,14 @@ export function UserProfile() {
           </Typography>
 
           <Typography fontSize='0.875rem' sx={{ color: 'grey.500' }}>
-            {router.query.slug === 'profile' &&
+            {router?.asPath === GLOBAL_PATHs.profile &&
               profilePageData?.data?.attributes?.userProfileDescription}
 
-            {router.query.slug === 'password' &&
+            {router?.asPath === GLOBAL_PATHs.changePassword &&
               profilePageData?.data?.attributes?.changePasswordDescription}
+
+            {router?.asPath === GLOBAL_PATHs.favoriteProducts &&
+              profilePageData?.data?.attributes?.favoriteProductDescription}
           </Typography>
 
           <Grid container spacing={3} mt={5}>
@@ -137,14 +142,17 @@ export function UserProfile() {
             </Grid>
 
             <Grid item xs={9}>
-              {router.query.slug === 'profile' && (
+              {router?.asPath === GLOBAL_PATHs.profile && (
                 <UserProfileForm
                   user={userProfileData ?? null}
                   onSubmit={handleProfileFormSubmit}
                 />
               )}
-              {router.query.slug === 'password' && (
+              {router?.asPath === GLOBAL_PATHs.changePassword && (
                 <ChangePasswordForm onSubmit={handleChangePasswordFormSubmit} />
+              )}
+              {router?.asPath === GLOBAL_PATHs.favoriteProducts && (
+                <FavoriteProductList userData={userProfileData ?? null} />
               )}
             </Grid>
           </Grid>

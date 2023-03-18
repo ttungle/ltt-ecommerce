@@ -2,6 +2,8 @@ export const GLOBAL_PATHs = {
   login: '/account/login',
   register: '/account/register',
   profile: '/account/profile',
+  changePassword: '/account/password',
+  favoriteProducts: '/account/favorite',
   home: '/',
   shop: '/shop/category/all-products',
   productDetail: '/shop/product/',

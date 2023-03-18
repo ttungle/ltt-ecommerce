@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { ProductData } from './product';
 
 export enum AuthURLList {
   login = '/auth/local',
@@ -19,6 +20,7 @@ export interface UserData {
   gender: string | null;
   phone: string | null;
   address: string | null;
+  favoriteProducts: Array<ProductData>;
 }
 
 export interface LoginPayloadData {
@@ -41,6 +43,7 @@ export interface UserProfilePayloadData {
   gender: string | null;
   phone: string | null;
   address: string | null;
+  favoriteProducts: Array<number>;
 }
 
 export interface ChangePasswordPayloadData {

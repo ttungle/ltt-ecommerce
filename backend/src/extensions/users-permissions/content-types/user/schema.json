@@ -96,6 +96,12 @@
       "relation": "oneToMany",
       "target": "api::product-review.product-review",
       "mappedBy": "reviewer"
+    },
+    "favoriteProducts": {
+      "type": "relation",
+      "relation": "manyToMany",
+      "target": "api::product.product",
+      "inversedBy": "usersLiked"
     }
   }
 }

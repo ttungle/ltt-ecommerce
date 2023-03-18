@@ -2,6 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
+  i18n: {
+    locales: ['en', 'vi'],
+    defaultLocale: 'en',
+  },
   images: {
     domains: ['localhost'],
   },

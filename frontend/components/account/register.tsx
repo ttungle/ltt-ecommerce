@@ -19,7 +19,6 @@ export function Register(props: RegisterProps) {
     };
 
     await register(registerPayload);
-    router.push('/');
   };
 
   return (

@@ -42,7 +42,16 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                 <Layout global={global}>
                   <Component {...pageProps} />
                 </Layout>
-                <ToastContainer style={{ marginTop: '60px' }} />
+                <ToastContainer
+                  position='top-right'
+                  autoClose={3500}
+                  hideProgressBar={true}
+                  closeOnClick={true}
+                  pauseOnHover={true}
+                  draggable={true}
+                  theme='colored'
+                  style={{ marginTop: '60px' }}
+                />
               </PersistGate>
             </Provider>
           </QueryClientProvider>

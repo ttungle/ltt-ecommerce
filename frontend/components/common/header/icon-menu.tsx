@@ -1,7 +1,11 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cartItemCountSelector } from '@/app/selectors/cart-selector';
-import { hideMiniCart } from '@/app/slices/cart-slice';
-import { GLOBAL_PATHs, USER_MENU } from '@/constant';
+import {
+  GLOBAL_PATHs,
+  HEADER_VIEW_MINI_POPOVER_BTNs,
+  HEADER_VIEW_MINI_POPOVER_MSGs,
+  USER_MENU,
+} from '@/constant';
 import { useAuthContext } from '@/contexts';
 import { NavigationData } from '@/models';
 import { getStrapiMedia } from '@/utils';
@@ -12,7 +16,9 @@ import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Typography } from '@mui
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { SearchBox } from './search-box';
-import { ViewCartPopover } from './view-cart-popover';
+import { ViewMiniPopover } from './view-mini-popover';
+import { hideFavoritePopover, hideMiniCart } from '@/app/slices/global-slice';
+
 export interface IconMenuProps {
   navigation: NavigationData;
 }
@@ -22,12 +28,14 @@ export function IconMenu({ navigation }: IconMenuProps) {
   const { user, logout } = useAuthContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
-  const [anchorElCart, setAnchorElCart] = useState<HTMLButtonElement | null>(null);
+  const [menuAnchorEl, setMenuAnchorEl] = useState<HTMLButtonElement | null>(null);
   const cartIconRef = useRef(null);
+  const favoriteIconRef = useRef(null);
   const cartItemTotalCount = useAppSelector(cartItemCountSelector);
   const timerRef = useRef<ReturnType<typeof setTimeout>>();
   const dispatch = useAppDispatch();
-  const showMiniCart = useAppSelector((state) => state.cart.showMiniCart);
+  const showMiniCart = useAppSelector((state) => state.global.showMiniCart);
+  const showFavoritePopover = useAppSelector((state) => state.global.showFavoritePopover);
 
   useEffect(() => {
     if (user?.id) {
@@ -40,17 +48,28 @@ export function IconMenu({ navigation }: IconMenuProps) {
   useEffect(() => {
     if (showMiniCart && cartIconRef?.current) {
       clearTimeout(timerRef.current);
-      setAnchorElCart(cartIconRef.current);
+      setMenuAnchorEl(cartIconRef.current);
       timerRef.current = setTimeout(() => {
-        setAnchorElCart(null);
+        setMenuAnchorEl(null);
         dispatch(hideMiniCart());
       }, 3000);
-    } else {
-      setAnchorElCart(null);
+      return;
     }
 
+    if (showFavoritePopover && favoriteIconRef?.current) {
+      clearTimeout(timerRef.current);
+      setMenuAnchorEl(favoriteIconRef.current);
+      timerRef.current = setTimeout(() => {
+        setMenuAnchorEl(null);
+        dispatch(hideFavoritePopover());
+      }, 3000);
+      return;
+    }
+
+    setMenuAnchorEl(null);
+
     return () => clearTimeout(timerRef.current);
-  }, [showMiniCart]);
+  }, [showMiniCart, showFavoritePopover]);
 
   const icons = useMemo(
     () =>
@@ -66,7 +85,11 @@ export function IconMenu({ navigation }: IconMenuProps) {
       } as any),
     [cartItemTotalCount]
   );
-  const isViewMiniCartOpen = useMemo(() => Boolean(anchorElCart), [anchorElCart]);
+  const isViewMiniPopoverOpen = useMemo(() => Boolean(menuAnchorEl), [menuAnchorEl]);
+  const currentIconMenu = useMemo(
+    () => (showMiniCart && 'cart') || (showFavoritePopover && 'favorite') || '',
+    [showMiniCart, showFavoritePopover]
+  );
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
@@ -90,13 +113,14 @@ export function IconMenu({ navigation }: IconMenuProps) {
   };
 
   const handleCloseMiniCart = () => {
-    setAnchorElCart(null);
+    setMenuAnchorEl(null);
     dispatch(hideMiniCart());
   };
 
-  const handlePopoverViewCartClick = () => {
-    router.push(GLOBAL_PATHs.cart);
-    setAnchorElCart(null);
+  const handleViewMiniPopoverButtonClick = () => {
+    if (currentIconMenu === 'cart') router.push(GLOBAL_PATHs.cart);
+    if (currentIconMenu === 'favorite') router.push(GLOBAL_PATHs.favoriteProducts);
+    setMenuAnchorEl(null);
   };
 
   return (
@@ -133,7 +157,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
               <IconButton onClick={handleOpenUserMenu}>
                 <Avatar
                   alt={user?.username}
-                  src={getStrapiMedia(user?.avatar?.formats?.medium?.url) ?? ''}
+                  src={getStrapiMedia(user?.avatar?.url) ?? ''}
                   variant='circular'
                   sx={{
                     height: 36,
@@ -159,6 +183,7 @@ export function IconMenu({ navigation }: IconMenuProps) {
                 disableRipple
                 sx={{ color: 'text.primary' }}
                 onClick={() => handleMenuIconClick(item?.href)}
+                ref={favoriteIconRef}
               >
                 {icons[item?.icon ?? '']}
               </IconButton>
@@ -166,11 +191,13 @@ export function IconMenu({ navigation }: IconMenuProps) {
           </React.Fragment>
         ))}
 
-      <ViewCartPopover
-        open={isViewMiniCartOpen}
+      <ViewMiniPopover
+        open={isViewMiniPopoverOpen}
         onClose={handleCloseMiniCart}
-        anchorElCart={anchorElCart}
-        onPopoverViewCartClick={handlePopoverViewCartClick}
+        anchorEl={menuAnchorEl}
+        onPopoverViewClick={handleViewMiniPopoverButtonClick}
+        message={HEADER_VIEW_MINI_POPOVER_MSGs[`${router.locale + '-' + currentIconMenu}`]}
+        buttonLabel={HEADER_VIEW_MINI_POPOVER_BTNs[`${router.locale + '-' + currentIconMenu}`]}
       />
 
       <Menu

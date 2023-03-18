@@ -6,11 +6,14 @@ import {
   RegisterPayloadData,
   UserData,
 } from '@/models';
+import { filterObject } from '@/utils';
 import Cookies from 'js-cookie';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
 export function useAuth(): AuthContextData {
+  const router = useRouter();
   const [user, setUser] = useState<UserData | null>(() =>
     JSON.parse(Cookies.get('user_info') || 'null')
   );
@@ -39,25 +42,25 @@ export function useAuth(): AuthContextData {
       });
 
       const userInfo = await getUserInfo();
-      Cookies.set('user_info', JSON.stringify(userInfo), {
-        expires: expiredDay,
-        sameSite: 'lax',
-      });
+
+      const filteredUserInfo = filterObject(userInfo, 'id', 'username', 'avatar', 'email');
+      Cookies.set(
+        'user_info',
+        JSON.stringify({
+          ...filteredUserInfo,
+          avatar: { url: filteredUserInfo?.avatar?.formats?.small?.url },
+        }),
+        {
+          expires: expiredDay,
+          sameSite: 'lax',
+        }
+      );
 
       setUser(userInfo as UserData);
+      router.push('/');
     } catch (error: any) {
       console.log(error);
-
-      toast.error(`${error?.message}`, {
-        position: 'top-right',
-        autoClose: 3500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
+      toast.error(`${error?.message}`);
     }
   };
 
@@ -70,36 +73,42 @@ export function useAuth(): AuthContextData {
         expires: expiredDay,
         sameSite: 'lax',
       });
-      Cookies.set('user_info', JSON.stringify(authResult?.user), {
-        expires: expiredDay,
-        sameSite: 'lax',
-      });
+      const filteredUserInfo = filterObject(authResult?.user, 'id', 'username', 'avatar', 'email');
+      Cookies.set(
+        'user_info',
+        JSON.stringify({
+          ...filteredUserInfo,
+          avatar: { url: filteredUserInfo?.avatar?.formats?.small?.url },
+        }),
+        {
+          expires: expiredDay,
+          sameSite: 'lax',
+        }
+      );
 
       setUser(authResult?.user);
+      router.push('/');
     } catch (error: any) {
       console.log(error);
-
-      toast.error(`${error?.message}`, {
-        position: 'top-right',
-        autoClose: 3500,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: 'colored',
-      });
+      toast.error(`${error?.message}`);
     }
   };
 
   const refreshUserProfile = async () => {
     const userInfo = await getUserInfo();
     if (!userInfo?.id) return;
-
-    Cookies.set('user_info', JSON.stringify(userInfo), {
-      expires: expiredDay,
-      sameSite: 'lax',
-    });
+    const filteredUserInfo = filterObject(userInfo, 'id', 'username', 'avatar', 'email');
+    Cookies.set(
+      'user_info',
+      JSON.stringify({
+        ...filteredUserInfo,
+        avatar: { url: filteredUserInfo?.avatar?.formats?.small?.url },
+      }),
+      {
+        expires: expiredDay,
+        sameSite: 'lax',
+      }
+    );
 
     setUser(userInfo);
   };

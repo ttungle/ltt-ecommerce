@@ -4,14 +4,14 @@ export interface CustomIconButtonProps extends ButtonProps {
   children: React.ReactNode;
   color: any;
   sx?: SxProps;
-  onClick?: () => void;
+  onClick?: (event?: any) => void;
 }
 
 export function CustomIconButton(props: CustomIconButtonProps) {
   const { children, color, sx, onClick = null, ...restProps } = props;
-  const handleClick = () => {
+  const handleClick = (event?: any) => {
     if (!onClick) return;
-    onClick();
+    onClick(event);
   };
   return (
     <IconButton

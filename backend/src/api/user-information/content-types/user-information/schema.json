@@ -61,6 +61,14 @@
         }
       },
       "component": "elements.menu-list"
+    },
+    "favoriteProductDescription": {
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "type": "string"
     }
   }
 }
