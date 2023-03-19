@@ -1,3 +1,5 @@
+import store, { persistor } from '@/app/store';
+import { ScrollTopButton } from '@/components/common/scroll-top-button';
 import MainLayout from '@/components/layout/main';
 import { AuthProvider } from '@/contexts';
 import { AppPropsWithLayout } from '@/models';
@@ -9,18 +11,17 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import App, { AppContext } from 'next/app';
 import Error from 'next/error';
+import { Provider } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { PersistGate } from 'redux-persist/integration/react';
 import 'swiper/css';
 import 'swiper/css/bundle';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
+import '../styles/gallery-swiper.css';
 import '../styles/globals.css';
 import '../styles/swiper.css';
-import '../styles/gallery-swiper.css';
-import { Provider } from 'react-redux';
-import store, { persistor } from '@/app/store';
-import { PersistGate } from 'redux-persist/integration/react';
 
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();
@@ -52,6 +53,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
                   theme='colored'
                   style={{ marginTop: '60px' }}
                 />
+                <ScrollTopButton />
               </PersistGate>
             </Provider>
           </QueryClientProvider>
