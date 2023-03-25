@@ -1,4 +1,4 @@
-import { SingleMediaData } from './common';
+import { SeoData, SingleMediaData } from './common';
 
 export enum FilterOperators {
   And = '$and',
@@ -20,7 +20,7 @@ export interface ShopData {
 export interface ShopDetailsData {
   id: number;
   attributes: {
-    metadata: any;
+    seo: SeoData;
     sizeSelection: ShopDetailSizeSelectionData;
     productReviewSection: ShopDetailReviewSectionItemData;
   };

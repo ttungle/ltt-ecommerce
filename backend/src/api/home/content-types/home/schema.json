@@ -16,16 +16,6 @@
     }
   },
   "attributes": {
-    "metadata": {
-      "type": "component",
-      "repeatable": false,
-      "pluginOptions": {
-        "i18n": {
-          "localized": true
-        }
-      },
-      "component": "shared.metadata"
-    },
     "sliders": {
       "type": "component",
       "repeatable": true,
@@ -109,7 +99,7 @@
     },
     "seo": {
       "type": "component",
-      "repeatable": true,
+      "repeatable": false,
       "pluginOptions": {
         "i18n": {
           "localized": true

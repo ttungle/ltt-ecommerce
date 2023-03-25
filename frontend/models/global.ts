@@ -59,4 +59,3 @@ export interface SubscriptionValueData {
   email: string;
 }
 
-export interface MetaData {}
