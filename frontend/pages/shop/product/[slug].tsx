@@ -18,6 +18,7 @@ import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useCallback } from 'react';
 import { FieldValues } from 'react-hook-form/dist/types';
 import { toast } from 'react-toastify';
+import { Seo } from '@/components/common/seo';
 
 export interface ProductDetailPageProps {
   shopDetails: ShopDetailsData;
@@ -69,6 +70,7 @@ export default function ProductDetailPage({ shopDetails, product }: ProductDetai
 
   return (
     <>
+      {shopDetails?.attributes?.seo && <Seo metadata={shopDetails?.attributes?.seo} />}
       <Container sx={{ mt: 6 }}>
         <Grid container spacing={12}>
           <Grid item md={6} xs={12}>
@@ -120,7 +122,13 @@ export const getServerSideProps: GetServerSideProps = async (
     populate: ['thumbnails', 'category.sizeSelectionList', 'productReviews.reviewer'],
   });
   const shopDetailsPage = await fetchAPI(`/shop-details-page`, {
-    populate: ['metadata.shareImage', 'sizeSelection', 'productReviewSection'],
+    populate: [
+      'seo.metaImage',
+      'seo.metaSocial.image',
+      'metadata.shareImage',
+      'sizeSelection',
+      'productReviewSection',
+    ],
   });
 
   const product = productData.data;

@@ -1,3 +1,4 @@
+import { Seo } from '@/components/common/seo';
 import {
   Article,
   BackgroundVideo,
@@ -14,7 +15,7 @@ import { GetStaticProps } from 'next';
 
 const Home: NextPageWithLayout = ({ home }: any) => {
   const {
-    metadata,
+    seo,
     sliders,
     homeCategory,
     homeBestSelling,
@@ -26,6 +27,7 @@ const Home: NextPageWithLayout = ({ home }: any) => {
   } = home;
   return (
     <>
+      {seo && <Seo metadata={seo} />}
       <HomeSlider sliderData={sliders} />
       <HomeCategory homeCategoryData={homeCategory} />
       <HomeBestSelling HomeBestSellingData={homeBestSelling} />
@@ -45,7 +47,8 @@ export default Home;
 export const getStaticProps: GetStaticProps = async (context) => {
   const homeData = await fetchAPI(`/home`, {
     populate: [
-      'metadata.shareImage',
+      'seo.metaImage',
+      'seo.metaSocial.image',
       'sliders.image',
       'homeCategory.homeCategoryImage.image',
       'homeCategory.backgroundImage',

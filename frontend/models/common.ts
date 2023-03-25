@@ -31,3 +31,14 @@ export interface MediaContentData {
 export interface SingleMediaData {
   data: MediaContentData;
 }
+
+export interface SeoData {
+  id: number;
+  metaTitle: string;
+  metaDescription: string;
+  metaImage: SingleMediaData;
+  metaSocial: Array<any>;
+  metaRobots?: any;
+  metaViewport?: any;
+  structuredData?: any;
+}

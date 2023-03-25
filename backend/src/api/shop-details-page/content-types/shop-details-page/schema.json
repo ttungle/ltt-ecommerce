@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "metadata": {
-      "type": "component",
-      "repeatable": false,
-      "component": "shared.metadata"
-    },
     "sizeSelection": {
       "type": "component",
       "repeatable": false,
@@ -27,6 +22,11 @@
       "type": "component",
       "repeatable": false,
       "component": "sections.shop-detail-page-product-reviews"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
     }
   }
 }
