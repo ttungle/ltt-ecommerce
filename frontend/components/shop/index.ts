@@ -1,5 +1,5 @@
 export * from './product-list/action-bar';
-export * from './product-list/pagination';
+export * from '../common/pagination';
 export * from './product-list/filters-drawer';
 export * from './product-list/filters-viewer';
 export * from './product-detail/product-add-to-cart-form';

@@ -42,3 +42,8 @@ export interface SeoData {
   metaViewport?: any;
   structuredData?: any;
 }
+
+export interface StrapiData<T> {
+  id: number;
+  attributes: T;
+}

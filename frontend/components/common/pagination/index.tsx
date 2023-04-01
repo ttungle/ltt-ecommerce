@@ -2,12 +2,12 @@ import * as React from 'react';
 import { Stack, Pagination } from '@mui/material';
 import { PaginationData } from '@/models';
 
-export interface ProductPaginationProps {
+export interface ListPaginationProps {
   pagination: PaginationData;
   onPageChange: (value: number) => void;
 }
 
-export function ProductPagination({ pagination, onPageChange }: ProductPaginationProps) {
+export function ListPagination({ pagination, onPageChange }: ListPaginationProps) {
   const { page = 0, pageCount } = pagination;
 
   const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {

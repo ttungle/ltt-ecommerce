@@ -1,32 +1,34 @@
-import { SingleMediaData } from './common';
+import { SingleMediaData, StrapiData } from './common';
 
-interface BlogDataContent {
+export interface BlogDataContent {
   title: string;
   author: string;
   publishedAt: string;
   thumbnail: SingleMediaData;
   content: string;
-  blogCategory: BlogCategoryData;
-  blogTags: BlogTagData;
+  blogCategory: BlogCategory;
+  blogTags: BlogTag;
   path: string;
 }
 
-export interface BlogData {
-  id: string;
-  attributes: BlogDataContent;
+export interface BlogCategory {
+  data: BlogCategoryData;
 }
 
-export interface BlogCategoryData {
-  data: {
-    attributes: {
-      name: string;
-      path: string;
-      blogs: Array<BlogData>;
-    };
-  };
+export interface BlogTag {
+  data: BlogTagData;
 }
 
-export interface BlogTagData {
+export type BlogCategoryData = Array<StrapiData<BlogCategoryItemData>>;
+export type BlogTagData = Array<StrapiData<BlogTagItemData>>;
+
+interface BlogCategoryItemData {
+  name: string;
+  path: string;
+  locale?: 'en' | 'vi';
+}
+
+interface BlogTagItemData {
   tagName: string;
-  blogs: Array<BlogData>;
+  locale?: 'en' | 'vi';
 }

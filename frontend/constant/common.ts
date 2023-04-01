@@ -12,6 +12,9 @@ export const GLOBAL_PATHs = {
   checkoutSuccess: '/checkout/success',
   checkoutError: '/checkout/error',
   search: '/search',
+  blog: '/blog',
+  blogAll: '/blog/all',
+  blogDetail: '/blog/detail',
 };
 
 export const LIGHT_FOOTER_PATHs = [GLOBAL_PATHs.home, GLOBAL_PATHs.cart];

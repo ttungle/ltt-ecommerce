@@ -3,7 +3,7 @@ import { BannerImage } from '@/components/common/banner';
 import { Breadcrumb } from '@/components/common/breadcrumb';
 import { ProductList, ProductListSkeleton } from '@/components/common/products';
 import {
-  ProductPagination,
+  ListPagination,
   ShopActionBar,
   ShopFilterViewer,
   ShopFiltersDrawer,
@@ -22,8 +22,7 @@ export interface ShopListPageProps {
 }
 
 export default function ShopListPage({ shop }: ShopListPageProps) {
-  const { metadata, breadcrumb, banner, productListPageSize, sortTypeList, multipleFilterList } =
-    shop;
+  const { breadcrumb, banner, productListPageSize, sortTypeList, multipleFilterList } = shop;
 
   const router = useRouter();
   const currentQueryRef = useRef<any>();
@@ -124,7 +123,7 @@ export default function ShopListPage({ shop }: ShopListPageProps) {
         {!isLoading && (
           <>
             <ProductList productsData={productListData?.data ?? []} grid={Number(layoutValue)} />
-            <ProductPagination
+            <ListPagination
               pagination={productListData?.meta?.pagination}
               onPageChange={handlePageChange}
             />
