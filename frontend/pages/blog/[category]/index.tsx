@@ -69,7 +69,7 @@ export default function BlogListPage(props: BlogListPageProps) {
           {Array.isArray(blog?.data) && (
             <>
               {blog?.data.map((blog: any) => (
-                <BlogItem key={blog.id} data={blog?.attributes} />
+                <BlogItem key={blog.id} blogData={blog} />
               ))}
               <ListPagination pagination={blog?.meta?.pagination} onPageChange={handlePageChange} />
             </>
