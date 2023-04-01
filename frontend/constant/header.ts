@@ -6,3 +6,5 @@ export const USER_MENU = [
     label: 'Logout',
   },
 ];
+
+export const HEADER_HEIGHT = '75px';

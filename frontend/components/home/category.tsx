@@ -1,48 +1,16 @@
 import { HomeCategoryData } from '@/models';
 import { getStrapiMedia } from '@/utils';
-import { Box, Button, Container, Grid, keyframes, Typography } from '@mui/material';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Box, Container, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { CategoryImageList } from '../common/category-image-list';
 
 export interface HomeCategoryProps {
   homeCategoryData: HomeCategoryData;
 }
 
-const shakeCategoryKeyframe = keyframes` 0%,
-100% {
-  -webkit-transform: translateX(0);
-          transform: translateX(0);
-}
-10%,
-30%,
-50%,
-70% {
-  -webkit-transform: translateX(-6px);
-          transform: translateX(-6px);
-}
-20%,
-40%,
-60% {
-  -webkit-transform: translateX(6px);
-          transform: translateX(6px);
-}
-80% {
-  -webkit-transform: translateX(4px);
-          transform: translateX(4px);
-}
-90% {
-  -webkit-transform: translateX(-4px);
-          transform: translateX(-4px);
-}`;
-
 export function HomeCategory({ homeCategoryData }: HomeCategoryProps) {
   const router = useRouter();
   const { title, description, backgroundImage, homeCategoryImage } = homeCategoryData;
-
-  const handleButtonClick = (path: string) => {
-    router.push(path);
-  };
 
   return (
     <Box
@@ -66,44 +34,12 @@ export function HomeCategory({ homeCategoryData }: HomeCategoryProps) {
           </Typography>
         </Box>
 
-        <Grid container spacing={1}>
-          {homeCategoryImage.map((category: any) => (
-            <Grid item key={category.id} xs={2.4} sx={{ position: 'relative' }}>
-              <Link href={category?.path}>
-                <Box
-                  sx={{
-                    cursor: 'pointer',
-                    '&:hover': {
-                      animation: `${shakeCategoryKeyframe} 1.5s cubic-bezier(0.455, 0.030, 0.515, 0.955) both`,
-                    },
-                  }}
-                >
-                  <Image
-                    src={getStrapiMedia(category?.image?.data?.attributes?.url) ?? ''}
-                    alt='home-category'
-                    width={273}
-                    height={376}
-                  />
-                </Box>
-              </Link>
-              <Button
-                variant='contained'
-                onClick={() => handleButtonClick(category?.path)}
-                sx={{
-                  position: 'absolute',
-                  bottom: '-3%',
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  whiteSpace: 'nowrap',
-                  textTransform: 'capitalize',
-                  fontSize: '0.875rem',
-                }}
-              >
-                {category?.buttonText}
-              </Button>
-            </Grid>
-          ))}
-        </Grid>
+        <CategoryImageList
+          categoryList={homeCategoryImage}
+          layout={2.4}
+          spacing={1.5}
+          height={376}
+        />
       </Container>
     </Box>
   );

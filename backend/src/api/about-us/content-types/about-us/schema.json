@@ -16,7 +16,7 @@
     }
   },
   "attributes": {
-    "metadata": {
+    "seo": {
       "type": "component",
       "repeatable": false,
       "pluginOptions": {
@@ -24,7 +24,27 @@
           "localized": true
         }
       },
-      "component": "shared.metadata"
+      "component": "shared.seo"
+    },
+    "hero": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.hero-section"
+    },
+    "categoryList": {
+      "type": "component",
+      "repeatable": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      },
+      "component": "sections.home-category"
     }
   }
 }
