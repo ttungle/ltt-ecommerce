@@ -19,7 +19,7 @@ const theme = createTheme({
       main: red.A400,
     },
     text: {
-      primary: '#222',
+      primary: '#222222',
       secondary: '#868686',
     },
     bg: {
@@ -67,7 +67,6 @@ const theme = createTheme({
           style: {
             borderRadius: '2px',
             boxShadow: 'none',
-            letterSpacing: '0.16rem',
             transition: 'all 0.15s ease',
             '&:hover': {
               boxShadow: 'none',
