@@ -1,7 +1,8 @@
 import { GLOBAL_PATHs } from '@/constant';
 import { BlogCategoryData, BlogTagData } from '@/models';
-import { Box, Button, Stack, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
+import { TagList } from './tag-list';
 
 export interface MenuListProps {
   blogCategory: BlogCategoryData;
@@ -45,18 +46,7 @@ export function MenuList({ blogCategory, blogTag }: MenuListProps) {
         Tags
       </Typography>
 
-      <Stack direction='row' justifyContent='flex-start' alignItems='center' flexWrap='wrap'>
-        {blogTag.map((tag) => (
-          <Button
-            key={tag?.id}
-            variant='outlined'
-            onClick={handleTagClick}
-            sx={{ textTransform: 'none', mr: 1, mb: 1, color: 'grey.600', borderColor: 'grey.300' }}
-          >
-            {tag?.attributes?.tagName}
-          </Button>
-        ))}
-      </Stack>
+      <TagList tagListData={blogTag} />
     </Box>
   );
 }

@@ -7,20 +7,29 @@ export interface BlogDataContent {
   thumbnail: SingleMediaData;
   content: string;
   blogCategory: BlogCategory;
-  blogTags: BlogTag;
+  blogTags: BlogTagList;
   path: string;
 }
 
-export interface BlogCategory {
+interface BlogCategory {
+  data: StrapiData<BlogCategoryItemData>;
+}
+
+export interface BlogCategoryList {
   data: BlogCategoryData;
 }
 
-export interface BlogTag {
+export interface BlogTagList {
   data: BlogTagData;
+}
+
+export interface Blog {
+  data: BlogData;
 }
 
 export type BlogCategoryData = Array<StrapiData<BlogCategoryItemData>>;
 export type BlogTagData = Array<StrapiData<BlogTagItemData>>;
+export type BlogData = StrapiData<BlogDataContent>;
 
 interface BlogCategoryItemData {
   name: string;

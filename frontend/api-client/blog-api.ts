@@ -1,6 +1,6 @@
+import { Blog, BlogCategoryList, BlogTagList } from '@/models';
 import qs from 'qs';
 import axiosClient from './axios-client';
-import { BlogCategory, BlogTag } from '@/models';
 
 export const blogApi = {
   getAllBlogs(params: any): Promise<any> {
@@ -21,12 +21,25 @@ export const blogApi = {
     const url = `/blogs?${query}`;
     return axiosClient.get(url);
   },
-  getAllBlogCategories(): Promise<BlogCategory> {
+  getAllBlogCategories(): Promise<BlogCategoryList> {
     const url = '/blog-categories';
     return axiosClient.get(url);
   },
-  getAllBlogTags(): Promise<BlogTag> {
+  getAllBlogTags(): Promise<BlogTagList> {
     const url = '/blog-tags';
+    return axiosClient.get(url);
+  },
+  getBlog(path: string): Promise<Blog> {
+    const query = qs.stringify(
+      {
+        populate: ['thumbnail', 'blogCategory', 'blogTags'],
+      },
+      {
+        encodeValuesOnly: true,
+      }
+    );
+
+    const url = `/blogs/${path}?${query}`;
     return axiosClient.get(url);
   },
 };

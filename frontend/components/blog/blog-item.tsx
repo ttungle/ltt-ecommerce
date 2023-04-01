@@ -1,21 +1,22 @@
+import { GLOBAL_PATHs } from '@/constant';
+import { BlogData } from '@/models';
 import { formatStringWithMaxLength, getStrapiMedia } from '@/utils';
 import { Box, Stack, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import { HiOutlineUser } from 'react-icons/hi';
 import { OutlinedBlackButton } from '../common/custom-button/outlined-black-button';
-import { useRouter } from 'next/router';
-import { GLOBAL_PATHs } from '@/constant';
-import { BlogDataContent } from '@/models';
 
 export interface BlogItemProps {
-  data: BlogDataContent;
+  blogData: BlogData;
 }
 
-export function BlogItem({ data }: BlogItemProps) {
+export function BlogItem({ blogData }: BlogItemProps) {
   const router = useRouter();
+  const { attributes: data } = blogData;
 
   const handleBlogClick = () => {
-    router.push(`/${GLOBAL_PATHs.blogDetail}/${data?.path}`);
+    router.push(`/${GLOBAL_PATHs.blogDetail}/${data?.path}?id=${blogData.id}`);
   };
 
   return (
