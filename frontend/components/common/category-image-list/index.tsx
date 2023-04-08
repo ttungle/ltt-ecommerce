@@ -1,12 +1,11 @@
+import { HomeCategoryImageData } from '@/models';
 import { getStrapiMedia } from '@/utils';
 import { Box, Button, Grid, Stack, SxProps, keyframes } from '@mui/material';
-import Image from 'next/image';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import * as React from 'react';
 
 export interface CategoryImageListProps {
-  categoryList: any;
+  categoryList: Array<HomeCategoryImageData>;
   layout: number;
   spacing: number;
   height?: any;
@@ -44,16 +43,17 @@ export function CategoryImageList(props: CategoryImageListProps) {
   const { categoryList, layout, spacing, height, sx = {} } = props;
   const router = useRouter();
 
-  const handleButtonClick = (path: string) => {
+  const handleButtonClick = (path: string | null) => {
+    if (!path) return;
     router.push(path);
   };
 
   return (
     <>
       <Grid container spacing={spacing} sx={{ ...sx }}>
-        {categoryList.map((category: any) => (
+        {categoryList.map((category) => (
           <Grid item key={category.id} lg={layout} xs={12} sx={{ position: 'relative' }}>
-            <Link href={category?.path}>
+            <Link href={category?.path ?? '#'}>
               <Stack
                 direction='row'
                 justifyContent='center'

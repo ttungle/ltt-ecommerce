@@ -10,7 +10,7 @@
       "type": "string"
     },
     "description": {
-      "type": "string"
+      "type": "text"
     },
     "homeCategoryImage": {
       "displayName": "Home Category Image",
@@ -28,6 +28,9 @@
         "videos",
         "audios"
       ]
+    },
+    "backgroundColor": {
+      "type": "string"
     }
   }
 }

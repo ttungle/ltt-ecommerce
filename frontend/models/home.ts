@@ -1,5 +1,6 @@
-import { SingleMediaData, ProductData } from './common';
-import { MetaData } from './global';
+import { SingleMediaData, SeoData } from './common';
+import { ProductData } from './product';
+
 export interface SliderData {
   id: number;
   title: string;
@@ -12,7 +13,14 @@ export interface HomeCategoryData {
   title: String;
   description: String;
   backgroundImage: any;
-  homeCategoryImage: any;
+  homeCategoryImage: Array<HomeCategoryImageData>;
+}
+
+export interface HomeCategoryImageData {
+  id: number;
+  buttonText: string | null;
+  path: string | null;
+  image: SingleMediaData;
 }
 
 export interface HomeBestSellingData {
@@ -44,14 +52,20 @@ export interface InspiredData {
   blogs: any;
 }
 
-export interface ShipmentData {
+export interface ShipmentItemData {
+  id: number;
   icon: SingleMediaData;
   title: string;
   description: string;
 }
 
+export interface ShipmentData {
+  shipmentItem: Array<ShipmentItemData>;
+  backgroundImage: SingleMediaData | null;
+}
+
 export interface HomeData {
-  metadata: MetaData;
+  seo: SeoData;
   sliders: SliderData;
   homeCategory: HomeCategoryData;
   homeBestSelling: HomeBestSellingData;

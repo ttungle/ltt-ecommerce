@@ -1,13 +1,15 @@
+import { ShipmentData } from '@/models';
 import { getStrapiMedia } from '@/utils';
-import { Box, Container, Grid, Stack, Typography } from '@mui/material';
+import { Box, Container, Grid, Stack, SxProps, Typography } from '@mui/material';
 import Image from 'next/image';
 import * as React from 'react';
 
-export interface HomeShipmentProps {
-  shipmentData: any;
+export interface ShipmentBannerProps {
+  shipmentData: ShipmentData;
+  sx?: SxProps;
 }
 
-export function HomeShipment({ shipmentData }: HomeShipmentProps) {
+export function ShipmentBanner({ shipmentData, sx }: ShipmentBannerProps) {
   const { shipmentItem, backgroundImage } = shipmentData;
   return (
     <Box
@@ -15,14 +17,17 @@ export function HomeShipment({ shipmentData }: HomeShipmentProps) {
         width: '100%',
         py: 9.4,
         mt: 5,
-        background: `url(${
-          getStrapiMedia(backgroundImage?.data?.attributes?.url) ?? ''
-        }) no-repeat center/cover`,
+        background: backgroundImage
+          ? `url(${
+              getStrapiMedia(backgroundImage?.data?.attributes?.url) ?? ''
+            }) no-repeat center/cover`
+          : 'none',
+        ...sx,
       }}
     >
       <Container maxWidth='xl'>
         <Grid container spacing={5}>
-          {shipmentItem.map((item: any) => (
+          {shipmentItem.map((item) => (
             <Grid item key={item.id} xs={4}>
               <Stack
                 direction='column'

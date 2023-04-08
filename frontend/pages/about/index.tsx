@@ -1,19 +1,25 @@
 import { useAppDispatch } from '@/app/hooks';
 import { setHeroData } from '@/app/slices/about-slice';
+import { CommonReviewSlider } from '@/components/about/common-review-slider';
+import { TextAndImage } from '@/components/about/text-and-image';
 import { TextSection } from '@/components/about/text-section';
 import { CategoryImageList } from '@/components/common/category-image-list';
+import { Seo } from '@/components/common/seo';
+import { ShipmentBanner } from '@/components/common/shipment-banner';
 import MaskBackgroundLayout from '@/components/layout/mask-background';
+import { AboutUsPageData } from '@/models';
 import { fetchAPI } from '@/utils';
-import { Box, Container } from '@mui/material';
+import { Container } from '@mui/material';
 import { GetServerSideProps, GetServerSidePropsContext } from 'next';
 import { useEffect } from 'react';
 
 export interface AboutUsPageProps {
-  aboutUs: any;
+  aboutUs: AboutUsPageData;
 }
 
 export default function AboutUsPage({ aboutUs }: AboutUsPageProps) {
-  const { seo, hero, categoryList } = aboutUs?.attributes;
+  const { seo, hero, categoryList, contentSection, shipmentInformation, commonReviews } =
+    aboutUs?.attributes;
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -21,16 +27,25 @@ export default function AboutUsPage({ aboutUs }: AboutUsPageProps) {
   }, [hero]);
 
   return (
-    <Container>
-      <CategoryImageList
-        categoryList={categoryList?.homeCategoryImage}
-        layout={4}
-        spacing={9}
-        sx={{ mt: 1 }}
-      />
+    <>
+      {seo && <Seo metadata={seo} />}
+      <Container>
+        <CategoryImageList
+          categoryList={categoryList?.homeCategoryImage}
+          layout={4}
+          spacing={9}
+          sx={{ mt: 1 }}
+        />
+        <TextSection textContent={categoryList} />
+      </Container>
 
-      <TextSection />
-    </Container>
+      {contentSection[0] && <TextAndImage contentData={contentSection[0]} />}
+      <ShipmentBanner shipmentData={shipmentInformation} sx={{ mt: 0 }} />
+      {contentSection[1] && (
+        <TextAndImage contentData={contentSection[1]} direction='row-reverse' />
+      )}
+      <CommonReviewSlider commonReviewData={commonReviews?.data} />
+    </>
   );
 }
 
@@ -45,6 +60,11 @@ export const getServerSideProps: GetServerSideProps = async (
       'seo.metaSocial.image',
       'hero.heroImage',
       'categoryList.homeCategoryImage.image',
+      'contentSection.backgroundImage',
+      'contentSection.homeCategoryImage.image',
+      'shipmentInformation.shipmentItem.icon',
+      'shipmentInformation.backgroundImage',
+      'commonReviews.avatar',
     ],
   });
 
