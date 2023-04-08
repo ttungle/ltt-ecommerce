@@ -1,0 +1,38 @@
+{
+  "kind": "collectionType",
+  "collectionName": "common_reviews",
+  "info": {
+    "singularName": "common-review",
+    "pluralName": "common-reviews",
+    "displayName": "Common Review",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    },
+    "rating": {
+      "type": "decimal"
+    },
+    "avatar": {
+      "allowedTypes": [
+        "images",
+        "files",
+        "videos",
+        "audios"
+      ],
+      "type": "media",
+      "multiple": false
+    },
+    "username": {
+      "type": "string"
+    }
+  }
+}

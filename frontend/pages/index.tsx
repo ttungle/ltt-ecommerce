@@ -1,10 +1,10 @@
 import { Seo } from '@/components/common/seo';
+import { ShipmentBanner } from '@/components/common/shipment-banner';
 import {
   Article,
   BackgroundVideo,
   HomeBestSelling,
   HomeCategory,
-  HomeShipment,
   HomeSlider,
   Inspired,
 } from '@/components/home';
@@ -35,7 +35,7 @@ const Home: NextPageWithLayout = ({ home }: any) => {
       <HomeBestSelling HomeBestSellingData={homeHotList} />
       <Article aboutSummaryData={aboutSummary} />
       <Inspired inspiredData={inspired} />
-      <HomeShipment shipmentData={shipment} />
+      <ShipmentBanner shipmentData={shipment} />
     </>
   );
 };
