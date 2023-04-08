@@ -1,0 +1,33 @@
+{
+  "kind": "singleType",
+  "collectionName": "contact_pages",
+  "info": {
+    "singularName": "contact-page",
+    "pluralName": "contact-pages",
+    "displayName": "Contact Page",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "pageHeader": {
+      "type": "string"
+    },
+    "mapSource": {
+      "type": "text"
+    },
+    "helpInfo": {
+      "displayName": "Contact Help Info",
+      "type": "component",
+      "repeatable": false,
+      "component": "sections.contact-help-info"
+    },
+    "seo": {
+      "type": "component",
+      "repeatable": false,
+      "component": "shared.seo"
+    }
+  }
+}

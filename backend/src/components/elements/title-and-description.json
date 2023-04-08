@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_elements_title_and_descriptions",
+  "info": {
+    "displayName": "Title and Description",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "title": {
+      "type": "string"
+    },
+    "description": {
+      "type": "text"
+    }
+  }
+}

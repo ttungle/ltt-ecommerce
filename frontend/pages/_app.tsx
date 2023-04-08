@@ -71,6 +71,8 @@ MyApp.getInitialProps = async (context: AppContext) => {
   try {
     const globalData = await fetchAPI(`/global`, {
       populate: [
+        'seo.metaImage',
+        'seo.metaSocial.image',
         'navigation.links',
         'footer.footerColumns.links',
         'navigation.leftButton',

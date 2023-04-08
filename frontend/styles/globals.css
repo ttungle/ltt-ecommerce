@@ -7,6 +7,16 @@ body {
   scroll-behavior: smooth;
 }
 
+::-moz-selection {
+  color: #ffffff;
+  background: #cb8161;
+}
+
+::selection {
+  color: #ffffff;
+  background:#cb8161;
+}
+
 a {
   color: inherit;
   text-decoration: none;
