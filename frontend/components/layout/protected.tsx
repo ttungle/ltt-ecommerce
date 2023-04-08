@@ -7,12 +7,13 @@ import { useEffect, useState } from 'react';
 import Footer from '../common/footer';
 import Header from '../common/header';
 import { CircularLoader } from '../common/loader';
+import { Seo } from '../common/seo';
 
 export function ProtectedLayout({ children, global }: LayoutProps) {
   const router = useRouter();
   const { user } = useAuthContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const { navigation, footer, smallText } = global;
+  const { seo, navigation, footer, smallText } = global;
 
   useEffect(() => {
     if (!user?.id) router.push('/account/login');
@@ -34,6 +35,7 @@ export function ProtectedLayout({ children, global }: LayoutProps) {
             bgcolor: DARK_BACKGROUND_PATHs.includes(router.pathname) ? 'bg.dark' : 'bg.main',
           }}
         >
+          {seo && <Seo metadata={seo} />}
           {children}
         </Box>
       )}

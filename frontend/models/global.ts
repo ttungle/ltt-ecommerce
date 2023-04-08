@@ -1,4 +1,5 @@
 import { Url } from 'url';
+import { SeoData } from './common';
 
 export interface LinkData {
   id: number;
@@ -49,6 +50,7 @@ export interface FooterData {
 export interface rightButton {}
 
 export interface GlobalData {
+  seo: SeoData;
   navigation: NavigationData;
   footer: FooterData;
   smallText: FooterSmallTextData;

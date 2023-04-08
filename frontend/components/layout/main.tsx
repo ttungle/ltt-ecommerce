@@ -5,12 +5,13 @@ import Header from 'components/common/header';
 import { LayoutProps } from 'models';
 import { useRouter } from 'next/router';
 import * as React from 'react';
+import { Seo } from '../common/seo';
 
 export interface MainLayoutProps {}
 
 export default function MainLayout({ children, global }: LayoutProps) {
   const router = useRouter();
-  const { navigation, footer, smallText } = global;
+  const { seo, navigation, footer, smallText } = global;
 
   return (
     <Stack minHeight='100vh'>
@@ -24,6 +25,7 @@ export default function MainLayout({ children, global }: LayoutProps) {
           bgcolor: DARK_BACKGROUND_PATHs.includes(router.pathname) ? 'bg.dark' : 'bg.main',
         }}
       >
+        {seo && <Seo metadata={seo} />}
         {children}
       </Box>
 

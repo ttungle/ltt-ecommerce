@@ -106,6 +106,4 @@ declare module '@mui/material/styles' {
   }
 }
 
-
-
 export default theme;

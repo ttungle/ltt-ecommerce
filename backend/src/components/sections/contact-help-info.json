@@ -1,0 +1,19 @@
+{
+  "collectionName": "components_sections_contact_help_infos",
+  "info": {
+    "displayName": "Contact Help Info",
+    "icon": "align-justify"
+  },
+  "options": {},
+  "attributes": {
+    "header": {
+      "type": "string"
+    },
+    "helpItems": {
+      "displayName": "Title and Description",
+      "type": "component",
+      "repeatable": true,
+      "component": "elements.title-and-description"
+    }
+  }
+}
