@@ -15,7 +15,7 @@ export function BackgroundVideo({ backgroundVideoData }: BackgroundVideoProps) {
           sx={{
             position: 'relative',
             width: '100%',
-            height: '660px',
+            height: { lg: '660px', xs: '428px' },
             zIndex: 0,
             overflow: 'hidden',
           }}
@@ -54,14 +54,14 @@ export function BackgroundVideo({ backgroundVideoData }: BackgroundVideoProps) {
             <Typography
               color='common.white'
               fontFamily='Cormorant Garamond'
-              fontSize='4.375rem'
+              fontSize={{ lg: '4.375rem', xs: '2rem' }}
               fontWeight='600'
             >
               {backgroundVideoData?.title}
             </Typography>
             <Button
               variant='contained'
-              sx={{ fontWeight: 500, letterSpacing: '0.16rem', py: 1, px: 3 }}
+              sx={{ fontWeight: 500, letterSpacing: '0.16rem', py: 1, px: 3, mt: { lg: 0, xs: 2 } }}
               onClick={handleClick}
             >
               {backgroundVideoData?.buttonText}

@@ -20,18 +20,18 @@ export function Article({ aboutSummaryData }: ArticleProps) {
       }}
     >
       <Container maxWidth='xl'>
-        <Grid container spacing={12.5} py={12}>
+        <Grid container spacing={{ lg: 12.5, xs: 6 }} py={{ lg: 12, xs: 6 }}>
           <Grid item md={6}>
             <Typography
               fontWeight={600}
-              fontSize='3.125rem'
+              fontSize={{ lg: '3.125rem', xs: '2rem' }}
               fontFamily='Cormorant Garamond'
-              lineHeight='55px'
+              lineHeight={{ lg: '55px', xs: 1.5 }}
               letterSpacing='0.03rem'
             >
               {title}
             </Typography>
-            <Box color='grey.600' fontSize='0.875rem' textAlign='justify' my={5.25}>
+            <Box color='grey.600' fontSize='0.875rem' textAlign='justify' my={{ lg: 5.25, xs: 0 }}>
               <ReactMarkdown>{description}</ReactMarkdown>
             </Box>
             <Button
@@ -55,7 +55,7 @@ export function Article({ aboutSummaryData }: ArticleProps) {
             </Button>
           </Grid>
           {thumbnail?.data?.attributes?.url && (
-            <Grid item md={6}>
+            <Grid item lg={6} xs={12}>
               <Image
                 src={getStrapiMedia(thumbnail?.data?.attributes?.url) ?? ''}
                 width={690}

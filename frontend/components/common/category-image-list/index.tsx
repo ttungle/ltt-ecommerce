@@ -50,9 +50,25 @@ export function CategoryImageList(props: CategoryImageListProps) {
 
   return (
     <>
-      <Grid container spacing={spacing} sx={{ ...sx }}>
+      <Grid
+        container
+        spacing={spacing}
+        sx={{
+          display: 'flex',
+          flexWrap: 'nowrap',
+          overflowX: { lg: 'visible', xs: 'scroll' },
+          py: { lg: 0, xs: 2 },
+          ...sx,
+        }}
+      >
         {categoryList.map((category) => (
-          <Grid item key={category.id} lg={layout} xs={12} sx={{ position: 'relative' }}>
+          <Grid
+            item
+            key={category.id}
+            lg={layout}
+            xs={layout}
+            sx={{ position: 'relative', minWidth: '260px' }}
+          >
             <Link href={category?.path ?? '#'}>
               <Stack
                 direction='row'

@@ -12,7 +12,7 @@ export interface BlogSliderProps {
 
 export function BlogSlider({ blogData, itemNumber }: BlogSliderProps) {
   return (
-    <Box position='relative' sx={{ px: 7.5, mx: -7.5 }}>
+    <Box position='relative' sx={{ px: { lg: 7.5, xs: 5 }, mx: { lg: -7.5, xs: 0 } }}>
       <Box
         className='swiper-button-prev'
         sx={{

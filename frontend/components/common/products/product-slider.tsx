@@ -9,13 +9,16 @@ import { Product } from './product';
 export interface ProductSliderProps {
   itemNumber: number;
   productsData: Array<ProductData>;
+  identifier?: string;
 }
 
-export function ProductSlider({ productsData, itemNumber }: ProductSliderProps) {
+export function ProductSlider({ productsData, itemNumber, identifier = '' }: ProductSliderProps) {
+  const nextClassName = `swiper-button-next-${identifier}`;
+  const prevClassName = `swiper-button-prev-${identifier}`;
   return (
-    <Box position='relative' sx={{ px: 7.5, mx: -7.5 }}>
+    <Box position='relative' sx={{ px: { lg: 7.5, xs: 5 }, mx: { lg: -7.5, xs: 0 } }}>
       <Box
-        className='swiper-button-prev'
+        className={`swiper-button-prev ${prevClassName}`}
         sx={{
           transition: 'opacity 0.2s ease',
           '&::after': {
@@ -32,12 +35,12 @@ export function ProductSlider({ productsData, itemNumber }: ProductSliderProps) 
       <Swiper
         slidesPerView={itemNumber}
         spaceBetween={16}
-        slidesPerGroup={4}
+        slidesPerGroup={itemNumber}
         loop={true}
         loopFillGroupWithBlank={true}
         navigation={{
-          nextEl: '.swiper-button-next',
-          prevEl: '.swiper-button-prev',
+          nextEl: `.${nextClassName}`,
+          prevEl: `.${prevClassName}`,
         }}
         modules={[Pagination, Navigation]}
         className='product-slider'
@@ -55,7 +58,7 @@ export function ProductSlider({ productsData, itemNumber }: ProductSliderProps) 
       </Swiper>
 
       <Box
-        className='swiper-button-next'
+        className={`swiper-button-next ${nextClassName}`}
         sx={{
           transition: 'opacity 0.2s ease',
           '&::after': {

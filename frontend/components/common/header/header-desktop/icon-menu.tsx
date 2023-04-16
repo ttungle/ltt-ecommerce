@@ -1,5 +1,6 @@
 import { useAppDispatch, useAppSelector } from '@/app/hooks';
 import { cartItemCountSelector } from '@/app/selectors/cart-selector';
+import { hideFavoritePopover, hideMiniCart } from '@/app/slices/global-slice';
 import {
   GLOBAL_PATHs,
   HEADER_VIEW_MINI_POPOVER_BTNs,
@@ -9,15 +10,14 @@ import {
 import { useAuthContext } from '@/contexts';
 import { NavigationData } from '@/models';
 import { getStrapiMedia } from '@/utils';
-import FavoriteBorderOutlinedIcon from '@mui/icons-material/FavoriteBorderOutlined';
-import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
-import ShoppingBagOutlinedIcon from '@mui/icons-material/ShoppingBagOutlined';
 import { Avatar, Badge, Box, IconButton, Menu, MenuItem, Typography } from '@mui/material';
 import { useRouter } from 'next/router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
+import { FiHeart } from 'react-icons/fi';
+import { HiOutlineUser } from 'react-icons/hi';
+import { SlBag } from 'react-icons/sl';
 import { SearchBox } from './search-box';
 import { ViewMiniPopover } from './view-mini-popover';
-import { hideFavoritePopover, hideMiniCart } from '@/app/slices/global-slice';
 
 export interface IconMenuProps {
   navigation: NavigationData;
@@ -75,11 +75,11 @@ export function IconMenu({ navigation }: IconMenuProps) {
     () =>
       ({
         search: <SearchBox />,
-        person: <PersonOutlineOutlinedIcon sx={{ fontSize: 26 }} />,
-        favorite: <FavoriteBorderOutlinedIcon sx={{ fontSize: 26 }} />,
+        person: <HiOutlineUser style={{ fontSize: 24 }} />,
+        favorite: <FiHeart style={{ fontSize: 22 }} />,
         cart: (
           <Badge badgeContent={cartItemTotalCount} color='primary'>
-            <ShoppingBagOutlinedIcon sx={{ fontSize: 26 }} />
+            <SlBag style={{ fontSize: 22 }} />
           </Badge>
         ),
       } as any),

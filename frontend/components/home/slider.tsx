@@ -1,7 +1,7 @@
 import { SliderData } from '@/models';
 import { getStrapiMedia } from '@/utils';
 import EastIcon from '@mui/icons-material/East';
-import { Box, keyframes, Typography } from '@mui/material';
+import { Box, keyframes, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
@@ -24,6 +24,8 @@ const slideBottomKeyframe = keyframes` 0% {
 
 export function HomeSlider({ sliderData }: HomeSliderProps) {
   const [show, setShow] = useState(true);
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
   useEffect(() => {
     const element: any = document.querySelector('.swiper');
@@ -53,7 +55,7 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
         pagination={{
           clickable: true,
         }}
-        navigation={true}
+        navigation={!isMobile}
         modules={[Autoplay, Pagination, Navigation]}
         className='home-slider'
       >
@@ -65,15 +67,15 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
                   component='img'
                   src={getStrapiMedia(slider?.image?.data?.attributes?.url) ?? ''}
                   alt='home-slider'
-                  height={781}
+                  height={{ lg: 781, xs: isMobile ? '450px !important' : '' }}
                 />
                 <Box
                   sx={{
                     position: 'absolute',
                     top: '50%',
-                    left: 'calc(50% - 425px)',
-                    width: '850px',
-                    p: 8,
+                    left: { lg: 'calc(50% - 425px)', xs: 0 },
+                    width: { lg: '850px', xs: '100%' },
+                    p: { lg: 8, xs: 0 },
                     borderRadius: '2px',
                     visibility: !show ? 'hidden' : 'visibility',
                     animation: show
@@ -83,8 +85,8 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
                 >
                   <Typography
                     component='h2'
-                    fontSize='5rem'
-                    lineHeight='80px'
+                    fontSize={{ lg: '5rem', xs: '2.125rem' }}
+                    lineHeight={{ lg: '80px', xs: 1.5 }}
                     fontWeight={600}
                     fontFamily='Cormorant Garamond'
                     color='common.white'
@@ -93,12 +95,12 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
                   </Typography>
                   {slider?.description && (
                     <Typography
-                      fontSize='3.125rem'
+                      fontSize={{ lg: '3.125rem', xs: '1.625rem' }}
                       lineHeight='60px'
                       fontWeight={500}
                       fontFamily='Cormorant Garamond'
                       color='common.white'
-                      marginTop='16px'
+                      marginTop={{ lg: '16px', xs: 0 }}
                       marginBottom='42px'
                     >
                       {slider?.description}
@@ -109,7 +111,7 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
                     icon={<EastIcon sx={{ transform: 'translateY(-8%)' }} />}
                     sx={{
                       fontSize: '0.688rem',
-                      padding: '14px 54px',
+                      padding: { lg: '14px 54px', xs: '14px 20px' },
                       letterSpacing: '3px',
                     }}
                   >

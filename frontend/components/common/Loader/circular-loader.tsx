@@ -1,10 +1,11 @@
-import { Box, CircularProgress, Typography } from '@mui/material';
+import { Box, CircularProgress, SxProps, Typography } from '@mui/material';
 
 export interface CircularLoaderProps {
   loaderContent?: string;
+  sx?: SxProps;
 }
 
-export function CircularLoader({ loaderContent }: CircularLoaderProps) {
+export function CircularLoader({ loaderContent, sx }: CircularLoaderProps) {
   return (
     <Box
       flexGrow={1}
@@ -13,6 +14,7 @@ export function CircularLoader({ loaderContent }: CircularLoaderProps) {
         flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
+        ...sx,
       }}
     >
       <CircularProgress />

@@ -1,5 +1,5 @@
 import { InspiredData } from '@/models';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { BlogSlider } from './blog-slider';
 
 export interface InspiredProps {
@@ -8,6 +8,8 @@ export interface InspiredProps {
 
 export function Inspired({ inspiredData }: InspiredProps) {
   const { description, title, blogs } = inspiredData;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   return (
     <Container maxWidth='xl' sx={{ pb: 7 }}>
       <Box textAlign='center' sx={{ py: '64px' }}>
@@ -19,12 +21,16 @@ export function Inspired({ inspiredData }: InspiredProps) {
         >
           {description}
         </Typography>
-        <Typography fontSize='2.5rem' fontFamily='Cormorant Garamond' fontWeight='600'>
+        <Typography
+          fontSize={{ lg: '2.5rem', xs: '2rem' }}
+          fontFamily='Cormorant Garamond'
+          fontWeight='600'
+        >
           {title}
         </Typography>
       </Box>
       <Box>
-        <BlogSlider blogData={blogs?.data} itemNumber={3} />
+        <BlogSlider blogData={blogs?.data} itemNumber={isMobile ? 1 : 3} />
       </Box>
     </Container>
   );

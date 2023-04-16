@@ -1,8 +1,8 @@
 import { subscriptionApi } from '@/api-client';
-import { LIGHT_FOOTER_PATHs } from '@/constant';
+import { BOTTOM_NAV_HEIGHT, LIGHT_FOOTER_PATHs } from '@/constant';
 import { FooterData, FooterSmallTextData, SubscriptionValueData } from '@/models';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { Box, Container, Grid, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography, useMediaQuery, useTheme } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
@@ -19,6 +19,8 @@ export interface FooterProps {
 
 export default function Footer({ footerData, smallTextData }: FooterProps) {
   const { footerColumns, footerForm } = footerData;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
   const router = useRouter();
   const [showSuccessSubscription, setShowSuccessSubscription] = useState(false);
 
@@ -42,6 +44,7 @@ export default function Footer({ footerData, smallTextData }: FooterProps) {
     <Box
       sx={{
         pt: 7,
+        mb: isMobile ? BOTTOM_NAV_HEIGHT : 0,
         bgcolor: LIGHT_FOOTER_PATHs.includes(router.pathname) ? 'bg.main' : 'bg.dark',
       }}
     >

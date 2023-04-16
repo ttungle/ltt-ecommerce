@@ -1,4 +1,4 @@
-import { DARK_BACKGROUND_PATHs } from '@/constant';
+import { DARK_BACKGROUND_PATHs, HEADER_HEIGHT } from '@/constant';
 import { useAuthContext } from '@/contexts';
 import { LayoutProps } from '@/models';
 import { Box, Stack } from '@mui/material';
@@ -31,7 +31,7 @@ export function ProtectedLayout({ children, global }: LayoutProps) {
           component='main'
           flexGrow={1}
           sx={{
-            mt: '75px',
+            mt: { lg: HEADER_HEIGHT, xs: 0 },
             bgcolor: DARK_BACKGROUND_PATHs.includes(router.pathname) ? 'bg.dark' : 'bg.main',
           }}
         >

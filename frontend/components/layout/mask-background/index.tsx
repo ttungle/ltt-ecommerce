@@ -1,4 +1,4 @@
-import { DARK_BACKGROUND_PATHs } from '@/constant';
+import { DARK_BACKGROUND_PATHs, HEADER_HEIGHT } from '@/constant';
 import { Box, Stack } from '@mui/material';
 import Footer from 'components/common/footer';
 import Header from 'components/common/header';
@@ -30,7 +30,7 @@ export default function MaskBackgroundLayout({ children, global }: LayoutProps) 
         flexGrow={1}
         sx={{
           position: 'absolute',
-          mt: '75px',
+          mt: { lg: HEADER_HEIGHT, xs: 0 },
           top: { lg: 720, xs: 360 },
           left: 0,
           right: 0,
