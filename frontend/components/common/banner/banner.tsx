@@ -17,7 +17,7 @@ export function BannerImage({ banner }: BannerImageProps) {
     switch (textPosition) {
       case 'left':
       case null:
-        return isLargeScreen ? '14%' : '145px';
+        return isLargeScreen ? '14%' : '8vw';
       case 'center':
         return '50%';
       default:
@@ -26,7 +26,7 @@ export function BannerImage({ banner }: BannerImageProps) {
   }, [textPosition, isLargeScreen]);
 
   const rightPosition = useMemo(
-    () => (textPosition === 'right' ? (isLargeScreen ? '14%' : '145px') : 'none'),
+    () => (textPosition === 'right' ? (isLargeScreen ? '14%' : '8vw') : 'none'),
     [textPosition, isLargeScreen]
   );
 

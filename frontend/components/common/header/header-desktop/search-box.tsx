@@ -97,7 +97,7 @@ export function SearchBox(props: SearchBoxProps) {
   };
 
   const handleSearchBoxFocus = () => {
-    setSearchBoxWidth('15vw');
+    setSearchBoxWidth('200px');
   };
 
   return (
@@ -178,7 +178,7 @@ export function SearchBox(props: SearchBoxProps) {
                       textAlign='left'
                       fontWeight={500}
                       pl={2}
-                      onMouseDown={() => setSearchBoxWidth('15vw')}
+                      onMouseDown={() => setSearchBoxWidth('200px')}
                       onClick={() => handleSearchItemClick(item?.attributes?.name)}
                     >
                       {formatStringWithMaxLength(item?.attributes?.name, 50)}

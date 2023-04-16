@@ -23,17 +23,22 @@ export default function CartPage() {
     <>
       {!isLoading && cartPageData && (
         <Container>
-          <Typography component='h2' variant='h5' my={5} fontWeight={700}>
+          <Typography
+            component='h2'
+            fontSize={{ lg: '1.4rem', xs: '1.125rem' }}
+            my={{ lg: 5, xs: 3 }}
+            fontWeight={700}
+          >
             {`${cartPageData?.data?.attributes?.pageHeader ?? ''}`}
             {cartItemTotalCount > 0 ? ` (${cartItemTotalCount})` : ''}
           </Typography>
 
           {cartItemTotalCount > 0 && (
             <Grid container spacing={5}>
-              <Grid item xs={8.5}>
+              <Grid item lg={8.5} xs={12}>
                 <CartList cartTableData={cartPageData?.data?.attributes?.cartTable} />
               </Grid>
-              <Grid item xs={3.5}>
+              <Grid item lg={3.5} xs={12} mb={5}>
                 <CartTotal cartTotalData={cartPageData?.data?.attributes?.cartTotal} />
               </Grid>
             </Grid>

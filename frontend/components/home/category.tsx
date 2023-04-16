@@ -20,7 +20,7 @@ export function HomeCategory({ homeCategoryData }: HomeCategoryProps) {
       }}
     >
       <Container maxWidth='xl'>
-        <Box textAlign='center' sx={{ py: '64px' }}>
+        <Box textAlign='center' sx={{ py: { lg: '64px', xs: '50px' } }}>
           <Typography
             fontSize='0.75rem'
             textTransform='uppercase'

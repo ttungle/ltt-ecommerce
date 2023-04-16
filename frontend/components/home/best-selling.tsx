@@ -1,5 +1,5 @@
 import { HomeBestSellingData } from '@/models';
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, Typography, useMediaQuery, useTheme } from '@mui/material';
 import { ProductSlider } from '../common/products/product-slider';
 
 export interface HomeBestSellingProps {
@@ -8,10 +8,12 @@ export interface HomeBestSellingProps {
 
 export function HomeBestSelling({ HomeBestSellingData }: HomeBestSellingProps) {
   const { title, description, products } = HomeBestSellingData;
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
 
   return (
-    <Container maxWidth='xl' sx={{ pb: 12 }}>
-      <Box textAlign='center' sx={{ py: '64px' }}>
+    <Container maxWidth='xl' sx={{ pb: { lg: 12, xs: 3 } }}>
+      <Box textAlign='center' sx={{ py: { lg: '64px', xs: '50px' } }}>
         <Typography
           fontSize='0.75rem'
           textTransform='uppercase'
@@ -20,11 +22,19 @@ export function HomeBestSelling({ HomeBestSellingData }: HomeBestSellingProps) {
         >
           {description}
         </Typography>
-        <Typography fontSize='2.5rem' fontFamily='Cormorant Garamond' fontWeight='600'>
+        <Typography
+          fontSize={{ lg: '2.5rem', xs: '2rem' }}
+          fontFamily='Cormorant Garamond'
+          fontWeight='600'
+        >
           {title}
         </Typography>
       </Box>
-      <ProductSlider productsData={products?.data ?? []} itemNumber={4} />
+      <ProductSlider
+        identifier={title.replace(/\s/g, '')}
+        productsData={products?.data ?? []}
+        itemNumber={isMobile ? 2 : 4}
+      />
     </Container>
   );
 }

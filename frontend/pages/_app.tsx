@@ -22,6 +22,7 @@ import 'swiper/css/pagination';
 import '../styles/gallery-swiper.css';
 import '../styles/globals.css';
 import '../styles/swiper.css';
+import { BottomNavigationBar } from '@/components/common/bottom-navigation';
 
 const clientSideEmotionCache = createEmotionCache();
 const queryClient = new QueryClient();
@@ -42,6 +43,7 @@ function MyApp({ Component, pageProps }: AppPropsWithLayout) {
               <PersistGate loading={null} persistor={persistor}>
                 <Layout global={global}>
                   <Component {...pageProps} />
+                  <BottomNavigationBar />
                 </Layout>
                 <ToastContainer
                   position='top-right'

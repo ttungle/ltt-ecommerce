@@ -9,11 +9,10 @@ export interface BackgroundSectionProps {
 export function BackgroundSection({ backgroundImageUrl }: BackgroundSectionProps) {
   return (
     <Box
-      position='relative'
       pt={HEADER_HEIGHT}
       sx={{
         height: { lg: 720, xs: 360 },
-        position: 'fixed',
+        position: { lg: 'fixed', xs: 'absolute' },
         top: 0,
         left: 0,
         right: 0,

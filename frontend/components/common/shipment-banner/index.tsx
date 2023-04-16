@@ -16,7 +16,7 @@ export function ShipmentBanner({ shipmentData, sx }: ShipmentBannerProps) {
       sx={{
         width: '100%',
         py: 9.4,
-        mt: 5,
+        mt: { lg: 5, xs: 0 },
         background: backgroundImage
           ? `url(${
               getStrapiMedia(backgroundImage?.data?.attributes?.url) ?? ''
@@ -28,7 +28,7 @@ export function ShipmentBanner({ shipmentData, sx }: ShipmentBannerProps) {
       <Container maxWidth='xl'>
         <Grid container spacing={5}>
           {shipmentItem.map((item) => (
-            <Grid item key={item.id} xs={4}>
+            <Grid item key={item.id} lg={4} xs={12}>
               <Stack
                 direction='column'
                 alignItems='center'

@@ -1,5 +1,5 @@
 import { IconButton } from '@mui/material';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { MdVerticalAlignTop } from 'react-icons/md';
 
 export interface ScrollTopButtonProps {}
@@ -30,18 +30,21 @@ export function ScrollTopButton(props: ScrollTopButtonProps) {
         <IconButton
           onClick={handleScrollToTopClick}
           sx={{
+            display: { lg: 'block', xs: 'none' },
             position: 'fixed',
             zIndex: 10000,
             bottom: '24px',
             right: '24px',
-            p: { lg: 1.25, xs: 1 },
-            bgcolor: 'rgba(0, 0, 0, 0.25)',
+            width: 48,
+            height: 48,
+            borderRadius: '2px',
+            bgcolor: 'rgba(0, 0, 0, 0.3)',
             '&:hover': {
-              bgcolor: 'rgba(0, 0, 0, 0.5)',
+              bgcolor: 'primary.main',
             },
           }}
         >
-          <MdVerticalAlignTop style={{ color: '#fff', fontSize: '2rem' }} />
+          <MdVerticalAlignTop style={{ color: '#fff', fontSize: '1.75rem' }} />
         </IconButton>
       )}
     </>

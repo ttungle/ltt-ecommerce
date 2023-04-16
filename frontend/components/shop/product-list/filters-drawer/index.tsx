@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import React, { memo, useMemo } from 'react';
 import { FilterByMultipleImages } from './filter-by-multiple-images';
 import { FilterByPrice } from './filter-by-price';
+import { BOTTOM_NAV_HEIGHT } from '@/constant';
 
 export interface ShopFiltersDrawerProps {
   isLoading: boolean;
@@ -52,14 +53,31 @@ const ShopFiltersDrawerMemo = (props: ShopFiltersDrawerProps) => {
       onClose={handleToggleFiltersDrawer(false)}
       onOpen={handleToggleFiltersDrawer(true)}
     >
-      <Box sx={{ width: 500 }} role='presentation'>
-        <Stack direction='row' justifyContent='flex-end' alignItems='center' px={1} pt={1}>
+      <Stack
+        direction='column'
+        justifyContent='space-between'
+        alignItems='flex-start'
+        sx={{
+          width: { lg: '30vw', xs: '90vw' },
+          height: '100%',
+          pb: { lg: 0, xs: BOTTOM_NAV_HEIGHT },
+        }}
+        role='presentation'
+      >
+        <Stack
+          direction='row'
+          justifyContent='flex-end'
+          alignItems='center'
+          px={1}
+          pt={1}
+          ml='auto'
+        >
           <IconButton onClick={handleToggleFiltersDrawer(false)}>
             <CloseIcon />
           </IconButton>
         </Stack>
 
-        <Box px={5} flex={1} sx={{ flex: 1 }}>
+        <Box px={5} pb={{ lg: 0 }} flex={1} sx={{ flex: 1, overflowY: 'auto', width: '100%' }}>
           {multipleFilterList.map((filterItem) => (
             <React.Fragment key={filterItem.id}>
               {filterItem.filterType === 'multiple-choices' && (
@@ -87,7 +105,8 @@ const ShopFiltersDrawerMemo = (props: ShopFiltersDrawerProps) => {
           direction='row'
           alignItems='center'
           justifyContent='space-between'
-          sx={{ position: 'absolute', bottom: 0, left: 0, right: 0 }}
+          mt={5}
+          width='100%'
         >
           <Button
             variant='contained'
@@ -123,7 +142,7 @@ const ShopFiltersDrawerMemo = (props: ShopFiltersDrawerProps) => {
             Result
           </Button>
         </Stack>
-      </Box>
+      </Stack>
 
       {isLoading && (
         <Box sx={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, zIndex: 1000 }}>

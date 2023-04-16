@@ -1,7 +1,7 @@
 import { shopApi } from '@/api-client';
 import { Breadcrumb } from '@/components/common/breadcrumb';
 import { ProductList, ProductListSkeleton } from '@/components/common/products';
-import { ProductPagination } from '@/components/shop';
+import { ListPagination } from '@/components/shop';
 import { Container, Typography } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/router';
@@ -54,7 +54,7 @@ export default function SearchResultPage(props: SearchResultPageProps) {
       {!isLoading && (
         <>
           <ProductList productsData={data?.data ?? []} grid={4} />
-          <ProductPagination pagination={data?.meta?.pagination} onPageChange={handlePageChange} />
+          <ListPagination pagination={data?.meta?.pagination} onPageChange={handlePageChange} />
         </>
       )}
     </Container>

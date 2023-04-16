@@ -1,7 +1,7 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import CloseIcon from '@mui/icons-material/Close';
 import { IconButton, Paper, Popper, Stack, Typography } from '@mui/material';
-import { ContainedButton } from '../custom-button';
+import { ContainedButton } from '../../custom-button';
 
 export interface ViewMiniPopoverProps {
   open: boolean;

@@ -1,6 +1,6 @@
 import { HomeCategoryImageData } from '@/models';
 import { getStrapiMedia } from '@/utils';
-import { Box, Button, Grid, Stack, SxProps, keyframes } from '@mui/material';
+import { Box, Button, Grid, GridDirection, Stack, SxProps, keyframes } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -10,6 +10,7 @@ export interface CategoryImageListProps {
   spacing: number;
   height?: any;
   sx?: SxProps;
+  direction?: any;
 }
 
 const shakeCategoryKeyframe = keyframes` 0%,
@@ -40,7 +41,7 @@ const shakeCategoryKeyframe = keyframes` 0%,
 }`;
 
 export function CategoryImageList(props: CategoryImageListProps) {
-  const { categoryList, layout, spacing, height, sx = {} } = props;
+  const { categoryList, layout, spacing, height, sx = {}, direction = 'row' } = props;
   const router = useRouter();
 
   const handleButtonClick = (path: string | null) => {
@@ -50,9 +51,26 @@ export function CategoryImageList(props: CategoryImageListProps) {
 
   return (
     <>
-      <Grid container spacing={spacing} sx={{ ...sx }}>
+      <Grid
+        container
+        spacing={spacing}
+        direction={direction}
+        sx={{
+          display: 'flex',
+          flexWrap: 'nowrap',
+          overflowX: { lg: 'visible', xs: 'scroll' },
+          py: { lg: 0, xs: 2 },
+          ...sx,
+        }}
+      >
         {categoryList.map((category) => (
-          <Grid item key={category.id} lg={layout} xs={12} sx={{ position: 'relative' }}>
+          <Grid
+            item
+            key={category.id}
+            lg={layout}
+            xs={layout}
+            sx={{ position: 'relative', minWidth: '260px' }}
+          >
             <Link href={category?.path ?? '#'}>
               <Stack
                 direction='row'

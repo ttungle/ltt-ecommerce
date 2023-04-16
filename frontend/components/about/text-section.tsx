@@ -18,7 +18,13 @@ export function TextSection({ textContent }: TextSectionProps) {
       mx='auto'
     >
       <IoDiamondOutline style={{ fontSize: '3.125rem' }} />
-      <Typography fontFamily='Cormorant Garamond' fontWeight={600} fontSize='3rem' mt={1} mb={2}>
+      <Typography
+        fontFamily='Cormorant Garamond'
+        fontWeight={600}
+        fontSize={{ lg: '3rem', xs: '2rem' }}
+        mt={1}
+        mb={2}
+      >
         {textContent?.title}
       </Typography>
       <Typography textAlign='center' color='text.secondary'>

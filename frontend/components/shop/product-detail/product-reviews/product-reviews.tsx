@@ -113,7 +113,7 @@ export function ProductReviews({
         component='h5'
         fontSize={{ md: '1.125rem', xs: '1rem' }}
         fontWeight={600}
-        mt={22}
+        mt={{ lg: 22, xs: 5 }}
         mb={2}
       >
         {productReviewSectionData.title}
