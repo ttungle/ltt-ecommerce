@@ -6,6 +6,7 @@ import { useEffect, useState } from 'react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { OutLinedButton } from '../common/custom-button';
+import { useRouter } from 'next/router';
 
 export interface HomeSliderProps {
   sliderData: Array<SliderData>;
@@ -23,9 +24,10 @@ const slideBottomKeyframe = keyframes` 0% {
 }`;
 
 export function HomeSlider({ sliderData }: HomeSliderProps) {
-  const [show, setShow] = useState(true);
+  const router = useRouter();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const [show, setShow] = useState(true);
 
   useEffect(() => {
     const element: any = document.querySelector('.swiper');
@@ -109,6 +111,7 @@ export function HomeSlider({ sliderData }: HomeSliderProps) {
 
                   <OutLinedButton
                     icon={<EastIcon sx={{ transform: 'translateY(-8%)' }} />}
+                    onClick={() => slider.path && router.push(slider.path)}
                     sx={{
                       fontSize: '0.688rem',
                       padding: { lg: '14px 54px', xs: '14px 20px' },
