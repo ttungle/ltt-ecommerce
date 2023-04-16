@@ -25,6 +25,9 @@
     },
     "buttonText": {
       "type": "string"
+    },
+    "path": {
+      "type": "string"
     }
   }
 }

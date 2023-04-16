@@ -1,5 +1,6 @@
 import { BackGroundVideoData } from '@/models';
 import { Box, Button, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 export interface BackgroundVideoProps {
@@ -7,7 +8,12 @@ export interface BackgroundVideoProps {
 }
 
 export function BackgroundVideo({ backgroundVideoData }: BackgroundVideoProps) {
-  const handleClick = () => {};
+  const router = useRouter();
+
+  const handleClick = () => {
+    if (!backgroundVideoData?.path) return;
+    router.push(backgroundVideoData.path);
+  };
   return (
     <>
       {backgroundVideoData && (

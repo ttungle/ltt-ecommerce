@@ -7,6 +7,7 @@ export interface SliderData {
   description: string;
   buttonText: string;
   image: SingleMediaData;
+  path?: string;
 }
 
 export interface HomeCategoryData {
@@ -36,6 +37,7 @@ export interface BackGroundVideoData {
   title: string;
   buttonText: string;
   videoUrl: string;
+  path?: string;
 }
 
 export interface AboutSummaryData {

@@ -2,6 +2,7 @@ import { AboutSummaryData } from '@/models';
 import { getStrapiMedia } from '@/utils';
 import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import Image from 'next/image';
+import { useRouter } from 'next/router';
 import ReactMarkdown from 'react-markdown';
 
 export interface ArticleProps {
@@ -10,6 +11,12 @@ export interface ArticleProps {
 
 export function Article({ aboutSummaryData }: ArticleProps) {
   const { title, description, path, thumbnail, buttonText } = aboutSummaryData;
+  const router = useRouter();
+
+  const handleButtonClick = () => {
+    router.push(path);
+  };
+
   return (
     <Box
       sx={{
@@ -36,6 +43,7 @@ export function Article({ aboutSummaryData }: ArticleProps) {
             </Box>
             <Button
               variant='outlined'
+              onClick={handleButtonClick}
               sx={{
                 px: 3,
                 py: 1,
