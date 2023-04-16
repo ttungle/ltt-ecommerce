@@ -2,6 +2,7 @@ import { BOTTOM_NAV_HEIGHT, GLOBAL_PATHs } from '@/constant';
 import { useAuthContext } from '@/contexts';
 import SearchIcon from '@mui/icons-material/Search';
 import {
+  Avatar,
   BottomNavigation,
   BottomNavigationAction,
   Paper,
@@ -14,6 +15,7 @@ import { BiStore } from 'react-icons/bi';
 import { FiHeart } from 'react-icons/fi';
 import { HiOutlineUser } from 'react-icons/hi';
 import { MobileSearchDialog } from './mobile-search-dialog';
+import { getStrapiMedia } from '@/utils';
 
 export interface BottomNavigationBarProps {}
 
@@ -32,7 +34,7 @@ export function BottomNavigationBar(props: BottomNavigationBarProps) {
   const handleCloseSearchDialog = () => {
     setOpenSearchDialog(false);
   };
-
+  console.log('>>> Check user info: ', user);
   return (
     <>
       {isMobile && !openSearchDialog && (
@@ -60,7 +62,22 @@ export function BottomNavigationBar(props: BottomNavigationBarProps) {
             />
             <BottomNavigationAction
               onClick={() => router.push(user?.id ? GLOBAL_PATHs.profile : GLOBAL_PATHs.login)}
-              icon={<HiOutlineUser style={{ fontSize: '1.5rem' }} />}
+              icon={
+                user?.id ? (
+                  <Avatar
+                    alt={user?.username}
+                    src={getStrapiMedia(user?.avatar?.url) ?? ''}
+                    variant='circular'
+                    sx={{
+                      height: 32,
+                      width: 32,
+                      fontSize: '1rem',
+                    }}
+                  />
+                ) : (
+                  <HiOutlineUser style={{ fontSize: '1.5rem' }} />
+                )
+              }
             />
             <BottomNavigationAction
               onClick={handleClickOpenSearchDialog}

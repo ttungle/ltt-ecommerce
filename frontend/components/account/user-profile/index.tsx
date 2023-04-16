@@ -109,7 +109,7 @@ export function UserProfile() {
     );
 
   return (
-    <Container maxWidth='md' sx={{ my: 8 }}>
+    <Container maxWidth='md' sx={{ my: { lg: 8, xs: 5 } }}>
       {!isAuthenticated && (
         <Typography textAlign='center'>
           {profilePageData?.data?.attributes?.errorPageMessage}
@@ -133,15 +133,15 @@ export function UserProfile() {
               profilePageData?.data?.attributes?.favoriteProductDescription}
           </Typography>
 
-          <Grid container spacing={3} mt={5}>
-            <Grid item xs={3}>
+          <Grid container spacing={3} mt={{ lg: 5, xs: 3 }}>
+            <Grid item lg={3} xs={12}>
               <UserProfileMenuList
                 menuList={profilePageData?.data?.attributes?.menuList[0]?.menuItem}
                 onDeleteAccount={handleDeleteAccount}
               />
             </Grid>
 
-            <Grid item xs={9}>
+            <Grid item lg={9} xs={12}>
               {router?.asPath === GLOBAL_PATHs.profile && (
                 <UserProfileForm
                   user={userProfileData ?? null}

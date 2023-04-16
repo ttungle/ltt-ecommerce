@@ -72,7 +72,7 @@ export default function ProductDetailPage({ shopDetails, product }: ProductDetai
     <>
       {shopDetails?.attributes?.seo && <Seo metadata={shopDetails?.attributes?.seo} />}
       <Container sx={{ mt: 6 }}>
-        <Grid container spacing={12}>
+        <Grid container spacing={{ lg: 12, xs: 5 }}>
           <Grid item md={6} xs={12}>
             <ProductDetailThumbnail
               productThumbnails={product?.attributes?.thumbnails?.data ?? []}
@@ -84,7 +84,11 @@ export default function ProductDetailPage({ shopDetails, product }: ProductDetai
               direction='column'
               justifyContent='center'
               height='100%'
-              sx={{ transform: 'translateY(-10%)', maxWidth: '500px', margin: 'auto' }}
+              sx={{
+                transform: { lg: 'translateY(-10%)', xs: 'none' },
+                maxWidth: '500px',
+                margin: 'auto',
+              }}
             >
               <ProductInformation product={product ?? {}} />
               <ProductAddToCartForm

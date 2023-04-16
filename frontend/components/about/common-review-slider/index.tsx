@@ -1,17 +1,20 @@
-import { Box, Container } from '@mui/material';
+import { Box, Container, useMediaQuery, useTheme } from '@mui/material';
 import * as React from 'react';
 import { Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { CommonReviewItem } from './common-revie-item';
+import { CommonReviewItem } from './common-review-item';
 
 export interface CommonReviewSliderProps {
   commonReviewData: Array<any>;
 }
 
 export function CommonReviewSlider({ commonReviewData }: CommonReviewSliderProps) {
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+
   return (
     <Container>
-      <Box position='relative' sx={{ px: 7.5, mx: -7.5, my: 9 }}>
+      <Box position='relative' sx={{ px: { lg: 7.5, xs: 6 }, mx: { lg: -7.5, xs: -1.5 }, my: 9 }}>
         <Box
           className='swiper-button-prev'
           sx={{
@@ -28,7 +31,7 @@ export function CommonReviewSlider({ commonReviewData }: CommonReviewSliderProps
         />
 
         <Swiper
-          slidesPerView={3}
+          slidesPerView={isMobile ? 1 : 3}
           spaceBetween={16}
           loop={true}
           loopFillGroupWithBlank={true}

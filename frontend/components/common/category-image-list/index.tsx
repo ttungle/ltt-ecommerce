@@ -1,6 +1,6 @@
 import { HomeCategoryImageData } from '@/models';
 import { getStrapiMedia } from '@/utils';
-import { Box, Button, Grid, Stack, SxProps, keyframes } from '@mui/material';
+import { Box, Button, Grid, GridDirection, Stack, SxProps, keyframes } from '@mui/material';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -10,6 +10,7 @@ export interface CategoryImageListProps {
   spacing: number;
   height?: any;
   sx?: SxProps;
+  direction?: any;
 }
 
 const shakeCategoryKeyframe = keyframes` 0%,
@@ -40,7 +41,7 @@ const shakeCategoryKeyframe = keyframes` 0%,
 }`;
 
 export function CategoryImageList(props: CategoryImageListProps) {
-  const { categoryList, layout, spacing, height, sx = {} } = props;
+  const { categoryList, layout, spacing, height, sx = {}, direction = 'row' } = props;
   const router = useRouter();
 
   const handleButtonClick = (path: string | null) => {
@@ -53,6 +54,7 @@ export function CategoryImageList(props: CategoryImageListProps) {
       <Grid
         container
         spacing={spacing}
+        direction={direction}
         sx={{
           display: 'flex',
           flexWrap: 'nowrap',

@@ -1,7 +1,7 @@
+import { useAuthContext } from '@/contexts';
 import { LinkData } from '@/models';
 import {
   Box,
-  Button,
   Divider,
   IconButton,
   List,
@@ -12,9 +12,8 @@ import {
   Typography,
 } from '@mui/material';
 import { useRouter } from 'next/router';
-import React, { useCallback } from 'react';
-import { IoClose } from 'react-icons/io5';
-import { Url } from 'url';
+import { useCallback } from 'react';
+import { IoClose, IoLogOutOutline } from 'react-icons/io5';
 
 export interface DrawerContentProps {
   navigationLinks: Array<Partial<LinkData>>;
@@ -23,6 +22,8 @@ export interface DrawerContentProps {
 
 export function DrawerContent({ navigationLinks, onDrawerToggle }: DrawerContentProps) {
   const router = useRouter();
+  const { user, logout } = useAuthContext();
+
   const handleDrawerToggle = () => {
     if (!onDrawerToggle) return;
 
@@ -43,9 +44,25 @@ export function DrawerContent({ navigationLinks, onDrawerToggle }: DrawerContent
     [router]
   );
 
+  const handleLogoutClick = async () => {
+    await logout();
+    router.push('/');
+    onDrawerToggle();
+  };
+
   return (
     <Box>
-      <Stack direction='row' justifyContent='flex-end' sx={{ bgcolor: 'primary.main' }}>
+      <Stack
+        direction='row'
+        justifyContent='flex-end'
+        alignItems='center'
+        sx={{ bgcolor: 'primary.main' }}
+      >
+        {user?.username && (
+          <Typography mr='auto' pl={2} color='common.white' fontWeight={500}>
+            {user?.username}
+          </Typography>
+        )}
         <IconButton onClick={handleDrawerToggle} sx={{ position: 'relative', right: 0, p: 1.25 }}>
           <IoClose style={{ fontSize: '1.5rem', color: '#fff' }} />
         </IconButton>
@@ -66,6 +83,25 @@ export function DrawerContent({ navigationLinks, onDrawerToggle }: DrawerContent
             </ListItemButton>
           </ListItem>
         ))}
+
+        {user?.id && (
+          <>
+            <Divider />
+
+            <ListItem disablePadding>
+              <ListItemButton
+                onClick={handleLogoutClick}
+                sx={{
+                  textAlign: 'left',
+                  textTransform: 'uppercase',
+                }}
+              >
+                <ListItemText primary='Logout' primaryTypographyProps={{ fontWeight: 500 }} />
+                <IoLogOutOutline />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
       </List>
     </Box>
   );

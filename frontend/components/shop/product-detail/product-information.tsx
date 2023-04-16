@@ -1,16 +1,15 @@
-import * as React from 'react';
-import { Box, Button, IconButton, Stack, Typography } from '@mui/material';
 import { ProductData } from '@/models';
 import { formatPrice } from '@/utils';
-import { useRouter } from 'next/router';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import { IconButton, Stack, Typography } from '@mui/material';
+import { useRouter } from 'next/router';
 
 export interface ProductInformationProps {
   product: ProductData;
 }
 
 export function ProductInformation({ product }: ProductInformationProps) {
-  const { name, code, salePrice, originalPrice, description } = product.attributes;
+  const { name, code, salePrice, description } = product.attributes;
   const router = useRouter();
   return (
     <>

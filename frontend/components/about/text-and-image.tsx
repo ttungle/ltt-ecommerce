@@ -22,7 +22,7 @@ export function TextAndImage({ contentData, direction = 'row' }: TextAndImagePro
       }}
     >
       <Container>
-        <Grid container spacing={9} display='flex' alignItems='center' direction={direction}>
+        <Grid container spacing={{ lg: 9, xs: 5 }} alignItems='center' direction={direction}>
           <Grid item lg={6} xs={12}>
             <Typography fontFamily='Cormorant Garamond' fontSize='1.875rem' fontWeight={600} mb={2}>
               <div dangerouslySetInnerHTML={{ __html: title }} />
@@ -39,7 +39,7 @@ export function TextAndImage({ contentData, direction = 'row' }: TextAndImagePro
                     mx='auto'
                     pb={12.5}
                     src={getStrapiMedia(homeCategoryImage[0]?.image?.data?.attributes?.url) ?? ''}
-                    sx={{ '&:hover': { opacity: 0.8 } }}
+                    sx={{ width: { lg: 'inherit', xs: '100%' }, '&:hover': { opacity: 0.8 } }}
                   ></Box>
                 </Grid>
               )}
@@ -54,7 +54,11 @@ export function TextAndImage({ contentData, direction = 'row' }: TextAndImagePro
                         display='block'
                         mx='auto'
                         src={getStrapiMedia(item?.image?.data?.attributes?.url) ?? ''}
-                        sx={{ transform: 'translateY(65%)', '&:hover': { opacity: 0.8 } }}
+                        sx={{
+                          transform: { lg: 'translateY(65%)', xs: 'none' },
+                          mb: { lg: 0, xs: 2 },
+                          '&:hover': { opacity: 0.8 },
+                        }}
                       ></Box>
                     )}
 

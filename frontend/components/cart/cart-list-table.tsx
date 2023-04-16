@@ -1,54 +1,54 @@
-import { useAppDispatch } from '@/app/hooks';
-import { CartItemState, removeFromCart } from '@/app/slices/cart-slice';
+import { useAppSelector } from '@/app/hooks';
+import { cartItemSelector } from '@/app/selectors/cart-selector';
+import { CartItemState } from '@/app/slices/cart-slice';
+import { GLOBAL_PATHs } from '@/constant';
 import { CartTableData } from '@/models';
-import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { formatPrice, formatStringWithMaxLength, getStrapiMedia } from '@/utils';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import {
   Box,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  useMediaQuery,
-  useTheme,
+  IconButton,
+  Paper,
+  Stack,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Typography,
 } from '@mui/material';
+import Image from 'next/image';
 import { useRouter } from 'next/router';
-import { useState } from 'react';
-import { ContainedButton, OutLinedButton } from '../common/custom-button';
-import { CartListCard } from './cart-list-card';
-import { CartListTable } from './cart-list-table';
+import { useMemo } from 'react';
+import { CartQuantityForm } from './cart-quantity-form';
 
-export interface CartListProps {
+export interface CartListTableProps {
   cartTableData: CartTableData;
+  onRemoveConfirm: (item?: CartItemState) => void;
 }
 
-export function CartList({ cartTableData }: CartListProps) {
+export function CartListTable({ cartTableData, onRemoveConfirm }: CartListTableProps) {
   const router = useRouter();
-  const [showRemoveConfirm, setShowRemoveConfirm] = useState(false);
-  const [currentRemoveItem, setCurrentRemoveItem] = useState<CartItemState>();
-  const dispatch = useAppDispatch();
-  const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const cartItems = useAppSelector(cartItemSelector);
+  const cartItemLength = useMemo(
+    () => (Array.isArray(cartItems) ? cartItems.length : 0),
+    [cartItems]
+  );
 
-  const handleRemoveCartItem = (cartItem: CartItemState | undefined) => {
-    if (!cartItem) return;
-    const action = removeFromCart({ ...cartItem });
-    dispatch(action);
-    setShowRemoveConfirm(!showRemoveConfirm);
+  const handleProductClick = (path: string, id: number) => {
+    router.push(`${GLOBAL_PATHs.productDetail}${path}?pid=${id}`);
   };
 
-  // const handleProductClick = (path: string, id: number) => {
-  //   router.push(`${GLOBAL_PATHs.productDetail}${path}?pid=${id}`);
-  // };
-
   const handleToggleRemoveConfirm = (item?: CartItemState) => {
-    setShowRemoveConfirm(!showRemoveConfirm);
-    setCurrentRemoveItem(item);
+    if (!onRemoveConfirm) return;
+
+    onRemoveConfirm(item);
   };
 
   return (
     <>
-      {/* {cartItemLength > 0 && (
+      {cartItemLength > 0 && (
         <TableContainer component={Paper} sx={{ boxShadow: 'none', borderRadius: '2px', mb: 8 }}>
           <Table sx={{ minWidth: 650 }}>
             <TableHead>
@@ -140,38 +140,7 @@ export function CartList({ cartTableData }: CartListProps) {
             </TableBody>
           </Table>
         </TableContainer>
-      )} */}
-
-      {!isMobile && (
-        <CartListTable cartTableData={cartTableData} onRemoveConfirm={handleToggleRemoveConfirm} />
       )}
-
-      {isMobile && <CartListCard onRemoveConfirm={handleToggleRemoveConfirm} />}
-
-      <Dialog open={showRemoveConfirm} onClose={() => handleToggleRemoveConfirm}>
-        <DialogTitle sx={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-start' }}>
-          <WarningAmberIcon sx={{ color: 'primary.main', mr: 1 }} />
-          <Box>{cartTableData?.removeDialogTitle}</Box>
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>{cartTableData?.removeDialogContent}</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <OutLinedButton
-            sx={{ color: 'common.black', borderColor: 'common.black', letterSpacing: '0.08rem' }}
-            onClick={() => handleRemoveCartItem(currentRemoveItem)}
-          >
-            {cartTableData?.removeDialogYesButton}
-          </OutLinedButton>
-          <ContainedButton
-            onClick={() => handleToggleRemoveConfirm()}
-            autoFocus
-            sx={{ letterSpacing: '0.08rem' }}
-          >
-            {cartTableData?.removeDialogNoButton}
-          </ContainedButton>
-        </DialogActions>
-      </Dialog>
     </>
   );
 }

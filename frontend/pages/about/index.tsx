@@ -34,6 +34,7 @@ export default function AboutUsPage({ aboutUs }: AboutUsPageProps) {
           categoryList={categoryList?.homeCategoryImage}
           layout={4}
           spacing={9}
+          direction={{ lg: 'row', xs: 'column' }}
           sx={{ mt: 1 }}
         />
         <TextSection textContent={categoryList} />

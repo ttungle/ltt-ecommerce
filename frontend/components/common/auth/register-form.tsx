@@ -53,7 +53,7 @@ export function RegisterForm({ onSubmit }: RegisterFormProps) {
   };
 
   return (
-    <Box sx={{ width: 500, margin: 8 }}>
+    <Box sx={{ width: { lg: 500, xs: '100%' }, mx: { lg: 8, xs: 2 }, my: { lg: 8, xs: 5 } }}>
       <Typography fontSize='1.75rem' fontWeight='600' textAlign='center'>
         Welcome to LTT-Ecommerce
       </Typography>

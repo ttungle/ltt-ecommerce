@@ -35,7 +35,7 @@ export function HeaderMobile({ navigation, window }: HeaderMobileProps) {
 
   return (
     <>
-      <AppBar component='nav' position='relative' sx={{ top: 0, left: 0, right: 0 }}>
+      <AppBar component='nav' position='relative' sx={{ top: 0, left: 0, right: 0, zIndex: 9999 }}>
         <Toolbar
           sx={{ height: HEADER_HEIGHT, bgcolor: 'common.white', justifyContent: 'space-between' }}
         >
@@ -83,6 +83,7 @@ export function HeaderMobile({ navigation, window }: HeaderMobileProps) {
           }}
           sx={{
             display: { xs: 'block', lg: 'none' },
+            zIndex: 9999,
             '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
           }}
         >
