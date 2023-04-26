@@ -1,0 +1,19 @@
+node_modules
+
+# build
+.next
+
+.vscode
+*.log
+*.md
+
+Dockerfile
+.git
+.gitignore
+*.DS_Store
+README.md
+.dockerignore
+LICENSE
+.docker
+.prettierrc
+.eslintrc.js

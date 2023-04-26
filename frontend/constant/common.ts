@@ -20,3 +20,4 @@ export const GLOBAL_PATHs = {
 export const LIGHT_FOOTER_PATHs = [GLOBAL_PATHs.home, GLOBAL_PATHs.cart];
 export const DARK_BACKGROUND_PATHs = [GLOBAL_PATHs.cart];
 export const BOTTOM_NAV_HEIGHT = '50px';
+export const LOCAL_API_URL = 'http://localhost:1337';

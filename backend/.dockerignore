@@ -1,0 +1,18 @@
+node_modules
+
+# build
+.build
+.cache
+
+*.log
+*.md
+
+Dockerfile
+.git
+.gitignore
+.DS_Store
+README.md
+.eslintrc
+.eslintignore
+.env.example
+.strapi-updater.json
