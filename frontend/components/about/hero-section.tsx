@@ -1,3 +1,4 @@
+import { getStrapiMedia } from '@/utils';
 import { Box } from '@mui/material';
 import * as React from 'react';
 
@@ -14,8 +15,7 @@ export function HeroSection(props: HeroSectionProps) {
         right: 0,
         height: 600,
         zIndex: -10,
-        background:
-          'url("http://localhost:1337/uploads/bg_about_00f60d0b52.jpg") top/cover no-repeat',
+        background: `url("${getStrapiMedia('bg_about_00f60d0b52.jpg')}") top/cover no-repeat`,
       }}
     ></Box>
   );

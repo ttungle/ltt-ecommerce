@@ -1,7 +1,8 @@
+import { LOCAL_API_URL } from '@/constant';
 import qs from 'qs';
 
 export function getStrapiURL(path: string) {
-  return `${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:1337'}${path}`;
+  return `${process.env.NEXT_PUBLIC_API_URL || LOCAL_API_URL}${path}`;
 }
 
 export async function fetchAPI(path: string, urlParamsObject = {}, options = {}) {

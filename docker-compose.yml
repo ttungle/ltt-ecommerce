@@ -1,0 +1,58 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: postgres
+    restart: unless-stopped
+    image: postgres:14.0-alpine
+    env_file: .env
+    ports:
+      - '5432:5432'
+    networks:
+      - internal
+    volumes:
+      - postgres-data:/var/lib/postgresql/data/
+
+  strapi:
+    build: ./backend
+    container_name: strapi
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_HOST: postgres
+      NODE_ENV: production
+    volumes:
+      - ~/application/uploads:/backend/public/uploads
+    networks:
+      - internal
+    depends_on:
+      - postgres
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: unless-stopped
+    networks:
+      - internal
+    depends_on:
+      - strapi
+
+  nginx:
+    build: ./nginx
+    container_name: nginx
+    restart: unless-stopped
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - internal
+    depends_on:
+      - strapi
+      - frontend
+
+volumes:
+  postgres-data: 
+
+networks:
+  internal:
+    name: internal-network
+    driver: bridge

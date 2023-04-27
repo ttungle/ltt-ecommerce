@@ -11,7 +11,7 @@ import {
 import MainLayout from '@/components/layout/main';
 import { HomeData, NextPageWithLayout } from '@/models';
 import { fetchAPI } from '@/utils';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps } from 'next';
 
 const Home: NextPageWithLayout = ({ home }: any) => {
   const {
@@ -44,7 +44,7 @@ Home.Layout = MainLayout;
 
 export default Home;
 
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const homeData = await fetchAPI(`/home`, {
     populate: [
       'seo.metaImage',
