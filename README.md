@@ -2,6 +2,7 @@
 <h1>LTT-Ecommerce</h1>
 
 **A selling jewelry website**
+
 </div>
 
 ## Table of Contents
@@ -11,6 +12,9 @@
  - [Contributing](#contributing)
 
 ## About the project
+
+![home-page](https://user-images.githubusercontent.com/59435436/235347834-deaff84f-bb55-4228-a667-3f121c537f5f.jpg)
+
 ### Built With
 * [![Strapi][Strapi]][Strapi-url]
 * [![Next][Next.js]][Next-url]
@@ -156,6 +160,8 @@ sudo ufw allow 80/tcp
 sudo ufw allow 443/tcp
 ````
 ## Demo
+### Home Page
+
 
 ## Contributing
 Contributions are what make the open source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
