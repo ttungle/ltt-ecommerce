@@ -7,7 +7,7 @@ const nextConfig = {
     defaultLocale: 'en',
   },
   images: {
-    domains: ['localhost'],
+    domains: ['localhost', 'thanhtungle.site'],
   },
   async headers() {
     return [

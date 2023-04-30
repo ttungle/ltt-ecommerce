@@ -34,7 +34,7 @@ export function BottomNavigationBar(props: BottomNavigationBarProps) {
   const handleCloseSearchDialog = () => {
     setOpenSearchDialog(false);
   };
-  console.log('>>> Check user info: ', user);
+
   return (
     <>
       {isMobile && !openSearchDialog && (
