@@ -13,7 +13,8 @@
 
 ## About the project
 
-![home-page](https://user-images.githubusercontent.com/59435436/235347834-deaff84f-bb55-4228-a667-3f121c537f5f.jpg)
+![home-page](https://user-images.githubusercontent.com/59435436/235349500-d5310326-4dd4-4b06-85bb-0d11d20857c6.jpg)
+
 
 ### Built With
 * [![Strapi][Strapi]][Strapi-url]
@@ -161,6 +162,9 @@ sudo ufw allow 443/tcp
 ````
 ## Demo
 ### Home Page
+
+![home-page](https://user-images.githubusercontent.com/59435436/235349777-fa417bd9-295e-481d-877d-92176779f6ea.gif)
+
 
 
 ## Contributing
