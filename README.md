@@ -165,6 +165,9 @@ sudo ufw allow 443/tcp
 
 ![home-page](https://user-images.githubusercontent.com/59435436/235349777-fa417bd9-295e-481d-877d-92176779f6ea.gif)
 
+### Shop page and others
+
+![shop-page](https://user-images.githubusercontent.com/59435436/235351855-63c2892e-eef3-46c6-97f8-31d5111ba79b.gif)
 
 
 ## Contributing
